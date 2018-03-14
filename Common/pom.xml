@@ -16,6 +16,12 @@
                 <extensions>true</extensions>
                 <configuration>
                     <useOSGiDependencies>true</useOSGiDependencies>
+                    <publicPackages>
+                        <publicPackage>group8.common.data</publicPackage>
+                        <publicPackage>group8.common.data.entityparts</publicPackage>
+                        <publicPackage>group8.common.events</publicPackage>
+                        <publicPackage>group8.common.services</publicPackage>
+                    </publicPackages>
                 </configuration>
             </plugin>
             <plugin>
