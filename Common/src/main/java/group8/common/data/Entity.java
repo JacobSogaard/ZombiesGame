@@ -14,6 +14,7 @@ public class Entity implements Serializable {
     private float[] shapeY = new float[4];
     private float radius;
     private Map<Class, EntityPart> parts;
+    private String imagePath;
     
     public Entity() {
         parts = new ConcurrentHashMap<>();
