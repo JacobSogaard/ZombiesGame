@@ -10,5 +10,5 @@ package group8.map;
  * @author MER
  */
 public class MapProcessingService {
-    
+
 }
