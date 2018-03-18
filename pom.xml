@@ -60,8 +60,8 @@
         <module>branding</module>
         <module>application</module>
         <module>Common</module>
-        <module>Core</module>
         <module>SilentUpdate</module>
+        <module>Core</module>
     </modules>
 
     <properties>

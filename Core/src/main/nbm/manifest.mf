@@ -1,2 +1,4 @@
 Manifest-Version: 1.0
-OpenIDE-Module-Install: dk/sdu/mmmi/cbse/core/main/Installer.class
+OpenIDE-Module-Install: group8/core/main/Installer.class
+OpenIDE-Module-Localizing-Bundle: group8/core/Bundle.properties
+
