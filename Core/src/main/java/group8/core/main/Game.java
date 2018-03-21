@@ -4,10 +4,14 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import group8.common.data.Entity;
 import group8.common.data.GameData;
 import group8.common.data.World;
+import group8.common.data.entityparts.PositionPart;
 import group8.common.services.IEntityProcessingService;
 import group8.common.services.IGamePluginService;
 
@@ -28,6 +32,9 @@ public class Game implements ApplicationListener {
     private World world = new World();
     private List<IGamePluginService> gamePlugins = new CopyOnWriteArrayList<>();
     private Lookup.Result<IGamePluginService> result;
+    public static Texture texture;
+    public static Sprite sprite;
+    private SpriteBatch spriteBatch;
 
     @Override
     public void create() {
@@ -46,10 +53,18 @@ public class Game implements ApplicationListener {
         result.addLookupListener(lookupListener);
         result.allItems();
 
+        texture = new Texture(Gdx.files.internal("pony.gif"));
+        spriteBatch = new SpriteBatch();
+        sprite = new Sprite(texture);
+
         for (IGamePluginService plugin : result.allInstances()) {
             plugin.start(gameData, world);
             gamePlugins.add(plugin);
         }
+    }
+
+    public void renderBackground() {
+        sprite.draw(spriteBatch);
     }
 
     @Override
@@ -61,6 +76,14 @@ public class Game implements ApplicationListener {
         gameData.setDelta(Gdx.graphics.getDeltaTime());
         gameData.getKeys().update();
 
+        spriteBatch.begin();
+        for (Entity entity : world.getEntities()) {
+            PositionPart part = entity.getPart(PositionPart.class);
+            spriteBatch.draw(texture, part.getX(), part.getY(), 100, 100);
+        }
+        //this.renderBackground();
+        spriteBatch.end();
+
         update();
         draw();
     }
@@ -70,7 +93,6 @@ public class Game implements ApplicationListener {
         for (IEntityProcessingService entityProcessorService : getEntityProcessingServices()) {
             entityProcessorService.process(gameData, world);
         }
-
 
     }
 
@@ -113,8 +135,6 @@ public class Game implements ApplicationListener {
     private Collection<? extends IEntityProcessingService> getEntityProcessingServices() {
         return lookup.lookupAll(IEntityProcessingService.class);
     }
-
-
 
     private final LookupListener lookupListener = new LookupListener() {
         @Override

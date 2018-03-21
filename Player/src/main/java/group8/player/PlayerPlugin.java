@@ -9,6 +9,7 @@ import group8.common.data.Entity;
 import group8.common.data.GameData;
 import group8.common.data.World;
 import group8.common.data.entityparts.MovingPart;
+import group8.common.data.entityparts.PositionPart;
 import group8.common.services.IGamePluginService;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
@@ -40,12 +41,16 @@ public class PlayerPlugin implements IGamePluginService {
     
     public Entity createPlayer(GameData gameData) {
         float speed = 300;         
+        float acceleration = 300;
+        float rotationSpeed = 50;
+        float decelaration = 200;
         float x = gameData.getDisplayWidth() / 2;
         float y = gameData.getDisplayWidth() / 2;  
         float radians = 3.1415f / 2;
         
         Entity playerRectangle =  new Player();
-        playerRectangle.add(new MovingPart(speed)); 
+        playerRectangle.add(new MovingPart(speed, acceleration, rotationSpeed, decelaration));
+        playerRectangle.add(new PositionPart(x, y, radians));
         
         return playerRectangle; 
     }

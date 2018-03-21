@@ -18,20 +18,18 @@ import static java.lang.Math.sqrt;
  *
  * @author Alexander
  */
-public class MovingPart
-        implements EntityPart {
+public class MovingPart implements EntityPart {
 
     private float dx, dy;
     private float deceleration, acceleration;
     private float maxSpeed, rotationSpeed;
-    private boolean left, right, up;
-    
-   
-    
-    
+    private boolean left, right, up, down;
 
-    public MovingPart(float maxSpeed) {
+    public MovingPart(float maxSpeed, float acceleration, float rotationSpeed, float deceleration) {
         this.maxSpeed = maxSpeed;
+        this.acceleration = acceleration;
+        this.deceleration = deceleration;
+        this.rotationSpeed = rotationSpeed;
     }
 
     public float getDx() {
@@ -41,8 +39,6 @@ public class MovingPart
     public float getDy() {
         return dy;
     }
-    
-    
 
     public void setDeceleration(float deceleration) {
         this.deceleration = deceleration;
@@ -55,7 +51,7 @@ public class MovingPart
     public void setMaxSpeed(float maxSpeed) {
         this.maxSpeed = maxSpeed;
     }
-    
+
     public void setSpeed(float speed) {
         this.acceleration = speed;
         this.maxSpeed = speed;
@@ -77,6 +73,10 @@ public class MovingPart
         this.up = up;
     }
 
+    public void setDown(boolean down) {
+        this.down = down;
+    }
+
     @Override
     public void process(GameData gameData, Entity entity) {
         PositionPart positionPart = entity.getPart(PositionPart.class);
@@ -87,17 +87,26 @@ public class MovingPart
 
         // turning
         if (left) {
-            radians += rotationSpeed * dt;
+            dx += cos(Math.PI) * acceleration * dt;
+            dy += sin(Math.PI) * acceleration * dt;
+            // radians += rotationSpeed * dt;
         }
 
         if (right) {
-            radians -= rotationSpeed * dt;
+            dx += cos(0) * acceleration * dt;
+            dy += sin(0) * acceleration * dt;
+            //  radians -= rotationSpeed * dt;
         }
 
         // accelerating            
         if (up) {
-            dx += cos(radians) * acceleration * dt;
-            dy += sin(radians) * acceleration * dt;
+            dx += cos(Math.PI / 2) * acceleration * dt;
+            dy += sin(Math.PI / 2) * acceleration * dt;
+        }
+
+        if (down) {
+            dx += cos((3*Math.PI) / 2) * acceleration * dt;
+            dy += sin((3*Math.PI) / 2) * acceleration * dt;
         }
 
         // deccelerating
@@ -115,16 +124,14 @@ public class MovingPart
         x += dx * dt;
         if (x > gameData.getDisplayWidth()) {
             x = 0;
-        }
-        else if (x < 0) {
+        } else if (x < 0) {
             x = gameData.getDisplayWidth();
         }
 
         y += dy * dt;
         if (y > gameData.getDisplayHeight()) {
             y = 0;
-        }
-        else if (y < 0) {
+        } else if (y < 0) {
             y = gameData.getDisplayHeight();
         }
 
