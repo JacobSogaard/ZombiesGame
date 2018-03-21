@@ -1,5 +1,10 @@
 /branding/target/
 /application/target/
 /Common/target/
+<<<<<<< HEAD
 /Map/target/
 /testCore/target/
+=======
+/Core/target/
+/SilentUpdate/target/
+>>>>>>> 0e61e7c773bd5f5971995b4054dd90db0846fcae

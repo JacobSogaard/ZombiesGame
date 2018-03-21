@@ -25,11 +25,6 @@
             <version>${netbeans.version}</version>
             <type>pom</type>
         </dependency> -->
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>ZombiesGame-branding</artifactId>
-            <version>${project.version}</version>
-        </dependency>
         <!-- NbModuleSuite functional in RELEASE70 or later: -->
         <dependency>
             <groupId>org.netbeans.api</groupId>
@@ -47,16 +42,25 @@
         -->
         <dependency>
             <groupId>org.netbeans.modules</groupId>
-            <artifactId>org-netbeans-bootstrap</artifactId>
-            <version>RELEASE82</version>
+            <artifactId>org-netbeans-core-startup</artifactId>
+            <version>${netbeans.version}</version>
         </dependency>
         <dependency>
             <groupId>org.netbeans.modules</groupId>
-            <artifactId>org-netbeans-core-startup</artifactId>
-            <version>RELEASE82</version>
+            <artifactId>org-netbeans-bootstrap</artifactId>
+            <version>${netbeans.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>ZombiesGame-branding</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>SilentUpdate</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
