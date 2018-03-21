@@ -25,12 +25,13 @@ public class MovingPart
     private float deceleration, acceleration;
     private float maxSpeed, rotationSpeed;
     private boolean left, right, up;
+    
+   
+    
+    
 
-    public MovingPart(float deceleration, float acceleration, float maxSpeed, float rotationSpeed) {
-        this.deceleration = deceleration;
-        this.acceleration = acceleration;
+    public MovingPart(float maxSpeed) {
         this.maxSpeed = maxSpeed;
-        this.rotationSpeed = rotationSpeed;
     }
 
     public float getDx() {
