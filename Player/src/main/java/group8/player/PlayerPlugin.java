@@ -40,7 +40,7 @@ public class PlayerPlugin implements IGamePluginService {
     }
     
     public Entity createPlayer(GameData gameData) {
-        float speed = 300;         
+        float speed = 3;         
         float acceleration = 300;
         float rotationSpeed = 50;
         float decelaration = 200;
