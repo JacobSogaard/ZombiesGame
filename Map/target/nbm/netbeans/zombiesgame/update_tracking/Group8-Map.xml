@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><module codename="Group8.Map">
-    <module_version install_time="1521627818758" last="true" origin="installer" specification_version="1.0">
-        <file crc="2970050786" name="config/Modules/Group8-Map.xml"/>
-        <file crc="3984472765" name="modules/Group8-Map.jar"/>
-    </module_version>
-</module>
