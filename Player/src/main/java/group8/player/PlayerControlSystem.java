@@ -12,7 +12,7 @@ import group8.common.data.entityparts.PositionPart;
 import group8.common.services.IEntityProcessingService;
 import group8.common.data.GameKeys;
 import group8.common.services.IGamePluginService;
-import group8.player.SpritePath;
+import group8.player.SpritePath2;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
 
@@ -31,15 +31,44 @@ public class PlayerControlSystem implements IEntityProcessingService {
         for (Entity player : world.getEntities(Player.class)) {
             PositionPart positionPart = player.getPart(PositionPart.class);
             MovingPart movingPart = player.getPart(MovingPart.class);
-
-            movingPart.setLeft(gameData.getKeys().isDown(GameKeys.LEFT));
-            movingPart.setRight(gameData.getKeys().isDown(GameKeys.RIGHT));
-            movingPart.setUp(gameData.getKeys().isDown(GameKeys.UP));
-            movingPart.setDown(gameData.getKeys().isDown(GameKeys.DOWN));
+            
+            boolean andUp = false, andDown = false;
+            
+            
+            if (movingPart.setUp(gameData.getKeys().isDown(GameKeys.UP))) {
+                player.setSpritePath(SpritePath.UP);
+                andUp = true;
+            }
+            
+            if (movingPart.setDown(gameData.getKeys().isDown(GameKeys.DOWN))) {
+                player.setSpritePath(SpritePath.DOWN);
+                andDown = true;
+            }
+            
+            if (movingPart.setLeft(gameData.getKeys().isDown(GameKeys.LEFT))){
+                if (andUp)
+                player.setSpritePath(SpritePath.UPLEFT);
+                else if (andDown)
+                    player.setSpritePath(SpritePath.DOWNLEFT);
+                else
+                    player.setSpritePath(SpritePath.LEFT);
+            }
+            
+            if (movingPart.setRight(gameData.getKeys().isDown(GameKeys.RIGHT))) {
+                if (andUp)
+                    player.setSpritePath(SpritePath.UPRIGHT);
+                else if (andDown)
+                    player.setSpritePath(SpritePath.DOWNRIGHT);
+                else
+                    player.setSpritePath(SpritePath.RIGHT);
+            }
+            System.out.println(player.getSpritepath());
+            
             
             
             movingPart.process(gameData, player);
             positionPart.process(gameData, player);
+            
 
             updateShape(player);
         }
@@ -51,10 +80,12 @@ public class PlayerControlSystem implements IEntityProcessingService {
         float[] shapex = entity.getShapeX();
         float[] shapey = entity.getShapeY();
         PositionPart positionPart = entity.getPart(PositionPart.class);
+        
         float x = positionPart.getX();
         float y = positionPart.getY();
         float radians = positionPart.getRadians();
 
+        //here we draw a rectangle for the player
         shapex[0] = (float) (x - 10);
         shapey[0] = (float) (y - 15);
 
@@ -70,12 +101,9 @@ public class PlayerControlSystem implements IEntityProcessingService {
         entity.setShapeX(shapex);
         entity.setShapeY(shapey);
     }
+    
 
-
-//    @Override
-//    public void process(GameData gameData, World world) {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
+    
 
 }
 

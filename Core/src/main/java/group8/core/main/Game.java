@@ -101,7 +101,7 @@ public class Game implements ApplicationListener {
             sr.setColor(1, 1, 1, 1);
 
             sr.begin(ShapeRenderer.ShapeType.Line);
-
+            
             float[] shapex = entity.getShapeX();
             float[] shapey = entity.getShapeY();
 
@@ -111,6 +111,12 @@ public class Game implements ApplicationListener {
 
                 sr.line(shapex[i], shapey[i], shapex[j], shapey[j]);
             }
+            texture = new Texture(Gdx.files.internal(entity.getSpritepath()));
+        spriteBatch = new SpriteBatch();
+        sprite = new Sprite(texture);
+
+            
+            
 
             sr.end();
         }

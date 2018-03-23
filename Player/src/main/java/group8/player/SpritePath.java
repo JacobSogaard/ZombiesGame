@@ -9,18 +9,13 @@ package group8.player;
  *
  * @author matiasmarek
  */
-public enum SpritePath {
-    
-    UP("path"), DOWN("path"), LEFT("path"), RIGHT("path");
-    
-    private final String path;
-    
-    private SpritePath(String p) {
-        this.path = p;
-    }
-    
-    @Override
-    public String toString() {
-        return this.path;
-    }
+public class SpritePath {
+    public static final String UP = "/Users/matiasmarek/ZombiesGame/Player/src/main/resources/group8/player/Sprites/test.jpg"; 
+    public static final String LEFT = "/Users/matiasmarek/ZombiesGame/Player/src/main/resources/group8/player/Sprites/4.jpg"; 
+    public static final String DOWN = "/Users/matiasmarek/ZombiesGame/Player/src/main/resources/group8/player/Sprites/ros.jpg"; 
+    public static final String RIGHT = "/Users/matiasmarek/ZombiesGame/Player/src/main/resources/group8/player/Sprites/hip.jpg"; 
+    public static final String UPLEFT = "/Users/matiasmarek/ZombiesGame/Player/src/main/resources/group8/player/Sprites/test.jpg"; 
+    public static final String UPRIGHT = "/Users/matiasmarek/ZombiesGame/Player/src/main/resources/group8/player/Sprites/test.jpg"; 
+    public static final String DOWNLEFT = "/Users/matiasmarek/ZombiesGame/Player/src/main/resources/group8/player/Sprites/test.jpg";  
+    public static final String DOWNRIGHT = "/Users/matiasmarek/ZombiesGame/Player/src/main/resources/group8/player/Sprites/test.jpg"; 
 }

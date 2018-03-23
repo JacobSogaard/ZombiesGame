@@ -52,6 +52,8 @@ public class PlayerPlugin implements IGamePluginService {
         playerRectangle.add(new MovingPart(speed, acceleration, rotationSpeed, decelaration));
         playerRectangle.add(new PositionPart(x, y, radians));
         
+        playerRectangle.setSpritePath(SpritePath.UP);
+        
         return playerRectangle; 
     }
     

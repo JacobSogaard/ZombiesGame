@@ -37,20 +37,24 @@ public class MovingPart implements EntityPart {
     }
 
 
-    public void setLeft(boolean left) {
+    public boolean setLeft(boolean left) {
         this.left = left;
+        return this.left;
     }
 
-    public void setRight(boolean right) {
+    public boolean setRight(boolean right) {
         this.right = right;
+        return this.right;
     }
 
-    public void setUp(boolean up) {
-        this.up = up;
+    public boolean setUp(boolean up) {
+        this.up = up; 
+        return this.up; 
     }
 
-    public void setDown(boolean down) {
-        this.down = down;
+    public boolean setDown(boolean down) {
+        this.down = down; 
+        return this.down; 
     }
 
     @Override
@@ -70,6 +74,7 @@ public class MovingPart implements EntityPart {
         //Checks which button player is pressing.
         if (up) {
             y += tempSpeed;
+            
         }
         if (right) {
             x += tempSpeed;
@@ -103,6 +108,7 @@ public class MovingPart implements EntityPart {
 
         positionPart.setX(x);
         positionPart.setY(y);
+        
 
         positionPart.setRadians(radians);
     }

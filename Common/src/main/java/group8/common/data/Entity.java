@@ -14,6 +14,7 @@ public class Entity implements Serializable {
     private float[] shapeY = new float[4];
     private float radius;
     private Map<Class, EntityPart> parts;
+    private String spritepath;  // all entity have a image.
     
     public Entity() {
         parts = new ConcurrentHashMap<>();
@@ -29,6 +30,14 @@ public class Entity implements Serializable {
     
     public <E extends EntityPart> E getPart(Class partClass) {
         return (E) parts.get(partClass);
+    }
+    
+    public String getSpritepath(){
+        return this.spritepath; 
+    }
+    
+    public void setSpritePath(String spritePath){
+        this.spritepath = spritePath; 
     }
     
     public void setRadius(float r){
