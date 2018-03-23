@@ -5,7 +5,7 @@
 	"yCoor" : 200,
 	"shapeX" : [0,0,35,35],
 	"shapeY" : [58,0,0,58]
-}
+},
 
 {
 	"imagePath" : "art.png",
@@ -13,7 +13,7 @@
 	"yCoor" : 280,
 	"shapeX" : [0,0,35,35],
 	"shapeY" : [58,0,0,58]
-}
+},
 
 {
 	"imagePath" : "art.png",
@@ -21,7 +21,7 @@
 	"yCoor" : 96,
 	"shapeX" : [0,0,35,35],
 	"shapeY" : [58,0,0,58]
-}
+},
 
 {
 	"imagePath" : "art.png",
@@ -29,7 +29,7 @@
 	"yCoor" : 87,
 	"shapeX" : [0,0,35,35],
 	"shapeY" : [58,0,0,58]
-}
+},
 
 {
 	"imagePath" : "art.png",

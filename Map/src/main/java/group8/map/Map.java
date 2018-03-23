@@ -6,26 +6,28 @@
 package group8.map;
 
 import group8.common.data.Entity;
+import group8.common.data.entityparts.PositionPart;
+import java.io.Serializable;
 
 /**
  *
  * @author MER
  */
-public class Map extends Entity {
-    private int xCoor;
-    private int yCoor;
+public class Map extends Entity implements Serializable {
+    private float xCoor;
+    private float yCoor;
 
     /**
      * @return the xCoor
      */
-    public int getxCoor() {
+    public float getxCoor() {
         return xCoor;
     }
 
     /**
      * @return the yCoor
      */
-    public int getyCoor() {
+    public float getyCoor() {
         return yCoor;
     }
 
