@@ -5,10 +5,25 @@
  */
 package group8.map;
 
+
+
+import group8.common.data.GameData;
+import group8.common.data.World;
+import group8.common.services.IEntityProcessingService;
+import org.openide.util.lookup.ServiceProvider;
+import org.openide.util.lookup.ServiceProviders;
+
+@ServiceProviders(value = {@ServiceProvider(service = IEntityProcessingService.class)})
+
 /**
  *
  * @author MER
  */
-public class MapProcessingService {
+public class MapProcessingService implements IEntityProcessingService{
+
+    @Override
+    public void process(GameData gameData, World world) { 
+        //TODO   
+    }
 
 }
