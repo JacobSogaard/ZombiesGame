@@ -27,17 +27,20 @@ import java.util.logging.Logger;
  * @author MER
  */
 public class MapPlugin implements IGamePluginService {
-    private ArrayList<Map> mapObjects = new ArrayList<>();
+    private ArrayList<Entity> mapObjects = new ArrayList<>();
     
     @Override
     public void start(GameData gameData, World world) {
+        System.out.println("1");
         this.createMapObject(world);
+        System.out.println("3");
     }
 
     @Override
     public void stop(GameData gameData, World world) {
-        for (Map m : mapObjects) {
+        for (Entity m : mapObjects) {
             world.removeEntity(m);
+            System.out.println("4");
         }
     }
     
@@ -45,7 +48,8 @@ public class MapPlugin implements IGamePluginService {
         try {
             final InputStream is = new FileInputStream("objects.json");
             for (Iterator it = new ObjectMapper().readValues(new JsonFactory().createParser(is), Map.class); it.hasNext();) {
-                Map mapObject = (Map) it.next();
+                System.out.println("2");
+                Entity mapObject = (Map) it.next();
                 world.addEntity(mapObject);
                 mapObjects.add(mapObject);
             } 
