@@ -8,6 +8,7 @@ package group8.collision;
 import group8.common.data.Entity;
 import group8.common.data.GameData;
 import group8.common.data.World;
+import group8.common.data.entityparts.MovingPart;
 import group8.common.mapcommon.IMapCollision;
 import group8.common.playercommon.IPlayerService;
 import group8.common.services.IEntityProcessingService;
@@ -35,8 +36,10 @@ public class CollisionControlSystem implements IEntityProcessingService {
         this.getMapObjects();
         this.getPlayer();
         for (Entity m : mapObjects) {
-            if(isCollision(m, this.player))
-                System.out.println("Collision");
+            if(isCollision(m, this.player)){
+                MovingPart mp = this.player.getPart(MovingPart.class);
+                mp.
+            }
         }
     }
 

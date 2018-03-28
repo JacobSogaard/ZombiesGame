@@ -14,8 +14,8 @@ import java.io.Serializable;
  * @author MER
  */
 public class Map extends Entity implements Serializable {
-    private float xCoor;
-    private float yCoor;
+    private float xCoor, yCoor, height, width;
+   
 
     /**
      * @return the xCoor
@@ -43,6 +43,34 @@ public class Map extends Entity implements Serializable {
      */
     public void setyCoor(int yCoor) {
         this.yCoor = yCoor;
+    }
+
+    /**
+     * @return the height
+     */
+    public float getHeight() {
+        return height;
+    }
+
+    /**
+     * @param height the height to set
+     */
+    public void setHeight(float height) {
+        this.height = height;
+    }
+
+    /**
+     * @return the width
+     */
+    public float getWidth() {
+        return width;
+    }
+
+    /**
+     * @param width the width to set
+     */
+    public void setWidth(float width) {
+        this.width = width;
     }
     
     

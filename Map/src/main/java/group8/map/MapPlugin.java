@@ -70,13 +70,39 @@ public class MapPlugin implements IGamePluginService, IMapCollision {
             for (Entity m : mapObjects) {
                 Map map = (Map) m;
                 map.add(new PositionPart(map.getxCoor(), map.getyCoor(), 0));
-                world.addEntity(map);
+                world.addEntity(this.initMap(map));
             }
         } catch (IOException ex) {
             Logger.getLogger(MapPlugin.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
+    
+    private void setShapeX(Map map){
+                float[] shapeX = {
+                    map.getxCoor() - map.getWidth()/2,
+                    map.getxCoor() - map.getWidth()/2,
+                    map.getxCoor() + map.getWidth()/2,
+                    map.getxCoor() + map.getWidth()/2};
+                map.setShapeX(shapeX);
+    }
+    
+    private void setShapeY(Map map){
+        float[] shapeY = {
+                    map.getyCoor() - map.getHeight()/2,
+                    map.getyCoor() + map.getHeight()/2,
+                    map.getyCoor() + map.getHeight()/2,
+                    map.getyCoor() - map.getHeight()/2};
+                map.setShapeY(shapeY);
+    }
+    
+    private Map initMap(Map map){
+        this.setShapeX(map);
+        this.setShapeY(map);
+        return map;
+    }
+    
+    
 
     @Override
     public ArrayList<Entity> getMapObjects() {

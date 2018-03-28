@@ -16,6 +16,7 @@ import group8.common.services.IEntityProcessingService;
 import group8.common.services.IGamePluginService;
 
 import group8.core.managers.GameInputProcessor;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -35,6 +36,7 @@ public class Game implements ApplicationListener {
     public static Texture texture;
     public static Sprite sprite;
     private SpriteBatch spriteBatch;
+    private ArrayList<SpriteBatch> mapObjects;
 
     @Override
     public void create() {

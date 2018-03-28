@@ -3,39 +3,39 @@
 	"imagePath" : "Images/MapObjects/art.png",
 	"xCoor" : 250,
 	"yCoor" : 200,
-	"shapeX" : [0,0,35,35],
-	"shapeY" : [58,0,0,58]
+	"height" : 58.0,
+	"width" : 35.0
 },
 
 {
 	"imagePath" : "Images/MapObjects/art.png",
 	"xCoor" : 100,
 	"yCoor" : 280,
-	"shapeX" : [0,0,35,35],
-	"shapeY" : [58,0,0,58]
+	"height" : 58.0,
+	"width" : 35.0
 },
 
 {
 	"imagePath" : "Images/MapObjects/art.png",
 	"xCoor" : 200,
-	"yCoor" : 96,
-	"shapeX" : [0,0,35,35],
-	"shapeY" : [58,0,0,58]
+	"yCoor" : 100,
+	"height" : 58.0,
+	"width" : 35.0
 },
 
 {
 	"imagePath" : "Images/MapObjects/art.png",
 	"xCoor" : 20,
 	"yCoor" : 87,
-	"shapeX" : [0,0,35,35],
-	"shapeY" : [58,0,0,58]
+	"height" : 58.0,
+	"width" : 35.0
 },
 
 {
 	"imagePath" : "Images/MapObjects/art.png",
 	"xCoor" : 450,
 	"yCoor" : 400,
-	"shapeX" : [0,0,35,35],
-	"shapeY" : [58,0,0,58]
+	"height" : 58.0,
+	"width" : 35.0
 }
 ]
