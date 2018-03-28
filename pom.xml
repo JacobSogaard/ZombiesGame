@@ -64,6 +64,7 @@
         <module>Core</module>
         <module>Player</module>
         <module>Map</module>
+        <module>Collision</module>
     </modules>
 
     <properties>
