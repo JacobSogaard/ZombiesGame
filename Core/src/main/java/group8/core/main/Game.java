@@ -78,7 +78,7 @@ public class Game implements ApplicationListener {
         spriteBatch.begin();
         for (Entity entity : world.getEntities()) {
             PositionPart part = entity.getPart(PositionPart.class);
-            spriteBatch.draw(texture, part.getX(), part.getY(), 100, 100);
+            spriteBatch.draw(texture, part.getX(), part.getY(), 40, 40);
         }
         //this.renderBackground();
         spriteBatch.end();
@@ -97,10 +97,8 @@ public class Game implements ApplicationListener {
 
     private void draw() {
         for (Entity entity : world.getEntities()) {
-            sr.setColor(1, 1, 1, 1);
-
+             sr.setColor(1, 1, 1, 1);
             sr.begin(ShapeRenderer.ShapeType.Line);
-            
             float[] shapex = entity.getShapeX();
             float[] shapey = entity.getShapeY();
 
@@ -109,14 +107,13 @@ public class Game implements ApplicationListener {
                     j = i++) {
 
                 sr.line(shapex[i], shapey[i], shapex[j], shapey[j]);
+                
             }
             texture = new Texture(Gdx.files.internal(entity.getImagePath()));
         spriteBatch = new SpriteBatch();
+        
         sprite = new Sprite(texture);
-
-            
-            
-
+        sprite.setRotation(80);
             sr.end();
         }
     }
@@ -154,7 +151,6 @@ public class Game implements ApplicationListener {
                     gamePlugins.add(us);
                 }
             }
-
             // Stop and remove module
             for (IGamePluginService gs : gamePlugins) {
                 if (!updated.contains(gs)) {
