@@ -16,20 +16,16 @@ import static java.lang.Math.sqrt;
 
 /**
  *
- * @author Alexander
+ * @author Group 8 
  */
 public class MovingPart implements EntityPart {
 
     private float dx, dy;
-    private float deceleration, acceleration;
-    private float maxSpeed, rotationSpeed;
+    private float speed;
     private boolean left, right, up, down;
 
     public MovingPart(float maxSpeed, float acceleration, float rotationSpeed, float deceleration) {
-        this.maxSpeed = maxSpeed;
-        this.acceleration = acceleration;
-        this.deceleration = deceleration;
-        this.rotationSpeed = rotationSpeed;
+        this.speed = maxSpeed;
     }
 
     public float getDx() {
@@ -40,41 +36,25 @@ public class MovingPart implements EntityPart {
         return dy;
     }
 
-    public void setDeceleration(float deceleration) {
-        this.deceleration = deceleration;
-    }
 
-    public void setAcceleration(float acceleration) {
-        this.acceleration = acceleration;
-    }
-
-    public void setMaxSpeed(float maxSpeed) {
-        this.maxSpeed = maxSpeed;
-    }
-
-    public void setSpeed(float speed) {
-        this.acceleration = speed;
-        this.maxSpeed = speed;
-    }
-
-    public void setRotationSpeed(float rotationSpeed) {
-        this.rotationSpeed = rotationSpeed;
-    }
-
-    public void setLeft(boolean left) {
+    public boolean setLeft(boolean left) {
         this.left = left;
+        return this.left;
     }
 
-    public void setRight(boolean right) {
+    public boolean setRight(boolean right) {
         this.right = right;
+        return this.right;
     }
 
-    public void setUp(boolean up) {
-        this.up = up;
+    public boolean setUp(boolean up) {
+        this.up = up; 
+        return this.up; 
     }
 
-    public void setDown(boolean down) {
-        this.down = down;
+    public boolean setDown(boolean down) {
+        this.down = down; 
+        return this.down; 
     }
 
     @Override
@@ -84,59 +64,51 @@ public class MovingPart implements EntityPart {
         float y = positionPart.getY();
         float radians = positionPart.getRadians();
         float dt = gameData.getDelta();
-
-        // turning
-        if (left) {
-            dx += cos(Math.PI) * acceleration * dt;
-            dy += sin(Math.PI) * acceleration * dt;
-            // radians += rotationSpeed * dt;
+        float tempSpeed = speed;
+        
+        //Checks if the player is moving diagonally
+        if(up && right || up && left || down && right || down && left){
+        tempSpeed *= 0.8;
         }
-
-        if (right) {
-            dx += cos(0) * acceleration * dt;
-            dy += sin(0) * acceleration * dt;
-            //  radians -= rotationSpeed * dt;
-        }
-
-        // accelerating            
+        
+        //Checks which button player is pressing.
         if (up) {
-            dx += cos(Math.PI / 2) * acceleration * dt;
-            dy += sin(Math.PI / 2) * acceleration * dt;
+            y += tempSpeed;
+            
         }
-
-        if (down) {
-            dx += cos((3*Math.PI) / 2) * acceleration * dt;
-            dy += sin((3*Math.PI) / 2) * acceleration * dt;
+        if (right) {
+            x += tempSpeed;
         }
-
-        // deccelerating
-        float vec = (float) sqrt(dx * dx + dy * dy);
-        if (vec > 0) {
-            dx -= (dx / vec) * deceleration * dt;
-            dy -= (dy / vec) * deceleration * dt;
+        if(down){
+            y -= tempSpeed; 
         }
-        if (vec > maxSpeed) {
-            dx = (dx / vec) * maxSpeed;
-            dy = (dy / vec) * maxSpeed;
+        
+        if(left){
+            x -= tempSpeed; 
         }
-
-        // set position
-        x += dx * dt;
-        if (x > gameData.getDisplayWidth()) {
-            x = 0;
+        
+        
+        
+         
+        //Backup for Collision
+        //Stops the player for moving out of the map and make him stand still.
+        if (x >= gameData.getDisplayWidth()) {
+            x -= tempSpeed;
         } else if (x < 0) {
-            x = gameData.getDisplayWidth();
+            x += tempSpeed; 
         }
 
         y += dy * dt;
         if (y > gameData.getDisplayHeight()) {
-            y = 0;
+            y -= tempSpeed;
         } else if (y < 0) {
-            y = gameData.getDisplayHeight();
+            y += tempSpeed;
         }
+
 
         positionPart.setX(x);
         positionPart.setY(y);
+        
 
         positionPart.setRadians(radians);
     }

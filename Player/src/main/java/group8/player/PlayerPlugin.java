@@ -39,7 +39,7 @@ public class PlayerPlugin implements IGamePluginService {
     }
     
     public Entity createPlayer(GameData gameData) {
-        float speed = 300;         
+        float speed = 3;         
         float acceleration = 300;
         float rotationSpeed = 50;
         float decelaration = 200;
@@ -50,6 +50,8 @@ public class PlayerPlugin implements IGamePluginService {
         Entity playerRectangle =  new Player();
         playerRectangle.add(new MovingPart(speed, acceleration, rotationSpeed, decelaration));
         playerRectangle.add(new PositionPart(x, y, radians));
+        
+        playerRectangle.setImagePath(SpritePath.UP);
         
         return playerRectangle; 
     }

@@ -14,5 +14,4 @@ import group8.common.data.Entity;
  */
 public class Player extends Entity{
     
-      
 }
