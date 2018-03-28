@@ -1,6 +1,6 @@
 [
 {
-	"imagePath" : "art.png",
+	"imagePath" : "Images/MapObjects/art.png",
 	"xCoor" : 250,
 	"yCoor" : 200,
 	"shapeX" : [0,0,35,35],
@@ -8,7 +8,7 @@
 },
 
 {
-	"imagePath" : "art.png",
+	"imagePath" : "Images/MapObjects/art.png",
 	"xCoor" : 100,
 	"yCoor" : 280,
 	"shapeX" : [0,0,35,35],
@@ -16,7 +16,7 @@
 },
 
 {
-	"imagePath" : "art.png",
+	"imagePath" : "Images/MapObjects/art.png",
 	"xCoor" : 200,
 	"yCoor" : 96,
 	"shapeX" : [0,0,35,35],
@@ -24,7 +24,7 @@
 },
 
 {
-	"imagePath" : "art.png",
+	"imagePath" : "Images/MapObjects/art.png",
 	"xCoor" : 20,
 	"yCoor" : 87,
 	"shapeX" : [0,0,35,35],
@@ -32,7 +32,7 @@
 },
 
 {
-	"imagePath" : "art.png",
+	"imagePath" : "Images/MapObjects/art.png",
 	"xCoor" : 450,
 	"yCoor" : 400,
 	"shapeX" : [0,0,35,35],
