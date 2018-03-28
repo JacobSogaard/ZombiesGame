@@ -10,17 +10,20 @@ import group8.common.data.GameData;
 import group8.common.data.World;
 import group8.common.data.entityparts.MovingPart;
 import group8.common.data.entityparts.PositionPart;
+import group8.common.playercommon.IPlayerService;
 import group8.common.services.IGamePluginService;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
 
 
-@ServiceProviders(value = {@ServiceProvider(service = IGamePluginService.class)})
+@ServiceProviders(value = {
+    @ServiceProvider(service = IGamePluginService.class),
+    @ServiceProvider(service = IPlayerService.class)})
 /**
  *
  * @author matiasmarek
  */
-public class PlayerPlugin implements IGamePluginService {
+public class PlayerPlugin implements IGamePluginService, IPlayerService {
     
     private Entity player; 
 
@@ -54,6 +57,11 @@ public class PlayerPlugin implements IGamePluginService {
         playerRectangle.setImagePath(SpritePath.UP);
         
         return playerRectangle; 
+    }
+
+    @Override
+    public Entity getPlayer() {
+        return this.player;
     }
     
 }

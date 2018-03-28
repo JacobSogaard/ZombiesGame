@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><module codename="Group8.Player">
 <<<<<<< HEAD
+<<<<<<< HEAD
     <module_version install_time="1522235906815" last="true" origin="installer" specification_version="1.0">
         <file crc="915457993" name="config/Modules/Group8-Player.xml"/>
         <file crc="2232174701" name="modules/Group8-Player.jar"/>
@@ -7,6 +8,11 @@
     <module_version install_time="1522242360531" last="true" origin="installer" specification_version="1.0">
         <file crc="915457993" name="config/Modules/Group8-Player.xml"/>
         <file crc="1397286919" name="modules/Group8-Player.jar"/>
+>>>>>>> Collision
+=======
+    <module_version install_time="1522245633832" last="true" origin="installer" specification_version="1.0">
+        <file crc="915457993" name="config/Modules/Group8-Player.xml"/>
+        <file crc="3503559288" name="modules/Group8-Player.jar"/>
 >>>>>>> Collision
     </module_version>
 </module>
