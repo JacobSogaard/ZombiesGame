@@ -9,6 +9,7 @@ import group8.common.data.Entity;
 import group8.common.data.GameData;
 import group8.common.data.World;
 import group8.common.mapcommon.IMapCollision;
+import group8.common.playercommon.IPlayerService;
 import group8.common.services.IEntityProcessingService;
 import java.util.ArrayList;
 import org.openide.util.Lookup;
@@ -26,12 +27,16 @@ public class CollisionControlSystem implements IEntityProcessingService {
     private ArrayList<Entity> mapObjects;
     private final Lookup lookup = Lookup.getDefault();
     private boolean hasCheckedMapObjects = false;
+    private boolean hasCheckedPlayer = false;
+    private Entity player;
 
     @Override
     public void process(GameData gameData, World world) {
         this.getMapObjects();
+        this.getPlayer();
         for (Entity m : mapObjects) {
-            
+            if(isCollision(m, this.player))
+                System.out.println("Collision");
         }
     }
 
@@ -42,6 +47,16 @@ public class CollisionControlSystem implements IEntityProcessingService {
                 this.mapObjects = mapCollision.getMapObjects();
             }
             this.hasCheckedMapObjects = true;
+        }
+    }
+    
+    private void getPlayer(){
+        if (!hasCheckedPlayer) {
+            Lookup.Result<IPlayerService> p = lookup.lookupResult(IPlayerService.class);
+            for (IPlayerService player : p.allInstances()) {
+                this.player = player.getPlayer();
+            }
+            this.hasCheckedPlayer = true;
         }
     }
 

@@ -22,6 +22,7 @@
                         <publicPackage>group8.common.events</publicPackage>
                         <publicPackage>group8.common.services</publicPackage>
                         <publicPackage>group8.common.mapcommon</publicPackage>
+                        <publicPackage>group8.common.playercommon</publicPackage>
                     </publicPackages>
                 </configuration>
             </plugin>
