@@ -8,8 +8,10 @@ package group8.collision;
 import group8.common.data.Entity;
 import group8.common.data.GameData;
 import group8.common.data.World;
+import group8.common.mapcommon.IMapCollision;
 import group8.common.services.IEntityProcessingService;
 import java.util.ArrayList;
+import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
 
@@ -17,25 +19,30 @@ import org.openide.util.lookup.ServiceProviders;
  *
  * @author jacob
  */
-
-@ServiceProviders(value = {@ServiceProvider(service = IEntityProcessingService.class)})
+@ServiceProviders(value = {
+    @ServiceProvider(service = IEntityProcessingService.class)})
 public class CollisionControlSystem implements IEntityProcessingService {
+
     private ArrayList<Entity> mapObjects;
-    private CollisionPluginSystem cps = new CollisionPluginSystem();
-    
+    private final Lookup lookup = Lookup.getDefault();
+    private boolean hasCheckedMapObjects = false;
+
     @Override
     public void process(GameData gameData, World world) {
         this.getMapObjects();
-        System.out.println("test");
         for (Entity m : mapObjects) {
-            System.out.println(m.getImagePath());
-            System.out.println(m.getShapeX()[1]);
-            System.out.println(m.getShapeY()[1]);
+            
         }
     }
-    
-    private void getMapObjects(){
-        this.mapObjects = this.cps.getMapObjects();
+
+    private void getMapObjects() {
+        if (!hasCheckedMapObjects) {
+            Lookup.Result<IMapCollision> map = lookup.lookupResult(IMapCollision.class);
+            for (IMapCollision mapCollision : map.allInstances()) {
+                this.mapObjects = mapCollision.getMapObjects();
+            }
+            this.hasCheckedMapObjects = true;
+        }
     }
 
     //Method to check collision between two entities

@@ -6,7 +6,7 @@
 package group8.map;
 
 import group8.common.data.Entity;
-import group8.common.data.entityparts.PositionPart;
+
 import java.io.Serializable;
 
 /**

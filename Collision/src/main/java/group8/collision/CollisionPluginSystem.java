@@ -21,26 +21,14 @@ import org.openide.util.lookup.ServiceProviders;
  */
 @ServiceProviders(value = {@ServiceProvider(service = IGamePluginService.class)})
 public class CollisionPluginSystem implements IGamePluginService  {
-    private ArrayList<Entity> mapObjects;
-    private final Lookup lookup = Lookup.getDefault();
+    
     
     @Override
     public void start(GameData gameData, World world) {
-        System.out.println("START");
-        Lookup.Result<IMapCollision> map = lookup.lookupResult(IMapCollision.class);
-        for (IMapCollision mapCollision : map.allInstances()) {
-            this.mapObjects = mapCollision.getMapObjects();
-        }
+       
         
     }
     
-    public ArrayList<Entity> getMapObjects(){
-        if (this.mapObjects != null) {
-            return this.mapObjects;
-        }
-        return new ArrayList();
-    }
-
     @Override
     public void stop(GameData gameData, World world) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
