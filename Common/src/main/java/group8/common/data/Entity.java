@@ -71,6 +71,7 @@ public class Entity implements Serializable {
      * @param imagePath the imagePath to set
      */
     public void setImagePath(String imagePath) {
+        //System.out.println(from);
         this.imagePath = imagePath;
     }
 }

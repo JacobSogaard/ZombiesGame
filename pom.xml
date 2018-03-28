@@ -64,6 +64,7 @@
         <module>Core</module>
         <module>Player</module>
         <module>Map</module>
+        <module>Enemy</module>
     </modules>
 
     <properties>

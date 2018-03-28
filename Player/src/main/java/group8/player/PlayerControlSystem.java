@@ -62,7 +62,7 @@ public class PlayerControlSystem implements IEntityProcessingService {
                 else
                     player.setImagePath(SpritePath.RIGHT);
             }
-            System.out.println(player.getImagePath());
+            //System.out.println(player.getImagePath());
             
             
             

@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import group8.common.data.Entity;
 import group8.common.data.GameData;
 import group8.common.data.World;
+import group8.common.data.entityparts.MovingPart;
 import group8.common.data.entityparts.PositionPart;
 import group8.common.services.IEntityProcessingService;
 import group8.common.services.IGamePluginService;
@@ -116,6 +117,7 @@ public class Game implements ApplicationListener {
         sprite.setRotation(80);
             sr.end();
         }
+        
     }
 
     @Override
