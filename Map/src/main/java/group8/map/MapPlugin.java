@@ -12,6 +12,7 @@ import group8.common.data.Entity;
 import group8.common.data.GameData;
 import group8.common.data.World;
 import group8.common.data.entityparts.PositionPart;
+import group8.common.mapcommon.IMapCollision;
 import group8.common.services.IGamePluginService;
 import java.io.File;
 import java.io.FileInputStream;
@@ -27,42 +28,59 @@ import java.util.logging.Logger;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
 
-@ServiceProviders(value = {@ServiceProvider(service = IGamePluginService.class)})
+@ServiceProviders(value
+        = {
+            @ServiceProvider(service = IGamePluginService.class)
+            ,@ServiceProvider(service = IMapCollision.class)})
 
 /**
  *
  * @author MER
  */
-public class MapPlugin implements IGamePluginService {
-    private ArrayList<Map> mapObjects = new ArrayList<>();
-    
+public class MapPlugin implements IGamePluginService, IMapCollision {
+
+    private static ArrayList<Entity> mapObjects = new ArrayList<>();
+    protected static final String MAPOBJECTSPATH = "Images/MapObjects/objects.json";
+
     @Override
     public void start(GameData gameData, World world) {
-        System.out.println("1");
         this.createMapObject(world);
-        System.out.println("3");
     }
 
     @Override
     public void stop(GameData gameData, World world) {
+        System.out.println("STOP");
         for (Entity m : mapObjects) {
             world.removeEntity(m);
-            System.out.println("4");
         }
+        this.clearMap();
     }
-    
+
+    private void clearMap() {
+        this.mapObjects.clear();
+    }
+
     private void createMapObject(World world) {
+
         try {
-            final InputStream is = new FileInputStream("objects.json");
+            final InputStream is = new FileInputStream(MAPOBJECTSPATH);
             ObjectMapper objectMapper = new ObjectMapper();
-            this.mapObjects = objectMapper.readValue(is, new TypeReference<List<Map>>(){});
-            for (Map m : mapObjects){
-                m.add(new PositionPart(m.getxCoor(), m.getyCoor(), 0));
-                world.addEntity(m);
+            this.mapObjects = objectMapper.readValue(is, new TypeReference<List<Map>>() {
+            });
+            for (Entity m : mapObjects) {
+                Map map = (Map) m;
+                map.add(new PositionPart(map.getxCoor(), map.getyCoor(), 0));
+                world.addEntity(map);
             }
-     
         } catch (IOException ex) {
             Logger.getLogger(MapPlugin.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
+
+    @Override
+    public ArrayList<Entity> getMapObjects() {
+        return this.mapObjects;
+    }
+
 }
