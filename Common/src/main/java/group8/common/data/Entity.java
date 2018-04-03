@@ -9,6 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class Entity implements Serializable {
     private final UUID ID = UUID.randomUUID();
+    private EntityType type;
 
     private float[] shapeX = new float[4];
     private float[] shapeY = new float[4];
@@ -72,5 +73,19 @@ public class Entity implements Serializable {
      */
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
+    }
+
+    /**
+     * @return the type
+     */
+    public EntityType getType() {
+        return type;
+    }
+
+    /**
+     * @param type the type to set
+     */
+    public void setType(EntityType type) {
+        this.type = type;
     }
 }

@@ -85,17 +85,17 @@ public class PlayerControlSystem implements IEntityProcessingService {
         float radians = positionPart.getRadians();
 
         //here we draw a rectangle for the player
-        shapex[0] = (float) (x - 10);
-        shapey[0] = (float) (y - 15);
+        shapex[0] = (float) (x);
+        shapey[0] = (float) (y);
 
-        shapex[1] = (float) (x - 10);
-        shapey[1] = (float) (y + 15);
+        shapex[1] = (float) (x);
+        shapey[1] = (float) (y + 30);
 
-        shapex[2] = (float) (x + 10);
-        shapey[2] = (float) (y + 15);
+        shapex[2] = (float) (x + 20);
+        shapey[2] = (float) (y + 30);
 
-        shapex[3] = (float) (x + 10);
-        shapey[3] = (float) (y - 15);
+        shapex[3] = (float) (x + 20);
+        shapey[3] = (float) (y);
 
         entity.setShapeX(shapex);
         entity.setShapeY(shapey);
