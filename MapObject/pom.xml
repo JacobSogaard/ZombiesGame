@@ -6,7 +6,7 @@
         <artifactId>ZombiesGame-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>Map</artifactId>
+    <artifactId>MapObject</artifactId>
     <packaging>nbm</packaging>
     <build>
         <plugins>
@@ -63,4 +63,5 @@
         <jackson.version>2.9.0</jackson.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+    <name>MapObject</name>
 </project>

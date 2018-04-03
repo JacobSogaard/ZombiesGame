@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package group8.map;
+package group8.mapobject;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -37,7 +37,7 @@ import org.openide.util.lookup.ServiceProviders;
  *
  * @author MER
  */
-public class MapPlugin implements IGamePluginService, IMapCollision {
+public class MapObjectPlugin implements IGamePluginService, IMapCollision {
 
     private static ArrayList<Entity> mapObjects = new ArrayList<>();
     protected static final String MAPOBJECTSPATH = "Images/MapObjects/objects.json";
@@ -65,20 +65,20 @@ public class MapPlugin implements IGamePluginService, IMapCollision {
         try {
             final InputStream is = new FileInputStream(MAPOBJECTSPATH);
             ObjectMapper objectMapper = new ObjectMapper();
-            this.mapObjects = objectMapper.readValue(is, new TypeReference<List<Map>>() {
+            this.mapObjects = objectMapper.readValue(is, new TypeReference<List<MapObject>>() {
             });
             for (Entity m : mapObjects) {
-                Map map = (Map) m;
+                MapObject map = (MapObject) m;
                 map.add(new PositionPart(map.getxCoor(), map.getyCoor(), 0));
                 world.addEntity(this.initMap(map));
             }
         } catch (IOException ex) {
-            Logger.getLogger(MapPlugin.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MapObjectPlugin.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
     
-    private void setShapeX(Map map){
+    private void setShapeX(MapObject map){
                 float[] shapeX = {
                     map.getxCoor() - map.getWidth()/2,
                     map.getxCoor() - map.getWidth()/2,
@@ -87,7 +87,7 @@ public class MapPlugin implements IGamePluginService, IMapCollision {
                 map.setShapeX(shapeX);
     }
     
-    private void setShapeY(Map map){
+    private void setShapeY(MapObject map){
         float[] shapeY = {
                     map.getyCoor() - map.getHeight()/2,
                     map.getyCoor() + map.getHeight()/2,
@@ -96,7 +96,7 @@ public class MapPlugin implements IGamePluginService, IMapCollision {
                 map.setShapeY(shapeY);
     }
     
-    private Map initMap(Map map){
+    private MapObject initMap(MapObject map){
         this.setShapeX(map);
         this.setShapeY(map);
         return map;

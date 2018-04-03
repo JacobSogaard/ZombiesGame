@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package group8.map;
+package group8.mapobject;
 
 
 
@@ -19,7 +19,7 @@ import org.openide.util.lookup.ServiceProviders;
  *
  * @author MER
  */
-public class MapProcessingService implements IEntityProcessingService{
+public class MapObjectProcessingService implements IEntityProcessingService{
 
     @Override
     public void process(GameData gameData, World world) { 
