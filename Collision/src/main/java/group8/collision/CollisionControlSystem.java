@@ -38,7 +38,7 @@ public class CollisionControlSystem implements IEntityProcessingService {
         for (Entity m : mapObjects) {
             if(isCollision(m, this.player)){
                 MovingPart mp = this.player.getPart(MovingPart.class);
-                mp.
+               //mp.
             }
         }
     }
