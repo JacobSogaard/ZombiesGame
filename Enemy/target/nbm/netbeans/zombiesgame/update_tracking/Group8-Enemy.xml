@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?><module codename="Group8.Enemy">
+    <module_version install_time="1522246366936" last="true" origin="installer" specification_version="1.0">
+        <file crc="1310567124" name="config/Modules/Group8-Enemy.xml"/>
+        <file crc="3758887062" name="modules/Group8-Enemy.jar"/>
+    </module_version>
+</module>
