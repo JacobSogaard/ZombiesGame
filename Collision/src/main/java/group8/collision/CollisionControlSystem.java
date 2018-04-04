@@ -13,7 +13,6 @@ import group8.common.data.World;
 import group8.common.data.entityparts.MovingPart;
 import group8.common.mapcommon.IMapCollision;
 import group8.common.playercommon.IPlayerService;
-import group8.common.services.ICanMoveService;
 import group8.common.services.IEntityProcessingService;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,6 +20,7 @@ import java.util.Map;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
+import group8.common.services.ICollisionRequestService;
 
 /**
  *
@@ -29,42 +29,39 @@ import org.openide.util.lookup.ServiceProviders;
 @ServiceProviders(value = {
     @ServiceProvider(service = IEntityProcessingService.class)
     ,
-    @ServiceProvider(service = ICanMoveService.class)
+    @ServiceProvider(service = ICollisionRequestService.class)
 
 })
-public class CollisionControlSystem implements IEntityProcessingService, ICanMoveService {
+public class CollisionControlSystem implements IEntityProcessingService, ICollisionRequestService {
 
     private ArrayList<Entity> entities;
 
     @Override
     public void process(GameData gameData, World world) {
         this.entities.addAll(world.getEntities());
-        this.checkCollision();
+        //this.checkCollision();
 
     }
+    
+     @Override
+    public Entity collisionRequest(Entity entity, int direction) {
+        switch (direction){
+            case GameKeys.UP:
+                return this.upCollision(entity);
+            case GameKeys.LEFT:
+                return this.leftCollision(entity);
+            case GameKeys.DOWN:
+                return this.downCollision(entity);
+            case GameKeys.RIGHT:
+                return this.rightCollision(entity);
+            default:
+                return this.noneEntity();
+        }
+    }
+    
 
     private void checkCollision() {
-        for (Entity entity1 : this.entities) {
-            EntityType entity1Type = entity1.getType();
-
-            if (entity1Type.equals(EntityType.PLAYER)
-                    || entity1Type.equals(EntityType.ZOMBIE)) {
-
-                for (Entity entity2 : this.entities) {
-                    EntityType entity2Type = entity2.getType();
-
-                    if (upCollision(entity1, entity2)) {
-
-                    } else if (downCollision(entity1, entity2)) {
-
-                    } else if (leftCollision(entity1, entity2)) {
-
-                    } else if (rightCollision(entity1, entity2)) {
-
-                    }
-                }
-            }
-        }
+        
     }
 
     //Method to get rectangle from an entity
@@ -77,65 +74,67 @@ public class CollisionControlSystem implements IEntityProcessingService, ICanMov
         return entityRect;
     }
 
-    private Map<Entity, Integer> initCanMoveMap(Entity e, int key) {
-        Map<Entity, Integer> map = new HashMap();
-        map.put(e, key);
-        return map;
+    private Entity noneEntity(){
+        Entity noneEntity = new Entity();
+        noneEntity.setType(EntityType.NONE);
     }
-
-    @Override
-    public Map<Entity, Integer> canMoveUp(Entity entity) {
+    
+    private Entity upCollision(Entity entity) {
         float[] entity1Rect = this.getEntityRect(entity);
 
         for (Entity e : this.entities) {
             float[] entity2Rect = this.getEntityRect(e);
 
             if (entity1Rect[3] + entity1Rect[1] > entity2Rect[1]) {
-                return this.initCanMoveMap(e, GameKeys.UP);
+                return e;
             }
         }
-        return null;
+        
+        return this.noneEntity();
     }
-
-    @Override
-    public Map<Entity, Integer> canMoveDown(Entity entity) {
+    
+    
+    
+    private Entity downCollision(Entity entity) {
         float[] entity1Rect = this.getEntityRect(entity);
 
         for (Entity e : this.entities) {
             float[] entity2Rect = this.getEntityRect(e);
 
             if (entity1Rect[1] < entity2Rect[1] + entity2Rect[3]) {
-                return this.initCanMoveMap(e, GameKeys.DOWN);
+                return e;
             }
         }
-        return null;
+        return this.noneEntity();
     }
 
-    @Override
-    public Map<Entity, Integer> canMoveLeft(Entity entity) {
+    
+    private Entity leftCollision(Entity entity) {
         float[] entity1Rect = this.getEntityRect(entity);
 
         for (Entity e : this.entities) {
             float[] entity2Rect = this.getEntityRect(e);
             if (entity1Rect[0] < entity1Rect[0] + entity2Rect[2]) {
-                return this.initCanMoveMap(e, GameKeys.LEFT);
+                return e;
             }
         }
-        return null;
+        return this.noneEntity();
     }
 
-    @Override
-    public Map<Entity, Integer> canMoveRight(Entity entity) {
+    
+    private Entity rightCollision(Entity entity) {
         float[] entity1Rect = this.getEntityRect(entity);
 
         for (Entity e : this.entities) {
             float[] entity2Rect = this.getEntityRect(e);
 
             if (entity1Rect[0] + entity1Rect[2] > entity2Rect[0]) {
-                return this.initCanMoveMap(e, GameKeys.RIGHT);
+                return e;
             }
         }
-        return null;
+        return this.noneEntity();
     }
+
+   
 
 }

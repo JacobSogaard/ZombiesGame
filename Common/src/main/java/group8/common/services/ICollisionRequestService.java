@@ -13,9 +13,6 @@ import java.util.Map;
  *
  * @author jacob
  */
-public interface ICanMoveService {
-    public Map<Entity, Integer> canMoveUp(Entity entity);
-    public Map<Entity, Integer> canMoveDown(Entity entity);
-    public Map<Entity, Integer> canMoveLeft(Entity entity);
-    public Map<Entity, Integer> canMoveRight(Entity entity);
+public interface ICollisionRequestService {
+    public Entity collisionRequest(Entity entity, int direction);
 }
