@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><module codename="Group8.Map">
-    <module_version install_time="1522751072043" last="true" origin="installer" specification_version="1.0">
-        <file crc="2970050786" name="config/Modules/Group8-Map.xml"/>
-        <file crc="3164816132" name="modules/Group8-Map.jar"/>
-        <file crc="3773811368" name="modules/ext/Group8.Map/com-fasterxml-jackson-core/jackson-annotations.jar"/>
-        <file crc="888211829" name="modules/ext/Group8.Map/com-fasterxml-jackson-core/jackson-core.jar"/>
-        <file crc="2776172068" name="modules/ext/Group8.Map/com-fasterxml-jackson-core/jackson-databind.jar"/>
-    </module_version>
-</module>

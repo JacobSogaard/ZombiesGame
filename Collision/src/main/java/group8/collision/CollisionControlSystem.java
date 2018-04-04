@@ -38,33 +38,8 @@ public class CollisionControlSystem implements IEntityProcessingService, ICanMov
 
     @Override
     public void process(GameData gameData, World world) {
-        this.entities.addAll(world.getEntities());
-        this.checkCollision();
+        //this.entities.addAll(world.getEntities());
 
-    }
-
-    private void checkCollision() {
-        for (Entity entity1 : this.entities) {
-            EntityType entity1Type = entity1.getType();
-
-            if (entity1Type.equals(EntityType.PLAYER)
-                    || entity1Type.equals(EntityType.ZOMBIE)) {
-
-                for (Entity entity2 : this.entities) {
-                    EntityType entity2Type = entity2.getType();
-
-                    if (upCollision(entity1, entity2)) {
-
-                    } else if (downCollision(entity1, entity2)) {
-
-                    } else if (leftCollision(entity1, entity2)) {
-
-                    } else if (rightCollision(entity1, entity2)) {
-
-                    }
-                }
-            }
-        }
     }
 
     //Method to get rectangle from an entity
