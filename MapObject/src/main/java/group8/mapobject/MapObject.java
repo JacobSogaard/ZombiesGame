@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package group8.map;
+package group8.mapobject;
 
 import group8.common.data.Entity;
 
@@ -13,7 +13,7 @@ import java.io.Serializable;
  *
  * @author MER
  */
-public class Map extends Entity implements Serializable {
+public class MapObject extends Entity implements Serializable {
     private float xCoor, yCoor, height, width;
    
 
