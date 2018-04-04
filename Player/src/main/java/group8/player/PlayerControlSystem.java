@@ -5,12 +5,14 @@
  */
 package group8.player;
 import group8.common.data.Entity;
+import group8.common.data.EntityType;
 import group8.common.data.GameData;
 import group8.common.data.World;
 import group8.common.data.entityparts.MovingPart;
 import group8.common.data.entityparts.PositionPart;
 import group8.common.services.IEntityProcessingService;
 import group8.common.data.GameKeys;
+import group8.common.services.ICollisionRequestService;
 import group8.common.services.IGamePluginService;
 import group8.player.SpritePath2;
 import org.openide.util.lookup.ServiceProvider;
@@ -18,16 +20,20 @@ import org.openide.util.lookup.ServiceProviders;
 
 @ServiceProviders(value = {@ServiceProvider(service = IEntityProcessingService.class)})
 
+
 /**
  *
  * @author matiasmarek
  */
 public class PlayerControlSystem implements IEntityProcessingService {
-    
+    private ICollisionRequestService col;
+    private Entity colEntity;
     
     @Override
     public void process(GameData gameData, World world) {
+        
         for (Entity player : world.getEntities(Player.class)) {
+            
             PositionPart positionPart = player.getPart(PositionPart.class);
             MovingPart movingPart = player.getPart(MovingPart.class);
             
@@ -35,42 +41,59 @@ public class PlayerControlSystem implements IEntityProcessingService {
             
             
             if (movingPart.setUp(gameData.getKeys().isDown(GameKeys.UP))) {
-                player.setImagePath(SpritePath.UP);
-                andUp = true;
+                this.colEntity = col.collisionRequest(player, GameKeys.UP);
+                if (this.colEntity.getType() == EntityType.NONE) {
+                    player.setImagePath(SpritePath.UP);
+                    andUp = true;
+                } else
+                    this.colide(this.colEntity, player, GameKeys.UP);
             }
             
             if (movingPart.setDown(gameData.getKeys().isDown(GameKeys.DOWN))) {
-                player.setImagePath(SpritePath.DOWN);
-                andDown = true;
+                this.colEntity = col.collisionRequest(player, GameKeys.DOWN);
+                if (this.colEntity.getType() == EntityType.NONE) {
+                    player.setImagePath(SpritePath.DOWN);
+                    andDown = true;
+                } else
+                    this.colide(this.colEntity, player, GameKeys.DOWN);
             }
             
             if (movingPart.setLeft(gameData.getKeys().isDown(GameKeys.LEFT))){
-                if (andUp)
-                player.setImagePath(SpritePath.UPLEFT);
-                else if (andDown)
-                    player.setImagePath(SpritePath.DOWNLEFT);
-                else
-                    player.setImagePath(SpritePath.LEFT);
+                this.colEntity = col.collisionRequest(player, GameKeys.LEFT);
+                if (this.colEntity.getType() == EntityType.NONE) {
+                    if (andUp)
+                        player.setImagePath(SpritePath.UPLEFT);
+                    else if (andDown)
+                        player.setImagePath(SpritePath.DOWNLEFT);
+                    else
+                        player.setImagePath(SpritePath.LEFT);
+                } else
+                    this.colide(this.colEntity, player, GameKeys.LEFT);
             }
             
             if (movingPart.setRight(gameData.getKeys().isDown(GameKeys.RIGHT))) {
-                if (andUp)
-                    player.setImagePath(SpritePath.UPRIGHT);
-                else if (andDown)
-                    player.setImagePath(SpritePath.DOWNRIGHT);
-                else
-                    player.setImagePath(SpritePath.RIGHT);
+                this.colEntity = col.collisionRequest(player, GameKeys.RIGHT);
+                if (this.colEntity.getType() == EntityType.NONE) {
+                    if (andUp)
+                        player.setImagePath(SpritePath.UPRIGHT);
+                    else if (andDown)
+                        player.setImagePath(SpritePath.DOWNRIGHT);
+                    else
+                        player.setImagePath(SpritePath.RIGHT);
+                } else
+                    this.colide(this.colEntity, player, GameKeys.RIGHT);
             }
-            System.out.println(player.getImagePath());
-            
-            
-            
+  
             movingPart.process(gameData, player);
             positionPart.process(gameData, player);
             
 
             updateShape(player);
         }
+    }
+    
+    private void colide(Entity e, Entity player, int direction) {
+        
     }
     
     

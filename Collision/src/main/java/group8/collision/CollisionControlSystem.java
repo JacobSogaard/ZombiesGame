@@ -34,11 +34,11 @@ import group8.common.services.ICollisionRequestService;
 })
 public class CollisionControlSystem implements IEntityProcessingService, ICollisionRequestService {
 
-    private ArrayList<Entity> entities;
+    private World world;
 
     @Override
     public void process(GameData gameData, World world) {
-        this.entities.addAll(world.getEntities());
+        this.world = world;
         //this.checkCollision();
 
     }
@@ -77,12 +77,13 @@ public class CollisionControlSystem implements IEntityProcessingService, ICollis
     private Entity noneEntity(){
         Entity noneEntity = new Entity();
         noneEntity.setType(EntityType.NONE);
+        return noneEntity;
     }
     
     private Entity upCollision(Entity entity) {
         float[] entity1Rect = this.getEntityRect(entity);
 
-        for (Entity e : this.entities) {
+        for (Entity e : this.world.getEntities()) {
             float[] entity2Rect = this.getEntityRect(e);
 
             if (entity1Rect[3] + entity1Rect[1] > entity2Rect[1]) {
@@ -98,7 +99,7 @@ public class CollisionControlSystem implements IEntityProcessingService, ICollis
     private Entity downCollision(Entity entity) {
         float[] entity1Rect = this.getEntityRect(entity);
 
-        for (Entity e : this.entities) {
+        for (Entity e : this.world.getEntities()) {
             float[] entity2Rect = this.getEntityRect(e);
 
             if (entity1Rect[1] < entity2Rect[1] + entity2Rect[3]) {
@@ -112,7 +113,7 @@ public class CollisionControlSystem implements IEntityProcessingService, ICollis
     private Entity leftCollision(Entity entity) {
         float[] entity1Rect = this.getEntityRect(entity);
 
-        for (Entity e : this.entities) {
+        for (Entity e : this.world.getEntities()) {
             float[] entity2Rect = this.getEntityRect(e);
             if (entity1Rect[0] < entity1Rect[0] + entity2Rect[2]) {
                 return e;
@@ -125,7 +126,7 @@ public class CollisionControlSystem implements IEntityProcessingService, ICollis
     private Entity rightCollision(Entity entity) {
         float[] entity1Rect = this.getEntityRect(entity);
 
-        for (Entity e : this.entities) {
+        for (Entity e : this.world.getEntities()) {
             float[] entity2Rect = this.getEntityRect(e);
 
             if (entity1Rect[0] + entity1Rect[2] > entity2Rect[0]) {
