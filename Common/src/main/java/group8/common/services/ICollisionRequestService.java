@@ -15,7 +15,7 @@ import java.util.Map;
  * @author jacob
  */
 public interface ICollisionRequestService {
-    public Entity collisionRequest(Entity entity, World world);
+    //public Entity collisionRequest(Entity entity, World world);
     public boolean canMoveUp(Entity entity, World world);
     public boolean canMoveDown(Entity entity, World world);
     public boolean canMoveLeft(Entity entity, World world);
