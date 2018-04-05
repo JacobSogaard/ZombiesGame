@@ -63,6 +63,11 @@ public class CollisionControlSystem implements IEntityProcessingService, ICollis
     }
 
     private void checkCollision(Entity entity, World world) {
+        this.directionMap.put(DIRECTION.UP, true);
+        this.directionMap.put(DIRECTION.DOWN, true);
+        this.directionMap.put(DIRECTION.LEFT, true);
+        this.directionMap.put(DIRECTION.RIGHT, true);
+        
         float[] entity1Rect = this.getEntityRect(entity);
         for (Entity e : world.getEntities()) {
             if (!this.isSameEntity(e, entity)) {
@@ -136,10 +141,7 @@ public class CollisionControlSystem implements IEntityProcessingService, ICollis
         float entity2Left = entity2.getShapeX()[0];
         float entity2Right = entity2.getShapeX()[2];
 
-        this.directionMap.put(DIRECTION.UP, true);
-        this.directionMap.put(DIRECTION.DOWN, true);
-        this.directionMap.put(DIRECTION.LEFT, true);
-        this.directionMap.put(DIRECTION.RIGHT, true);
+
 
         //Up collision
         if ((entity1Up >= entity2Down) && ((entity1Right > entity2Left || entity1Left < entity2Right)
@@ -168,6 +170,7 @@ public class CollisionControlSystem implements IEntityProcessingService, ICollis
 
     private boolean getCanMove(DIRECTION dir, Entity entity, World world) {
         this.checkCollision(entity, world);
+        System.out.println(this.directionMap.get(dir));
         return (Boolean) this.directionMap.get(dir);
 
     }

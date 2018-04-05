@@ -30,7 +30,6 @@ import org.openide.util.lookup.ServiceProviders;
 public class PlayerControlSystem implements IEntityProcessingService {
 
     private CollisionRequestServiceImpl col = CollisionRequestServiceImpl.getInstance();
-    private Entity colEntity;
     private boolean canMoveUp = true;
     private boolean canMoveDown = true;
     private boolean canMoveLeft = true;
@@ -45,94 +44,42 @@ public class PlayerControlSystem implements IEntityProcessingService {
             MovingPart movingPart = player.getPart(MovingPart.class);
 
             boolean andUp = false, andDown = false;
-
-            this.colEntity = col.collisionRequest(player, world);
             
             if (gameData.getKeys().isDown(GameKeys.UP)){
-                this.canMoveUp = this.colEntity.getType() == EntityType.NONE;
+                player.setImagePath(SpritePath.UP);
                 
-                if(this.canMoveUp){
-                    player.setImagePath(SpritePath.UP);
+                if (movingPart.setUp(this.col.canMoveUp(player, world)))
                     andUp = true;
-                    //this.canMoveUp = true;
-                    movingPart.setUp(this.canMoveUp);
-                } else {
-                    System.out.println("Up: " + canMoveUp + "  " + colEntity.getType());
-                    //this.canMoveUp = false;
-                    movingPart.setUp(this.canMoveUp);
-                    this.colide(this.colEntity, player, GameKeys.UP);
-                }
+            }  
+            
+            if (gameData.getKeys().isDown(GameKeys.DOWN)){
+                player.setImagePath(SpritePath.DOWN);
+                
+                if (movingPart.setDown(this.col.canMoveDown(player, world)))
+                    andDown = true;
             }
             
-//            //Up movement
-//            if (movingPart.setUp(gameData.getKeys().isDown(GameKeys.UP)
-//                    && this.canMoveUp)) {
-//                player.setImagePath(SpritePath.UP);
-//                andUp = true;
-//                this.canMoveDown = true;
-//                this.canMoveUp = this.colEntity.getType() == EntityType.NONE;
-//            } else {
-//                this.colide(this.colEntity, player, GameKeys.UP);
-//            }
-
-            if (gameData.getKeys().isDown(GameKeys.DOWN)){
+            if (gameData.getKeys().isDown(GameKeys.LEFT)){
+                player.setImagePath(SpritePath.LEFT);
                 
-                if(this.canMoveDown || this.colEntity.getType() == EntityType.NONE){
-                    player.setImagePath(SpritePath.DOWN);
-                    andUp = true;
-                    this.canMoveDown = true;
-                    movingPart.setDown(this.canMoveDown);
-                } else {
-                    System.out.println("Down: " + canMoveDown + "  " + colEntity.getType());
-                    this.canMoveDown = false;
-                    movingPart.setDown(this.canMoveDown);
-                    this.colide(this.colEntity, player, GameKeys.DOWN);
-                }
+                if (andUp)
+                    player.setImagePath(SpritePath.UPLEFT);
+                else if (andDown)
+                    player.setImagePath(SpritePath.DOWNLEFT);
+                
+                movingPart.setLeft(this.col.canMoveLeft(player, world));
             }
 
-            //Down movement
-//            if (movingPart.setDown(gameData.getKeys().isDown(GameKeys.DOWN)
-//                    && this.canMoveDown)) {
-//                player.setImagePath(SpritePath.DOWN);
-//                andDown = true;
-//                this.canMoveUp = true;
-//                this.canMoveDown = this.colEntity.getType() == EntityType.NONE;
-//            } else {
-//                this.colide(this.colEntity, player, GameKeys.DOWN);
-//
-//            }
-
-            //Left movement
-            if (movingPart.setLeft(gameData.getKeys().isDown(GameKeys.LEFT))) {
-                //this.colEntity = col.collisionRequest(player, GameKeys.LEFT);
-                if (this.colEntity.getType() == EntityType.NONE) {
-                    if (andUp) {
-                        player.setImagePath(SpritePath.UPLEFT);
-                    } else if (andDown) {
-                        player.setImagePath(SpritePath.DOWNLEFT);
-                    } else {
-                        player.setImagePath(SpritePath.LEFT);
-                    }
-                } else {
-                    this.colide(this.colEntity, player, GameKeys.LEFT);
-                }
-            }
-
-            //Right movement
-            if (movingPart.setRight(gameData.getKeys().isDown(GameKeys.RIGHT))) {
-                //this.colEntity = col.collisionRequest(player, GameKeys.RIGHT);
-                if (this.colEntity.getType() == EntityType.NONE) {
-                    if (andUp) {
-                        player.setImagePath(SpritePath.UPRIGHT);
-                    } else if (andDown) {
-                        player.setImagePath(SpritePath.DOWNRIGHT);
-                    } else {
-                        player.setImagePath(SpritePath.RIGHT);
-                    }
-                } else {
-                    this.colide(this.colEntity, player, GameKeys.RIGHT);
-                }
-            }
+            if (gameData.getKeys().isDown(GameKeys.RIGHT)){
+                player.setImagePath(SpritePath.RIGHT);
+                
+                if (andUp)
+                    player.setImagePath(SpritePath.UPRIGHT);
+                else if (andDown)
+                    player.setImagePath(SpritePath.DOWNRIGHT);
+                
+                movingPart.setRight(this.col.canMoveRight(player, world));
+            }            
 
             movingPart.process(gameData, player);
             positionPart.process(gameData, player);
@@ -143,8 +90,10 @@ public class PlayerControlSystem implements IEntityProcessingService {
             movingPart.setDown(false);
         }
     }
-
-    private void colide(Entity e, Entity player, int direction) {
+    
+    
+    
+    private void colide(Entity player, int direction) {
         
     }
 
