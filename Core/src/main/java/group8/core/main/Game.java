@@ -37,7 +37,8 @@ public class Game implements ApplicationListener {
     public static Sprite sprite;
     private SpriteBatch spriteBatch;
     private ArrayList<SpriteBatch> mapObjects;
-
+    
+    
     @Override
     public void create() {
         gameData.setDisplayWidth(Gdx.graphics.getWidth());
@@ -76,7 +77,6 @@ public class Game implements ApplicationListener {
 
         gameData.setDelta(Gdx.graphics.getDeltaTime());
         gameData.getKeys().update();
-
         spriteBatch.begin();
         for (Entity entity : world.getEntities()) {
             PositionPart part = entity.getPart(PositionPart.class);

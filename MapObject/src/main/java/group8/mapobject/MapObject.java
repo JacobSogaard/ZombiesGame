@@ -6,6 +6,7 @@
 package group8.mapobject;
 
 import group8.common.data.Entity;
+import group8.common.data.EntityType;
 
 import java.io.Serializable;
 
@@ -17,6 +18,9 @@ public class MapObject extends Entity implements Serializable {
     private float xCoor, yCoor, height, width;
    
 
+    public MapObject(){
+        this.setType(EntityType.MAPOBJECT);
+    }
     /**
      * @return the xCoor
      */
