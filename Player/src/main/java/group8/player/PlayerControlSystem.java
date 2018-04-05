@@ -44,57 +44,59 @@ public class PlayerControlSystem implements IEntityProcessingService {
             MovingPart movingPart = player.getPart(MovingPart.class);
 
             boolean andUp = false, andDown = false;
-            
-            if (gameData.getKeys().isDown(GameKeys.UP)){
+
+            if (gameData.getKeys().isDown(GameKeys.UP)) {
                 player.setImagePath(SpritePath.UP);
-                
-                if (movingPart.setUp(this.col.canMoveUp(player, world)))
+
+                if (movingPart.setUp(this.col.canMoveUp(player, world))) {
                     andUp = true;
-            }  
-            
-            if (gameData.getKeys().isDown(GameKeys.DOWN)){
-                player.setImagePath(SpritePath.DOWN);
-                
-                if (movingPart.setDown(this.col.canMoveDown(player, world)))
-                    andDown = true;
+                }
             }
-            
-            if (gameData.getKeys().isDown(GameKeys.LEFT)){
+
+            if (gameData.getKeys().isDown(GameKeys.DOWN)) {
+                player.setImagePath(SpritePath.DOWN);
+
+                if (movingPart.setDown(this.col.canMoveDown(player, world))) {
+                    andDown = true;
+                }
+            }
+
+            if (gameData.getKeys().isDown(GameKeys.LEFT)) {
                 player.setImagePath(SpritePath.LEFT);
-                
-                if (andUp)
+                if (andUp) {
                     player.setImagePath(SpritePath.UPLEFT);
-                else if (andDown)
+                } else if (andDown) {
                     player.setImagePath(SpritePath.DOWNLEFT);
-                
+                }
                 movingPart.setLeft(this.col.canMoveLeft(player, world));
             }
 
-            if (gameData.getKeys().isDown(GameKeys.RIGHT)){
+            if (gameData.getKeys().isDown(GameKeys.RIGHT)) {
                 player.setImagePath(SpritePath.RIGHT);
-                
-                if (andUp)
+
+                if (andUp) {
                     player.setImagePath(SpritePath.UPRIGHT);
-                else if (andDown)
+                } else if (andDown) {
                     player.setImagePath(SpritePath.DOWNRIGHT);
-                
+                }
+
                 movingPart.setRight(this.col.canMoveRight(player, world));
-            }            
+            }
 
             movingPart.process(gameData, player);
             positionPart.process(gameData, player);
 
             updateShape(player);
-            
+
             movingPart.setUp(false);
             movingPart.setDown(false);
+            movingPart.setLeft(false);
+            movingPart.setRight(false);
         }
     }
-    
-    
-    
+
     private void colide(Entity player, int direction) {
-        
+
     }
 
     private void updateShape(Entity entity) {

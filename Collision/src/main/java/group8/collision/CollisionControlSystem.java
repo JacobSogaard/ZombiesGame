@@ -70,17 +70,21 @@ public class CollisionControlSystem implements IEntityProcessingService, ICollis
         
         float[] entity1Rect = this.getEntityRect(entity);
         for (Entity e : world.getEntities()) {
+            
             if (!this.isSameEntity(e, entity)) {
                 float[] entity2Rect = this.getEntityRect(e);
-
+                
                 if (entity1Rect[0] < entity2Rect[0] + entity2Rect[2]
                         && entity1Rect[0] + entity1Rect[2] > entity2Rect[0]
                         && entity1Rect[1] < entity2Rect[1] + entity2Rect[3]
                         && entity1Rect[3] + entity1Rect[1] > entity2Rect[1]) {
                     this.setCollisionDir(entity, e);
+                    System.out.println("-----------------------------------------");
                 }
             }
+            
         }
+        System.out.println("Entry set:  " + this.directionMap.entrySet());
     }
 
 //    private Entity downCollision(Entity entity) {
@@ -141,36 +145,37 @@ public class CollisionControlSystem implements IEntityProcessingService, ICollis
         float entity2Left = entity2.getShapeX()[0];
         float entity2Right = entity2.getShapeX()[2];
 
-
-
         //Up collision
         if ((entity1Up >= entity2Down) && ((entity1Right > entity2Left || entity1Left < entity2Right)
                 || (entity2Right > entity1Left || entity2Left < entity1Right))) {
+            System.out.println("UP");
             this.directionMap.put(DIRECTION.UP, false);
         }
 
         //Down collision
         if (entity1Down <= entity2Up && ((entity1Right > entity2Left || entity1Left < entity2Right)
                 || (entity2Right > entity1Left || entity2Left < entity1Right))) {
+            System.out.println("DOWN");
             this.directionMap.put(DIRECTION.DOWN, false);
         }
 
         //Left collision
         if (entity1Left <= entity2Right && ((entity1Up > entity2Down || entity1Down < entity2Up)
                 || (entity2Up > entity1Down || entity2Down < entity1Up))) {
+            System.out.println("LEFT");
             this.directionMap.put(DIRECTION.LEFT, false);
         }
 
         //Right collision
         if (entity1Right >= entity2Left && ((entity1Up > entity2Down || entity1Down < entity2Up)
                 || (entity2Up > entity1Down || entity2Down < entity1Up))) {
+            System.out.println("RIGHT");
             this.directionMap.put(DIRECTION.RIGHT, false);
         }
     }
 
     private boolean getCanMove(DIRECTION dir, Entity entity, World world) {
         this.checkCollision(entity, world);
-        System.out.println(this.directionMap.get(dir));
         return (Boolean) this.directionMap.get(dir);
 
     }
