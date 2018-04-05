@@ -53,9 +53,7 @@ public class Game implements ApplicationListener {
         this.result.addLookupListener(lookupListener);
         this.result.allItems();
 
-        texture = new Texture(Gdx.files.internal("pony.gif"));
         spriteBatch = new SpriteBatch();
-        sprite = new Sprite(texture);
 
         for (IGamePluginService plugin : result.allInstances()) {
             plugin.start(gameData, world);
@@ -73,25 +71,11 @@ public class Game implements ApplicationListener {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
-        
         this.sr.setProjectionMatrix(cam.combined);
         this.spriteBatch.setProjectionMatrix(cam.combined);
 
         gameData.setDelta(Gdx.graphics.getDeltaTime());
         gameData.getKeys().update();
-
-        spriteBatch.begin();
-        for (Entity entity : world.getEntities()) {
-            PositionPart part = entity.getPart(PositionPart.class);
-            spriteBatch.draw(texture, part.getX(), part.getY(), 35, 60);
-            if (entity.getType() == EntityType.PLAYER) {
-                cam.position.x = part.getX();
-                cam.position.y = part.getY();
-                cam.update();
-            }
-        }
-        //this.renderBackground();
-        spriteBatch.end();
 
         update();
         draw();
@@ -117,14 +101,19 @@ public class Game implements ApplicationListener {
                     j = i++) {
 
                 sr.line(shapex[i], shapey[i], shapex[j], shapey[j]);
-                
             }
-            texture = new Texture(Gdx.files.internal(entity.getImagePath()));
-        spriteBatch = new SpriteBatch();
-        
-        sprite = new Sprite(texture);
-        sprite.setRotation(80);
             sr.end();
+            
+            this.spriteBatch.begin();
+            texture = new Texture(Gdx.files.internal(entity.getImagePath()));
+            PositionPart part = entity.getPart(PositionPart.class);
+            spriteBatch.draw(texture, part.getX(), part.getY(), 35, 60);
+            if (entity.getType() == EntityType.PLAYER) {
+                cam.position.x = part.getX();
+                cam.position.y = part.getY();
+                cam.update();
+            }
+            this.spriteBatch.end();
         }
     }
 

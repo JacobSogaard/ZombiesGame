@@ -82,16 +82,16 @@ public class MapObjectPlugin implements IGamePluginService, IMapCollision {
                 float[] shapeX = {
                     map.getxCoor() - map.getWidth()/2,
                     map.getxCoor() - map.getWidth()/2,
-                    map.getxCoor() + map.getWidth()/2,
-                    map.getxCoor() + map.getWidth()/2};
+                    map.getxCoor() - map.getWidth()/2,
+                    map.getxCoor() - map.getWidth()/2};
                 map.setShapeX(shapeX);
     }
     
     private void setShapeY(MapObject map){
         float[] shapeY = {
                     map.getyCoor() - map.getHeight()/2,
-                    map.getyCoor() + map.getHeight()/2,
-                    map.getyCoor() + map.getHeight()/2,
+                    map.getyCoor() - map.getHeight()/2,
+                    map.getyCoor() - map.getHeight()/2,
                     map.getyCoor() - map.getHeight()/2};
                 map.setShapeY(shapeY);
     }
