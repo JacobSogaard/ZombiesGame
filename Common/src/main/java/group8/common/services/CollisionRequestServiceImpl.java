@@ -36,12 +36,20 @@ public class CollisionRequestServiceImpl {
         return instance;
     }
     
-    /**
-     * Method to call a collision request
-     * @param e
-     * @param direction 
-     */
-    public Entity collisionRequest(Entity e, World world){
-        return col.collisionRequest(e, world);
+    public boolean canMoveUp(Entity entity, World world){
+        return col.canMoveUp(entity, world);
     }
+    
+    public boolean canMoveDown(Entity entity, World world){
+        return col.canMoveDown(entity, world);
+    }
+    
+    public boolean canMoveLeft(Entity entity, World world){
+        return col.canMoveLeft(entity, world);
+    }
+    
+    public boolean canMoveRight(Entity entity, World world){
+        return col.canMoveRight(entity, world);
+    }
+
 }
