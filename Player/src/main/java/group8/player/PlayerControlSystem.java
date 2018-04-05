@@ -61,7 +61,7 @@ public class PlayerControlSystem implements IEntityProcessingService {
                 else
                     player.setImagePath(SpritePath.RIGHT);
             }
-            System.out.println(player.getImagePath());
+            //System.out.println(player.getImagePath());
             
             
             
@@ -82,19 +82,19 @@ public class PlayerControlSystem implements IEntityProcessingService {
         
         float x = positionPart.getX();
         float y = positionPart.getY();
-        float radians = positionPart.getRadians();
+        //float radians = positionPart.getRadians();
 
         //here we draw a rectangle for the player
         shapex[0] = (float) (x);
         shapey[0] = (float) (y);
 
         shapex[1] = (float) (x);
-        shapey[1] = (float) (y + 30);
+        shapey[1] = (float) (y + 50);
 
-        shapex[2] = (float) (x + 20);
-        shapey[2] = (float) (y + 30);
+        shapex[2] = (float) (x + 30);
+        shapey[2] = (float) (y + 50);
 
-        shapex[3] = (float) (x + 20);
+        shapex[3] = (float) (x + 30);
         shapey[3] = (float) (y);
 
         entity.setShapeX(shapex);

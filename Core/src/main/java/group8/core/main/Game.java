@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import group8.common.data.Entity;
+import group8.common.data.EntityType;
 import group8.common.data.GameData;
 import group8.common.data.World;
 import group8.common.data.entityparts.PositionPart;
@@ -40,23 +41,19 @@ public class Game implements ApplicationListener {
 
     @Override
     public void create() {
-        gameData.setDisplayWidth(Gdx.graphics.getWidth());
-        gameData.setDisplayHeight(Gdx.graphics.getHeight());
-        cam = new OrthographicCamera(gameData.getDisplayWidth(), gameData.getDisplayHeight());
-        cam.translate(gameData.getDisplayWidth() / 2, gameData.getDisplayHeight() / 2);
-        cam.update();
+        this.gameData.setDisplayHeight(Gdx.graphics.getHeight());
+        this.gameData.setDisplayWidth(Gdx.graphics.getWidth());
+        this.cam = new OrthographicCamera(this.gameData.getDisplayHeight(), this.gameData.getDisplayWidth());
+        this.cam.update();
+        this.sr = new ShapeRenderer();
 
-        sr = new ShapeRenderer();
+        Gdx.input.setInputProcessor(new GameInputProcessor(this.gameData));
 
-        Gdx.input.setInputProcessor(new GameInputProcessor(gameData));
+        this.result = this.lookup.lookupResult(IGamePluginService.class);
+        this.result.addLookupListener(lookupListener);
+        this.result.allItems();
 
-        result = lookup.lookupResult(IGamePluginService.class);
-        result.addLookupListener(lookupListener);
-        result.allItems();
-
-        texture = new Texture(Gdx.files.internal("pony.gif"));
         spriteBatch = new SpriteBatch();
-        sprite = new Sprite(texture);
 
         for (IGamePluginService plugin : result.allInstances()) {
             plugin.start(gameData, world);
@@ -73,17 +70,12 @@ public class Game implements ApplicationListener {
         // clear screen to black
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        
+        this.sr.setProjectionMatrix(cam.combined);
+        this.spriteBatch.setProjectionMatrix(cam.combined);
 
         gameData.setDelta(Gdx.graphics.getDeltaTime());
         gameData.getKeys().update();
-
-        spriteBatch.begin();
-        for (Entity entity : world.getEntities()) {
-            PositionPart part = entity.getPart(PositionPart.class);
-            spriteBatch.draw(texture, part.getX(), part.getY(), 40, 40);
-        }
-        //this.renderBackground();
-        spriteBatch.end();
 
         update();
         draw();
@@ -109,14 +101,19 @@ public class Game implements ApplicationListener {
                     j = i++) {
 
                 sr.line(shapex[i], shapey[i], shapex[j], shapey[j]);
-                
             }
-            texture = new Texture(Gdx.files.internal(entity.getImagePath()));
-        spriteBatch = new SpriteBatch();
-        
-        sprite = new Sprite(texture);
-        sprite.setRotation(80);
             sr.end();
+            
+            this.spriteBatch.begin();
+            texture = new Texture(Gdx.files.internal(entity.getImagePath()));
+            PositionPart part = entity.getPart(PositionPart.class);
+            spriteBatch.draw(texture, part.getX(), part.getY(), 35, 60);
+            if (entity.getType() == EntityType.PLAYER) {
+                cam.position.x = part.getX();
+                cam.position.y = part.getY();
+                cam.update();
+            }
+            this.spriteBatch.end();
         }
     }
 

@@ -7,11 +7,14 @@ package group8.player;
 
 
 import group8.common.data.Entity; 
+import group8.common.data.EntityType;
 
 /**
  *
  * @author matiasmarek
  */
 public class Player extends Entity{
-    
+    public Player () {
+        this.setType(EntityType.PLAYER);
+    }
 }

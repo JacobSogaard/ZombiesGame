@@ -57,7 +57,4 @@ public class PositionPart implements EntityPart {
     public void process(GameData gameData, Entity entity) {
     }
     
-    
-    
-    
 }
