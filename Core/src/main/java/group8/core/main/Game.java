@@ -27,6 +27,7 @@ import org.openide.util.LookupListener;
 
 public class Game implements ApplicationListener {
 
+    private static final String MAP_IMG = "Images/BaseMap/GrassField.png";
     private static OrthographicCamera cam;
     private ShapeRenderer sr;
     private final Lookup lookup = Lookup.getDefault();
@@ -35,25 +36,31 @@ public class Game implements ApplicationListener {
     private List<IGamePluginService> gamePlugins = new CopyOnWriteArrayList<>();
     private Lookup.Result<IGamePluginService> result;
     public static Texture texture;
+    private static Texture texture1;
     public static Sprite sprite;
     private SpriteBatch spriteBatch;
     private ArrayList<SpriteBatch> mapObjects;
 
     @Override
     public void create() {
+        
         this.gameData.setDisplayHeight(Gdx.graphics.getHeight());
         this.gameData.setDisplayWidth(Gdx.graphics.getWidth());
-        this.cam = new OrthographicCamera(this.gameData.getDisplayHeight(), this.gameData.getDisplayWidth());
-        this.cam.update();
+        
+        this.cam = new OrthographicCamera(this.gameData.getDisplayHeight()*1.2f, this.gameData.getDisplayWidth()*1.2f);
+        
         this.sr = new ShapeRenderer();
-
         Gdx.input.setInputProcessor(new GameInputProcessor(this.gameData));
-
+        
         this.result = this.lookup.lookupResult(IGamePluginService.class);
         this.result.addLookupListener(lookupListener);
         this.result.allItems();
 
         spriteBatch = new SpriteBatch();
+        texture1 = new Texture(Gdx.files.internal(MAP_IMG));
+        
+        sprite = new Sprite(texture1);
+        //this.renderBackground();
 
         for (IGamePluginService plugin : result.allInstances()) {
             plugin.start(gameData, world);
@@ -62,7 +69,9 @@ public class Game implements ApplicationListener {
     }
 
     public void renderBackground() {
+        this.spriteBatch.begin();
         sprite.draw(spriteBatch);
+        this.spriteBatch.end();
     }
 
     @Override
@@ -73,6 +82,9 @@ public class Game implements ApplicationListener {
         
         this.sr.setProjectionMatrix(cam.combined);
         this.spriteBatch.setProjectionMatrix(cam.combined);
+        
+        this.renderBackground();
+       
 
         gameData.setDelta(Gdx.graphics.getDeltaTime());
         gameData.getKeys().update();
@@ -116,6 +128,8 @@ public class Game implements ApplicationListener {
             this.spriteBatch.end();
         }
     }
+    
+    
 
     @Override
     public void resize(int width, int height) {

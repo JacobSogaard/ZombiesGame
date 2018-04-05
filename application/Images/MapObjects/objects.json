@@ -1,6 +1,6 @@
 [
 {
-	"imagePath" : "Images/MapObjects/art.png",
+	"imagePath" : "Images/MapObjects/Tree1.png",
 	"xCoor" : 250,
 	"yCoor" : 200,
 	"height" : 58.0,
@@ -8,7 +8,7 @@
 },
 
 {
-	"imagePath" : "Images/MapObjects/art.png",
+	"imagePath" : "Images/MapObjects/Tree2.png",
 	"xCoor" : 100,
 	"yCoor" : 280,
 	"height" : 58.0,
@@ -16,7 +16,7 @@
 },
 
 {
-	"imagePath" : "Images/MapObjects/art.png",
+	"imagePath" : "Images/MapObjects/Tree2.png",
 	"xCoor" : 200,
 	"yCoor" : 100,
 	"height" : 58.0,
@@ -24,7 +24,7 @@
 },
 
 {
-	"imagePath" : "Images/MapObjects/art.png",
+	"imagePath" : "Images/MapObjects/Tree1.png",
 	"xCoor" : 20,
 	"yCoor" : 87,
 	"height" : 58.0,
@@ -32,7 +32,7 @@
 },
 
 {
-	"imagePath" : "Images/MapObjects/art.png",
+	"imagePath" : "Images/MapObjects/Tree1.png",
 	"xCoor" : 450,
 	"yCoor" : 400,
 	"height" : 58.0,
