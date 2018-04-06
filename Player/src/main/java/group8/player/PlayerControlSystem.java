@@ -79,7 +79,6 @@ public class PlayerControlSystem implements IEntityProcessingService {
                 } else if (andDown) {
                     player.setImagePath(SpritePath.DOWNRIGHT);
                 }
-
                 movingPart.setRight(this.col.canMoveRight(player, world));
             }
 
