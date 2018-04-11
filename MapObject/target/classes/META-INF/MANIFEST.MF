@@ -1,18 +1,19 @@
 Manifest-Version: 1.0
 OpenIDE-Module-Localizing-Bundle: group8/map/Bundle.properties
 OpenIDE-Module-Specification-Version: 1.0
-OpenIDE-Module-Implementation-Version: 1.0-20180403
-OpenIDE-Module-Build-Version: 201804031024
-OpenIDE-Module: Group8.Map
+OpenIDE-Module-Implementation-Version: 1.0-20180411
+OpenIDE-Module-Build-Version: 201804110655
+OpenIDE-Module: Group8.MapObject
 OpenIDE-Module-Public-Packages: -
 OpenIDE-Module-Requires: org.openide.modules.ModuleFormat1
 OpenIDE-Module-Display-Category: Group8
-OpenIDE-Module-Name: Map
+OpenIDE-Module-Name: MapObject
 OpenIDE-Module-Short-Description: <undefined>
 OpenIDE-Module-Long-Description: <undefined>
-X-Class-Path: ext/Group8.Map/com-fasterxml-jackson-core/jackson-databi
- nd.jar ext/Group8.Map/com-fasterxml-jackson-core/jackson-annotations.
- jar ext/Group8.Map/com-fasterxml-jackson-core/jackson-core.jar
+X-Class-Path: ext/Group8.MapObject/com-fasterxml-jackson-core/jackson-
+ databind.jar ext/Group8.MapObject/com-fasterxml-jackson-core/jackson-
+ annotations.jar ext/Group8.MapObject/com-fasterxml-jackson-core/jacks
+ on-core.jar
 Maven-Class-Path: com.fasterxml.jackson.core:jackson-databind:2.9.0 co
  m.fasterxml.jackson.core:jackson-annotations:2.9.0 com.fasterxml.jack
  son.core:jackson-core:2.9.0

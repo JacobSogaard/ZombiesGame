@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import group8.common.data.Entity;
+import group8.common.data.EntityType;
 import group8.common.data.GameData;
 import group8.common.data.World;
 import group8.common.data.entityparts.PositionPart;
@@ -26,6 +27,7 @@ import org.openide.util.LookupListener;
 
 public class Game implements ApplicationListener {
 
+    private static final String MAP_IMG = "Images/BaseMap/GrassField.png";
     private static OrthographicCamera cam;
     private ShapeRenderer sr;
     private final Lookup lookup = Lookup.getDefault();
@@ -34,29 +36,32 @@ public class Game implements ApplicationListener {
     private List<IGamePluginService> gamePlugins = new CopyOnWriteArrayList<>();
     private Lookup.Result<IGamePluginService> result;
     public static Texture texture;
+    private static Texture texture1;
     public static Sprite sprite;
     private SpriteBatch spriteBatch;
     private ArrayList<SpriteBatch> mapObjects;
-
+    
+    
     @Override
     public void create() {
-        gameData.setDisplayWidth(Gdx.graphics.getWidth());
-        gameData.setDisplayHeight(Gdx.graphics.getHeight());
-        cam = new OrthographicCamera(gameData.getDisplayWidth(), gameData.getDisplayHeight());
-        cam.translate(gameData.getDisplayWidth() / 2, gameData.getDisplayHeight() / 2);
-        cam.update();
+        
+        this.gameData.setDisplayHeight(Gdx.graphics.getHeight());
+        this.gameData.setDisplayWidth(Gdx.graphics.getWidth());
+        
+        this.cam = new OrthographicCamera(this.gameData.getDisplayHeight()*1.2f, this.gameData.getDisplayWidth()*1.2f);
+        
+        this.sr = new ShapeRenderer();
+        Gdx.input.setInputProcessor(new GameInputProcessor(this.gameData));
+        
+        this.result = this.lookup.lookupResult(IGamePluginService.class);
+        this.result.addLookupListener(lookupListener);
+        this.result.allItems();
 
-        sr = new ShapeRenderer();
-
-        Gdx.input.setInputProcessor(new GameInputProcessor(gameData));
-
-        result = lookup.lookupResult(IGamePluginService.class);
-        result.addLookupListener(lookupListener);
-        result.allItems();
-
-        texture = new Texture(Gdx.files.internal("pony.gif"));
         spriteBatch = new SpriteBatch();
-        sprite = new Sprite(texture);
+        texture1 = new Texture(Gdx.files.internal(MAP_IMG));
+        
+        sprite = new Sprite(texture1);
+        //this.renderBackground();
 
         for (IGamePluginService plugin : result.allInstances()) {
             plugin.start(gameData, world);
@@ -65,7 +70,9 @@ public class Game implements ApplicationListener {
     }
 
     public void renderBackground() {
+        this.spriteBatch.begin();
         sprite.draw(spriteBatch);
+        this.spriteBatch.end();
     }
 
     @Override
@@ -73,20 +80,30 @@ public class Game implements ApplicationListener {
         // clear screen to black
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        
+        this.sr.setProjectionMatrix(cam.combined);
+        this.spriteBatch.setProjectionMatrix(cam.combined);
+        
+        this.renderBackground();
+        
+        for (Entity e : world.getEntities()) {
+            PositionPart part = e.getPart(PositionPart.class);
+            this.drawShapes(e);
+            this.drawImg(e, part);
+            if (e.getType() == EntityType.PLAYER) {
+                cam.position.set(part.getX(), part.getY(),0);
+                cam.update();
+            }
+        }
+       
 
         gameData.setDelta(Gdx.graphics.getDeltaTime());
         gameData.getKeys().update();
-
         spriteBatch.begin();
-        for (Entity entity : world.getEntities()) {
-            PositionPart part = entity.getPart(PositionPart.class);
-            spriteBatch.draw(texture, part.getX(), part.getY(), 40, 40);
-        }
         //this.renderBackground();
         spriteBatch.end();
 
         update();
-        draw();
     }
 
     private void update() {
@@ -96,10 +113,9 @@ public class Game implements ApplicationListener {
         }
 
     }
-
-    private void draw() {
-        for (Entity entity : world.getEntities()) {
-             sr.setColor(1, 1, 1, 1);
+    
+    private void drawShapes(Entity entity) {
+            sr.setColor(1, 1, 1, 1);
             sr.begin(ShapeRenderer.ShapeType.Line);
             float[] shapex = entity.getShapeX();
             float[] shapey = entity.getShapeY();
@@ -109,15 +125,19 @@ public class Game implements ApplicationListener {
                     j = i++) {
 
                 sr.line(shapex[i], shapey[i], shapex[j], shapey[j]);
-                
             }
-            texture = new Texture(Gdx.files.internal(entity.getImagePath()));
-        spriteBatch = new SpriteBatch();
-        
-        sprite = new Sprite(texture);
-        sprite.setRotation(80);
             sr.end();
-        }
+    }
+    
+    private void drawImg(Entity entity, PositionPart part) {
+        this.spriteBatch.begin();
+        texture = new Texture(Gdx.files.internal(entity.getImagePath()));
+        spriteBatch.draw(texture, part.getX(), part.getY(), entity.getWidth(), entity.getHeight());
+        this.spriteBatch.end();
+    }
+    
+    private void setCamFollowPlayer() {
+        
     }
 
     @Override
