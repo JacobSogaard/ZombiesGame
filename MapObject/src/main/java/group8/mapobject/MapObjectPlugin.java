@@ -71,6 +71,7 @@ public class MapObjectPlugin implements IGamePluginService, IMapCollision {
                 for (int i = 0; i < 10; i++) {
                 MapObject map = new MapObject();
                 map.add(new PositionPart(map.getXCoor(), map.getYCoor(), 0));
+                map.setImagePath("Images/MapObjects/Tree1.png");
                 world.addEntity(this.initMap(map));
                 System.out.println();
                 }
