@@ -70,6 +70,7 @@ public class MapObjectPlugin implements IGamePluginService, IMapCollision {
             for (Entity m : mapObjects) {
                 MapObject map = (MapObject) m;
                 map.add(new PositionPart(map.getxCoor(), map.getyCoor(), 0));
+                
                 world.addEntity(this.initMap(map));
             }
         } catch (IOException ex) {
