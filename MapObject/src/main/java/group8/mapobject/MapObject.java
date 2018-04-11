@@ -17,7 +17,7 @@ import java.util.Random;
  */
 public class MapObject extends Entity implements Serializable {
     private float xCoor, yCoor;
-    private int[] xSizes, ySizes;
+    private int[] xSizes = {20, 40, 60}, ySizes = {80, 100, 110};
     
     public MapObject() {
         this.setType(EntityType.MAPOBJECT);
