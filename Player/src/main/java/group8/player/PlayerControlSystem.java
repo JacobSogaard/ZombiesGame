@@ -60,20 +60,12 @@ public class PlayerControlSystem implements IEntityProcessingService {
                     andDown = true;
                 }
             }
-<<<<<<< HEAD
-            
-            if (movingPart.setLeft(gameData.getKeys().isDown(GameKeys.LEFT))) {
-                if (andUp)
-                player.setImagePath(SpritePath.UPLEFT);
-                else if (andDown)
-=======
 
             if (gameData.getKeys().isDown(GameKeys.LEFT)) {
                 player.setImagePath(SpritePath.LEFT);
                 if (andUp) {
                     player.setImagePath(SpritePath.UPLEFT);
                 } else if (andDown) {
->>>>>>> 809384f3784ea950ad1b9b5d401e5d362c1c9d3f
                     player.setImagePath(SpritePath.DOWNLEFT);
                 }
                 movingPart.setLeft(this.col.canMoveLeft(player, world));
