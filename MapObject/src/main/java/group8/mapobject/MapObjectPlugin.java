@@ -68,32 +68,35 @@ public class MapObjectPlugin implements IGamePluginService, IMapCollision {
             this.mapObjects = objectMapper.readValue(is, new TypeReference<List<MapObject>>() {
             });
             for (Entity m : mapObjects) {
-                MapObject map = (MapObject) m;
-                map.add(new PositionPart(map.getxCoor(), map.getyCoor(), 0));
+                for (int i = 0; i < 10; i++) {
+                MapObject map = new MapObject();
+                map.add(new PositionPart(map.getXCoor(), map.getYCoor(), 0));
                 world.addEntity(this.initMap(map));
+                System.out.println();
+                }
             }
         } catch (IOException ex) {
             Logger.getLogger(MapObjectPlugin.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
     
-    private void setShapeX(MapObject map){
-                float[] shapeX = {
-                    map.getxCoor() - map.getWidth()/2,
-                    map.getxCoor() - map.getWidth()/2,
-                    map.getxCoor() - map.getWidth()/2,
-                    map.getxCoor() - map.getWidth()/2};
-                map.setShapeX(shapeX);
+    private void setShapeX(MapObject mapObject){
+        float[] shapeX = {
+            mapObject.getXCoor(),
+            mapObject.getXCoor(),
+            mapObject.getXCoor() + mapObject.getXSize(),
+            mapObject.getXCoor() + mapObject.getXSize()};
+            mapObject.setShapeX(shapeX);
     }
     
-    private void setShapeY(MapObject map){
+    private void setShapeY(MapObject mapObject){
         float[] shapeY = {
-                    map.getyCoor() - map.getHeight()/2,
-                    map.getyCoor() - map.getHeight()/2,
-                    map.getyCoor() - map.getHeight()/2,
-                    map.getyCoor() - map.getHeight()/2};
-                map.setShapeY(shapeY);
+            mapObject.getYCoor(),
+            mapObject.getYCoor() + mapObject.getYSize(),
+            mapObject.getYCoor() + mapObject.getYSize(),
+            mapObject.getYCoor()
+        };
+            mapObject.setShapeY(shapeY);
     }
     
     private MapObject initMap(MapObject map){
@@ -101,8 +104,6 @@ public class MapObjectPlugin implements IGamePluginService, IMapCollision {
         this.setShapeY(map);
         return map;
     }
-    
-    
 
     @Override
     public ArrayList<Entity> getMapObjects() {

@@ -44,7 +44,7 @@ public class PlayerControlSystem implements IEntityProcessingService {
                 andDown = true;
             }
             
-            if (movingPart.setLeft(gameData.getKeys().isDown(GameKeys.LEFT))){
+            if (movingPart.setLeft(gameData.getKeys().isDown(GameKeys.LEFT))) {
                 if (andUp)
                 player.setImagePath(SpritePath.UPLEFT);
                 else if (andDown)
@@ -89,12 +89,12 @@ public class PlayerControlSystem implements IEntityProcessingService {
         shapey[0] = (float) (y);
 
         shapex[1] = (float) (x);
-        shapey[1] = (float) (y + 50);
+        shapey[1] = (float) (y + 70);
 
-        shapex[2] = (float) (x + 30);
-        shapey[2] = (float) (y + 50);
+        shapex[2] = (float) (x + 40);
+        shapey[2] = (float) (y + 70);
 
-        shapex[3] = (float) (x + 30);
+        shapex[3] = (float) (x + 40);
         shapey[3] = (float) (y);
 
         entity.setShapeX(shapex);

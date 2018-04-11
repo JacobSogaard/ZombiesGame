@@ -16,6 +16,7 @@ public class Entity implements Serializable {
     private float radius;
     private Map<Class, EntityPart> parts;
     private String imagePath;
+    private float height = 0, width = 0;
     
     public Entity() {
         parts = new ConcurrentHashMap<>();
@@ -51,6 +52,10 @@ public class Entity implements Serializable {
 
     public void setShapeX(float[] shapeX) {
         this.shapeX = shapeX;
+        if (this.height == 0) {
+            this.setHeight();
+            this.setWidth();
+        }
     }
 
     public float[] getShapeY() {
@@ -59,6 +64,16 @@ public class Entity implements Serializable {
 
     public void setShapeY(float[] shapeY) {
         this.shapeY = shapeY;
+    }
+    
+    private void setHeight() {
+        this.height = this.shapeY[1] - this.shapeY[0];
+        System.out.println("Højde: " + this.height);
+    }
+    
+    private void setWidth() {
+        this.width = this.shapeX[3] - this.shapeX[0];
+        System.out.println("Bredde: " + this.width);
     }
 
     /**
@@ -87,5 +102,13 @@ public class Entity implements Serializable {
      */
     public void setType(EntityType type) {
         this.type = type;
+    }
+    
+    public float getHeight() {
+        return this.height;
+    }
+    
+    public float getWidth() {
+        return this.width;
     }
 }

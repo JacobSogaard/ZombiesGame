@@ -89,7 +89,9 @@ public class MovingPart implements EntityPart {
         
         
         
-         
+         /*
+        FIXTHIS!!!!!!!!!!!!!!!!!!!!!
+        */
         //Backup for Collision
         //Stops the player for moving out of the map and make him stand still.
         if (x >= gameData.getDisplayWidth()*2-30) {

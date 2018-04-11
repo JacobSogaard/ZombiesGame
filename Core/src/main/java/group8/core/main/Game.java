@@ -84,13 +84,22 @@ public class Game implements ApplicationListener {
         this.spriteBatch.setProjectionMatrix(cam.combined);
         
         this.renderBackground();
+        
+        for (Entity e : world.getEntities()) {
+            PositionPart part = e.getPart(PositionPart.class);
+            this.drawShapes(e);
+            this.drawImg(e, part);
+            if (e.getType() == EntityType.PLAYER) {
+                cam.position.set(part.getX(), part.getY(),0);
+                cam.update();
+            }
+        }
        
 
         gameData.setDelta(Gdx.graphics.getDeltaTime());
         gameData.getKeys().update();
 
         update();
-        draw();
     }
 
     private void update() {
@@ -100,10 +109,9 @@ public class Game implements ApplicationListener {
         }
 
     }
-
-    private void draw() {
-        for (Entity entity : world.getEntities()) {
-             sr.setColor(1, 1, 1, 1);
+    
+    private void drawShapes(Entity entity) {
+            sr.setColor(1, 1, 1, 1);
             sr.begin(ShapeRenderer.ShapeType.Line);
             float[] shapex = entity.getShapeX();
             float[] shapey = entity.getShapeY();
@@ -115,21 +123,18 @@ public class Game implements ApplicationListener {
                 sr.line(shapex[i], shapey[i], shapex[j], shapey[j]);
             }
             sr.end();
-            
-            this.spriteBatch.begin();
-            texture = new Texture(Gdx.files.internal(entity.getImagePath()));
-            PositionPart part = entity.getPart(PositionPart.class);
-            spriteBatch.draw(texture, part.getX(), part.getY(), 35, 60);
-            if (entity.getType() == EntityType.PLAYER) {
-                cam.position.x = part.getX();
-                cam.position.y = part.getY();
-                cam.update();
-            }
-            this.spriteBatch.end();
-        }
     }
     
+    private void drawImg(Entity entity, PositionPart part) {
+        this.spriteBatch.begin();
+        texture = new Texture(Gdx.files.internal(entity.getImagePath()));
+        spriteBatch.draw(texture, part.getX(), part.getY(), entity.getWidth(), entity.getHeight());
+        this.spriteBatch.end();
+    }
     
+    private void setCamFollowPlayer() {
+        
+    }
 
     @Override
     public void resize(int width, int height) {
