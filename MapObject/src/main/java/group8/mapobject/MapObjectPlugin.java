@@ -68,9 +68,15 @@ public class MapObjectPlugin implements IGamePluginService, IMapCollision {
             this.mapObjects = objectMapper.readValue(is, new TypeReference<List<MapObject>>() {
             });
             for (Entity m : mapObjects) {
+<<<<<<< HEAD
                 for (int i = 0; i < 10; i++) {
                 MapObject map = new MapObject();
                 map.add(new PositionPart(map.getXCoor(), map.getYCoor(), 0));
+=======
+                MapObject map = (MapObject) m;
+                map.add(new PositionPart(map.getxCoor(), map.getyCoor(), 0));
+                
+>>>>>>> 809384f3784ea950ad1b9b5d401e5d362c1c9d3f
                 world.addEntity(this.initMap(map));
                 System.out.println();
                 }

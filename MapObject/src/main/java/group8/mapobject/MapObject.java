@@ -6,6 +6,7 @@
 package group8.mapobject;
 
 import group8.common.data.Entity;
+import group8.common.data.EntityType;
 
 import java.io.Serializable;
 import java.util.Random;
@@ -31,6 +32,9 @@ public class MapObject extends Entity implements Serializable {
         return this.ySizes[new Random().nextInt(3)];
     }
 
+    public MapObject(){
+        this.setType(EntityType.MAPOBJECT);
+    }
     /**
      * @return the xCoor
      */

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><module codename="Group8.Player">
-    <module_version install_time="1522931934728" last="true" origin="installer" specification_version="1.0">
+    <module_version install_time="1522933468453" last="true" origin="installer" specification_version="1.0">
         <file crc="915457993" name="config/Modules/Group8-Player.xml"/>
-        <file crc="3994936934" name="modules/Group8-Player.jar"/>
+        <file crc="863487590" name="modules/Group8-Player.jar"/>
     </module_version>
 </module>

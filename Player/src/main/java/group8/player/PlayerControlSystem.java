@@ -4,82 +4,113 @@
  * and open the template in the editor.
  */
 package group8.player;
+
 import group8.common.data.Entity;
+import group8.common.data.EntityType;
 import group8.common.data.GameData;
 import group8.common.data.World;
 import group8.common.data.entityparts.MovingPart;
 import group8.common.data.entityparts.PositionPart;
 import group8.common.services.IEntityProcessingService;
 import group8.common.data.GameKeys;
+import group8.common.services.CollisionRequestServiceImpl;
+import group8.common.services.ICollisionRequestService;
 import group8.common.services.IGamePluginService;
 import group8.player.SpritePath2;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
 
-@ServiceProviders(value = {@ServiceProvider(service = IEntityProcessingService.class)})
+@ServiceProviders(value = {
+    @ServiceProvider(service = IEntityProcessingService.class)})
 
 /**
  *
  * @author matiasmarek
  */
 public class PlayerControlSystem implements IEntityProcessingService {
-    
-    
+
+    private CollisionRequestServiceImpl col = CollisionRequestServiceImpl.getInstance();
+    private boolean canMoveUp = true;
+    private boolean canMoveDown = true;
+    private boolean canMoveLeft = true;
+    private boolean canMoveRight = true;
+
     @Override
     public void process(GameData gameData, World world) {
+
         for (Entity player : world.getEntities(Player.class)) {
+
             PositionPart positionPart = player.getPart(PositionPart.class);
             MovingPart movingPart = player.getPart(MovingPart.class);
-            
+
             boolean andUp = false, andDown = false;
-            
-            
-            if (movingPart.setUp(gameData.getKeys().isDown(GameKeys.UP))) {
+
+            if (gameData.getKeys().isDown(GameKeys.UP)) {
                 player.setImagePath(SpritePath.UP);
-                andUp = true;
+
+                if (movingPart.setUp(this.col.canMoveUp(player, world))) {
+                    andUp = true;
+                }
             }
-            
-            if (movingPart.setDown(gameData.getKeys().isDown(GameKeys.DOWN))) {
+
+            if (gameData.getKeys().isDown(GameKeys.DOWN)) {
                 player.setImagePath(SpritePath.DOWN);
-                andDown = true;
+
+                if (movingPart.setDown(this.col.canMoveDown(player, world))) {
+                    andDown = true;
+                }
             }
+<<<<<<< HEAD
             
             if (movingPart.setLeft(gameData.getKeys().isDown(GameKeys.LEFT))) {
                 if (andUp)
                 player.setImagePath(SpritePath.UPLEFT);
                 else if (andDown)
+=======
+
+            if (gameData.getKeys().isDown(GameKeys.LEFT)) {
+                player.setImagePath(SpritePath.LEFT);
+                if (andUp) {
+                    player.setImagePath(SpritePath.UPLEFT);
+                } else if (andDown) {
+>>>>>>> 809384f3784ea950ad1b9b5d401e5d362c1c9d3f
                     player.setImagePath(SpritePath.DOWNLEFT);
-                else
-                    player.setImagePath(SpritePath.LEFT);
+                }
+                movingPart.setLeft(this.col.canMoveLeft(player, world));
             }
-            
-            if (movingPart.setRight(gameData.getKeys().isDown(GameKeys.RIGHT))) {
-                if (andUp)
+
+            if (gameData.getKeys().isDown(GameKeys.RIGHT)) {
+                player.setImagePath(SpritePath.RIGHT);
+
+                if (andUp) {
                     player.setImagePath(SpritePath.UPRIGHT);
-                else if (andDown)
+                } else if (andDown) {
                     player.setImagePath(SpritePath.DOWNRIGHT);
-                else
-                    player.setImagePath(SpritePath.RIGHT);
+                }
+                movingPart.setRight(this.col.canMoveRight(player, world));
             }
-            //System.out.println(player.getImagePath());
-            
-            
-            
+
             movingPart.process(gameData, player);
             positionPart.process(gameData, player);
-            
 
             updateShape(player);
+
+            movingPart.setUp(false);
+            movingPart.setDown(false);
+            movingPart.setLeft(false);
+            movingPart.setRight(false);
         }
     }
-    
-    
+
+    private void colide(Entity player, int direction) {
+
+    }
 
     private void updateShape(Entity entity) {
         float[] shapex = entity.getShapeX();
         float[] shapey = entity.getShapeY();
         PositionPart positionPart = entity.getPart(PositionPart.class);
-        
+
         float x = positionPart.getX();
         float y = positionPart.getY();
         //float radians = positionPart.getRadians();
@@ -100,10 +131,5 @@ public class PlayerControlSystem implements IEntityProcessingService {
         entity.setShapeX(shapex);
         entity.setShapeY(shapey);
     }
-    
-
-    
 
 }
-
-
