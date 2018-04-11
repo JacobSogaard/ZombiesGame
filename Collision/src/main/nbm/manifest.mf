@@ -1,3 +1,4 @@
 Manifest-Version: 1.0
+OpenIDE-Module-Install: group8/collision/Installer.class
 OpenIDE-Module-Localizing-Bundle: group8/collision/Bundle.properties
 

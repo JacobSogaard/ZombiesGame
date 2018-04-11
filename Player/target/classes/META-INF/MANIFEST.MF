@@ -1,8 +1,9 @@
 Manifest-Version: 1.0
+OpenIDE-Module-Install: group8/player/Installer.class
 OpenIDE-Module-Localizing-Bundle: group8/player/Bundle.properties
 OpenIDE-Module-Specification-Version: 1.0
 OpenIDE-Module-Implementation-Version: 1.0-20180411
-OpenIDE-Module-Build-Version: 201804110655
+OpenIDE-Module-Build-Version: 201804110823
 OpenIDE-Module: Group8.Player
 OpenIDE-Module-Public-Packages: -
 OpenIDE-Module-Requires: org.openide.modules.ModuleFormat1
@@ -11,5 +12,6 @@ OpenIDE-Module-Name: Player
 OpenIDE-Module-Short-Description: <undefined>
 OpenIDE-Module-Long-Description: <undefined>
 OpenIDE-Module-Module-Dependencies: org.netbeans.api.annotations.commo
- n/1 > 1.27.1, org.openide.util.lookup > 8.33.1, Group8.Common > 1.0
+ n/1 > 1.27.1, org.openide.util.lookup > 8.33.1, Group8.Common > 1.0, 
+ org.openide.modules > 7.48.1, org.openide.util.ui > 9.6.1
 
