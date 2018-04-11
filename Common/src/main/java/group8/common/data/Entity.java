@@ -13,7 +13,7 @@ public class Entity implements Serializable {
 
     private float[] shapeX = new float[4];
     private float[] shapeY = new float[4];
-    private float radius, height, width;
+    private float radius;
     private Map<Class, EntityPart> parts;
     private String imagePath;
     private float height = 0, width = 0;
@@ -103,15 +103,6 @@ public class Entity implements Serializable {
     public void setType(EntityType type) {
         this.type = type;
     }
-<<<<<<< HEAD
-    
-    public float getHeight() {
-        return this.height;
-    }
-    
-    public float getWidth() {
-        return this.width;
-=======
 
     /**
      * @return the height
@@ -139,6 +130,5 @@ public class Entity implements Serializable {
      */
     public void setWidth(float width) {
         this.width = width;
->>>>>>> 809384f3784ea950ad1b9b5d401e5d362c1c9d3f
     }
 }
