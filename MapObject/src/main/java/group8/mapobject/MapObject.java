@@ -20,6 +20,7 @@ public class MapObject extends Entity implements Serializable {
     private int[] xSizes, ySizes;
     
     public MapObject() {
+        this.setType(EntityType.MAPOBJECT);
         this.xCoor = new Random().nextInt(1500) + 50;
         this.yCoor = new Random().nextInt(1100) + 50;
     }
@@ -31,10 +32,7 @@ public class MapObject extends Entity implements Serializable {
     public float getYSize() {
         return this.ySizes[new Random().nextInt(3)];
     }
-
-    public MapObject(){
-        this.setType(EntityType.MAPOBJECT);
-    }
+    
     /**
      * @return the xCoor
      */
