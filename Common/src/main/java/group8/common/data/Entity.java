@@ -68,12 +68,10 @@ public class Entity implements Serializable {
     
     private void setHeight() {
         this.height = this.shapeY[1] - this.shapeY[0];
-        System.out.println("Højde: " + this.height);
     }
     
     private void setWidth() {
         this.width = this.shapeX[3] - this.shapeX[0];
-        System.out.println("Bredde: " + this.width);
     }
 
     /**

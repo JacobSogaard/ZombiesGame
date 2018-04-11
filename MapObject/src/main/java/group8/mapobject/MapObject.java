@@ -9,6 +9,7 @@ import group8.common.data.Entity;
 import group8.common.data.EntityType;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -17,20 +18,52 @@ import java.util.Random;
  */
 public class MapObject extends Entity implements Serializable {
     private float xCoor, yCoor;
-    private int[] xSizes = {20, 40, 60}, ySizes = {80, 100, 110};
+    private int[] xSizes, ySizes, size;
+    private SpritePath mapType;
     
     public MapObject() {
         this.setType(EntityType.MAPOBJECT);
-        this.xCoor = new Random().nextInt(1500) + 50;
-        this.yCoor = new Random().nextInt(1100) + 50;
+        this.xCoor = new Random().nextInt(1400) + 100;
+        this.yCoor = new Random().nextInt(1000) + 100;
+        this.setType();
+        this.setSizes();
+        this.setSize();
+    }
+    
+    private void setType() {
+        Random rnd = new Random();
+        int chosen = rnd.nextInt(SpritePath.values().length);
+        this.mapType = SpritePath.values()[chosen];
+    }
+    
+    private void setSizes() {
+        switch (this.mapType) {
+            case TREE1: 
+                this.xSizes = new int[] {50, 55, 60};
+                this.ySizes = new int[] {88, 100, 120};
+                break;
+            case TREE2:
+                this.xSizes = new int[] {50, 55, 60};
+                this.ySizes = new int[] {88, 100, 120};
+                break;
+            case ROCK1:
+                this.xSizes = new int[] {20, 28};
+                this.ySizes = new int[] {25, 33};
+                break;
+        }
+    }
+    
+    private void setSize() {
+        int chosen = new Random().nextInt(this.xSizes.length);
+        this.size = new int[] {this.xSizes[chosen], this.ySizes[chosen]};
     }
    
     public float getXSize() {
-        return this.xSizes[new Random().nextInt(3)];
+        return this.size[0];
     }
     
     public float getYSize() {
-        return this.ySizes[new Random().nextInt(3)];
+        return this.size[1];
     }
     
     /**
@@ -60,11 +93,6 @@ public class MapObject extends Entity implements Serializable {
     public void setYCoor(int yCoor) {
         this.yCoor = yCoor;
     }
-    
-    public void setXYCoor() {
-        this.xCoor = new Random().nextInt(1500) + 50;
-        this.yCoor = new Random().nextInt(1100) + 50;
-    }
 
     /**
      * @return the xSizes
@@ -92,5 +120,9 @@ public class MapObject extends Entity implements Serializable {
      */
     public void setYSizes(int[] ySizes) {
         this.ySizes = ySizes;
+    }
+    
+    public SpritePath getMapType() {
+        return this.mapType;
     }
 }
