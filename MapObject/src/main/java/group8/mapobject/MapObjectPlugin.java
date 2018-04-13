@@ -23,6 +23,7 @@ import static java.lang.System.in;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.openide.util.lookup.ServiceProvider;
@@ -59,8 +60,17 @@ public class MapObjectPlugin implements IGamePluginService, IMapCollision {
     private void clearMap() {
         this.mapObjects.clear();
     }
-
+    
     private void createMapObject(World world) {
+        for (int i = 0; i < 40; i++) {
+            MapObject map = new MapObject();
+            map.add(new PositionPart(map.getXCoor(), map.getYCoor(), 0));
+            map.setImagePath(map.getMapType().toString());
+            world.addEntity(this.initMap(map));
+        }
+    }
+
+    private void createMapObjectJSON(World world) {
 
         try {
             final InputStream is = new FileInputStream(MAPOBJECTSPATH);
@@ -81,16 +91,18 @@ public class MapObjectPlugin implements IGamePluginService, IMapCollision {
         }
     }
     
-    private void setShapeX(MapObject mapObject){
+    private MapObject setShapeX(MapObject mapObject){
         float[] shapeX = {
             mapObject.getXCoor(),
             mapObject.getXCoor(),
             mapObject.getXCoor() + mapObject.getXSize(),
-            mapObject.getXCoor() + mapObject.getXSize()};
+            mapObject.getXCoor() + mapObject.getXSize()
+        };
             mapObject.setShapeX(shapeX);
+            return mapObject;
     }
     
-    private void setShapeY(MapObject mapObject){
+    private MapObject setShapeY(MapObject mapObject){
         float[] shapeY = {
             mapObject.getYCoor(),
             mapObject.getYCoor() + mapObject.getYSize(),
@@ -98,12 +110,13 @@ public class MapObjectPlugin implements IGamePluginService, IMapCollision {
             mapObject.getYCoor()
         };
             mapObject.setShapeY(shapeY);
+            return mapObject;
     }
     
     private MapObject initMap(MapObject map){
         this.setShapeX(map);
         this.setShapeY(map);
-        return map;
+        return this.setShapeY(this.setShapeX(map));
     }
 
     @Override

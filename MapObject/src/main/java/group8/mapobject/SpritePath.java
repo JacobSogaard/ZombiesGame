@@ -11,7 +11,9 @@ package group8.mapobject;
  */
 public enum SpritePath {
     
-    UP("path"), DOWN("path"), LEFT("path"), RIGHT("path");
+    TREE1("Images/MapObjects/Tree1.png"), 
+    TREE2("Images/MapObjects/Tree2.png"),
+    ROCK1("Images/MapObjects/Rock1.png");
     
     private final String path;
     

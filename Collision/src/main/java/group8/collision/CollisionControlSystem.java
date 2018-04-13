@@ -78,7 +78,6 @@ public class CollisionControlSystem implements IEntityProcessingService, ICollis
                         && entity1Rect[1] < entity2Rect[1] + entity2Rect[3]
                         && entity1Rect[3] + entity1Rect[1] > entity2Rect[1]) {
                     this.setCollisionDir(entity, e, entity1Rect, entity2Rect, dir);
-                    System.out.println("-----------------------------------------");
                 }
             }
 
@@ -158,25 +157,21 @@ public class CollisionControlSystem implements IEntityProcessingService, ICollis
             case UP:
                 if (entity1Up >= entity2Down && (entity1Rect[1] < entity2Rect[1])
                         && (entity1Right > entity2Left + 5)) {
-                    System.out.println("UP");
                     this.directionMap.put(DIRECTION.UP, false);
                 }
                 break;
             case DOWN:
                 if (entity1Down <= entity2Up && (entity1Rect[1] > entity2Rect[1])) {
-                    System.out.println("DOWN");
                     this.directionMap.put(DIRECTION.DOWN, false);
                 }
                 break;
             case LEFT:
                 if (entity1Left <= entity2Right && (entity1Rect[0] > entity2Rect[0])) {
-                    System.out.println("LEFT");
                     this.directionMap.put(DIRECTION.LEFT, false);
                 }
                 break;
             case RIGHT:
                 if (entity1Right >= entity2Left && (entity1Rect[0] < entity2Rect[0])) {
-                    System.out.println("RIGHT");
                     this.directionMap.put(DIRECTION.RIGHT, false);
                 }
                 break;
@@ -204,28 +199,27 @@ public class CollisionControlSystem implements IEntityProcessingService, ICollis
 
     private boolean getCanMove(DIRECTION dir, Entity entity, World world) {
         this.checkCollision(entity, world, dir);
-        System.out.println(this.directionMap.values());
         return (Boolean) this.directionMap.get(dir);
 
     }
 
     @Override
     public boolean canMoveUp(Entity entity, World world) {
-        return this.getCanMove(DIRECTION.UP, entity, world);
+        return true;
     }
 
     @Override
     public boolean canMoveDown(Entity entity, World world) {
-        return this.getCanMove(DIRECTION.DOWN, entity, world);
+        return true;
     }
 
     @Override
     public boolean canMoveLeft(Entity entity, World world) {
-        return this.getCanMove(DIRECTION.LEFT, entity, world);
+        return true;
     }
 
     @Override
     public boolean canMoveRight(Entity entity, World world) {
-        return this.getCanMove(DIRECTION.DOWN, entity, world);
+        return true;
     }
 }
