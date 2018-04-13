@@ -1,0 +1,12 @@
+[	{
+	"imagePath" : "Images/MapObjects/Tree1.png",
+	"xsizes" : [60, 75, 90],
+	"ysizes" : [35, 50, 65]
+	},
+
+	{
+	"imagePath" : "Images/MapObjects/Tree2.png",
+	"xsizes" : [60, 75, 90],
+	"ysizes" : [35, 50, 65]
+	}
+]

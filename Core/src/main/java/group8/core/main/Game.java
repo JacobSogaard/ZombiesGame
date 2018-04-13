@@ -134,6 +134,7 @@ public class Game implements ApplicationListener {
         texture = new Texture(Gdx.files.internal(entity.getImagePath()));
         spriteBatch.draw(texture, part.getX(), part.getY(), entity.getWidth(), entity.getHeight());
         this.spriteBatch.end();
+        texture.dispose();
     }
     
     private void setCamFollowPlayer() {
