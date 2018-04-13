@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 OpenIDE-Module-Localizing-Bundle: group8/map/Bundle.properties
 OpenIDE-Module-Specification-Version: 1.0
-OpenIDE-Module-Implementation-Version: 1.0-20180412
-OpenIDE-Module-Build-Version: 201804121018
+OpenIDE-Module-Implementation-Version: 1.0-20180413
+OpenIDE-Module-Build-Version: 201804130827
 OpenIDE-Module: Group8.MapObject
 OpenIDE-Module-Public-Packages: -
 OpenIDE-Module-Requires: org.openide.modules.ModuleFormat1
