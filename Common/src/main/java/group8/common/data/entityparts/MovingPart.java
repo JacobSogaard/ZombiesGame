@@ -68,7 +68,7 @@ public class MovingPart implements EntityPart {
         
         //Checks if the player is moving diagonally
         if(up && right || up && left || down && right || down && left){
-        tempSpeed *= 0.6;
+            tempSpeed *= 0.667;
         }
         
         //Checks which button player is pressing.
