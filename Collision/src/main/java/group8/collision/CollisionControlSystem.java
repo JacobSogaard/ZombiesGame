@@ -6,226 +6,101 @@
 package group8.collision;
 
 import group8.common.data.Entity;
-import group8.common.data.EntityType;
 import group8.common.data.GameData;
-import group8.common.data.GameKeys;
 import group8.common.data.World;
-import group8.common.data.entityparts.MovingPart;
-import group8.common.data.entityparts.PositionPart;
-import group8.common.mapcommon.IMapCollision;
-import group8.common.playercommon.IPlayerService;
 import group8.common.services.IEntityProcessingService;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
-import group8.common.services.ICollisionRequestService;
+import java.awt.Rectangle;
 
 /**
- *
- * @author jacob
+ * @author group8
  */
 @ServiceProviders(value = {
     @ServiceProvider(service = IEntityProcessingService.class)
-    ,
-    @ServiceProvider(service = ICollisionRequestService.class)
-
 })
-public class CollisionControlSystem implements IEntityProcessingService, ICollisionRequestService {
 
-    private enum DIRECTION {
-        UP, DOWN, LEFT, RIGHT;
-    }
+public class CollisionControlSystem implements IEntityProcessingService {
 
-    private Map directionMap = new HashMap();
+    
 
     @Override
     public void process(GameData gameData, World world) {
 
     }
 
-    //Method to get rectangle from an entity
-    private float[] getEntityRect(Entity entity) {
-        float x = entity.getShapeX()[0];
-        float y = entity.getShapeY()[0];
-        float width = entity.getShapeX()[3] - x;
-        float height = entity.getShapeY()[1] - y;
-        float[] entityRect = {x, y, width, height};
-        return entityRect;
+    /**
+     * This method calculates a rectangle based on a entity and returns it. 
+     * @param entity
+     * @return entityRectangle  
+     */
+    private Rectangle getEntityRect(Entity entity) {
+        //Test to see how much info we loose when converting to int. 
+        int x = (int) (entity.getShapeX()[0]); 
+        int y = (int) (entity.getShapeY()[0]);
+        int width = (int) (entity.getShapeX()[3] - x);
+        int height = (int) (entity.getShapeY()[1] - y);
+        return new Rectangle(x, y, width, height);  
     }
-
-    private boolean isSameEntity(Entity e1, Entity e2) {
-        return e1.getID().equals(e2.getID());
-
+    
+    /**
+     * Checks if two entity are of the same class. 
+     * @param entity1 
+     * @param entity2
+     * @return true if entity is the same / false if entity is not the same
+     */
+    private static boolean isSameEntity(Entity entity1, Entity entity2) {
+        return entity1.getID().equals(entity2.getID());
+        //Perhaps redundant. 
     }
-
-    private void checkCollision(Entity entity, World world, DIRECTION dir) {
-        this.directionMap.put(DIRECTION.UP, true);
-        this.directionMap.put(DIRECTION.DOWN, true);
-        this.directionMap.put(DIRECTION.LEFT, true);
-        this.directionMap.put(DIRECTION.RIGHT, true);
-
-        float[] entity1Rect = this.getEntityRect(entity);
-        for (Entity e : world.getEntities()) {
-
-            if (!this.isSameEntity(e, entity)) {
-                float[] entity2Rect = this.getEntityRect(e);
-
-                if (entity1Rect[0] < entity2Rect[0] + entity2Rect[2]
-                        && entity1Rect[0] + entity1Rect[2] > entity2Rect[0]
-                        && entity1Rect[1] < entity2Rect[1] + entity2Rect[3]
-                        && entity1Rect[3] + entity1Rect[1] > entity2Rect[1]) {
-                    this.setCollisionDir(entity, e, entity1Rect, entity2Rect, dir);
-                    System.out.println("-----------------------------------------");
-                }
+    /**
+     * Matias: 
+     * hvis vi kigger om collision for alle Zombier først, 
+     * Hvis vi kigger om collision for alle Player 
+     * Altså måske se på alle moving entity om der er collision
+     * reager på den collisoin
+     * måske gøre således at vi sender et collision objekt der indeholder relevante objekter
+     *  - eller vil dette beskade vores kobling. 
+     */
+    private void checkCollision(Entity entity, World world) {
+        //entityRectangle is a rectangle based on the enyity that moves. 
+        Rectangle movingEntityRectangle = this.getEntityRect(entity); 
+        
+        //Rectangle rectangle = this.getEntityRect(entity);
+        //Checks for all entity if they have made a collision with 
+       // Collection correctedCollection = world.getEntities();
+      //  correctedCollection.removeAll(world.getEntities(entity.getClass())); 
+        for(Entity somekindOfEntity :  world.getEntities()){
+            //If we are not looking at collision between the same object
+            if(isSameEntity(somekindOfEntity, entity)){
+             Rectangle someKindofEntityRectangle = getEntityRect(somekindOfEntity);
+             
             }
-
         }
-
-    }
-
-//    private Entity downCollision(Entity entity) {
-//        float[] entity1Rect = this.getEntityRect(entity);
+        
+//        for (Entity e : world.getEntities()) {
 //
-//        for (Entity e : this.world.getEntities()) {
 //            if (!this.isSameEntity(e, entity)) {
 //                float[] entity2Rect = this.getEntityRect(e);
 //
-//                if (entity1Rect[1] < entity2Rect[1] + entity2Rect[3]) {
-//                    System.out.println("DOWN");
-//                    return e;
+//                if (entity1Rect[0] < entity2Rect[0] + entity2Rect[2]
+//                        && entity1Rect[0] + entity1Rect[2] > entity2Rect[0]
+//                        && entity1Rect[1] < entity2Rect[1] + entity2Rect[3]
+//                        && entity1Rect[3] + entity1Rect[1] > entity2Rect[1]) {
+//                    this.setCollisionDir(entity, e, entity1Rect, entity2Rect, dir);
+//                    System.out.println("-----------------------------------------");
 //                }
 //            }
 //        }
-//        return this.noneEntity();
-//    }
-//
-//    private Entity leftCollision(Entity entity) {
-//        float[] entity1Rect = this.getEntityRect(entity);
-//
-//        for (Entity e : this.world.getEntities()) {
-//            if (!this.isSameEntity(e, entity)) {
-//                float[] entity2Rect = this.getEntityRect(e);
-//                if (entity1Rect[0] < entity1Rect[0] + entity2Rect[2]) {
-//                    System.out.println("LEFT");
-//                    return e;
-//                }
-//            }
-//        }
-//        return this.noneEntity();
-//    }
-//
-//    private Entity rightCollision(Entity entity) {
-//        float[] entity1Rect = this.getEntityRect(entity);
-//
-//        for (Entity e : this.world.getEntities()) {
-//            if (!this.isSameEntity(e, entity)) {
-//                float[] entity2Rect = this.getEntityRect(e);
-//
-//                if (entity1Rect[0] + entity1Rect[2] > entity2Rect[0]) {
-//                    System.out.println("RIGHT");
-//                    return e;
-//                }
-//            }
-//        }
-//        return this.noneEntity();
-//    }
-    private void setCollisionDir(Entity entity1, Entity entity2, float[] entity1Rect, float[] entity2Rect, DIRECTION dir) {
-
-        float entity1ShapeUp = entity1.getShapeY()[1];
-        float entity1ShapeDown = entity1.getShapeY()[0];
-        float entity1ShapeLeft = entity1.getShapeX()[0];
-        float entity1ShapeRight = entity1.getShapeX()[2];
-
-        float entity2ShapeUp = entity2.getShapeY()[1];
-        float entity2ShapeDown = entity2.getShapeY()[0];
-        float entity2ShapeLeft = entity2.getShapeX()[0];
-        float entity2ShapeRight = entity2.getShapeX()[2];
-
-        float entity1Up = entity1Rect[1] + entity1Rect[3] / 2;
-        float entity1Down = entity1Rect[3] / 2 - entity1Rect[1];
-        float entity1Left = entity1Rect[0] - entity1Rect[2] / 2;
-        float entity1Right = entity1Rect[0] + entity1Rect[2] / 2;
-
-        float entity2Up = entity2Rect[1] + entity2Rect[3] / 2;
-        float entity2Down = entity2Rect[3] / 2 - entity2Rect[1];
-        float entity2Left = entity2Rect[0] - entity2Rect[2] / 2;
-        float entity2Right = entity2Rect[0] + entity2Rect[2] / 2;
-
-        switch (dir) {
-            case UP:
-                if (entity1Up >= entity2Down && (entity1Rect[1] < entity2Rect[1])
-                        && (entity1Right > entity2Left + 5)) {
-                    System.out.println("UP");
-                    this.directionMap.put(DIRECTION.UP, false);
-                }
-                break;
-            case DOWN:
-                if (entity1Down <= entity2Up && (entity1Rect[1] > entity2Rect[1])) {
-                    System.out.println("DOWN");
-                    this.directionMap.put(DIRECTION.DOWN, false);
-                }
-                break;
-            case LEFT:
-                if (entity1Left <= entity2Right && (entity1Rect[0] > entity2Rect[0])) {
-                    System.out.println("LEFT");
-                    this.directionMap.put(DIRECTION.LEFT, false);
-                }
-                break;
-            case RIGHT:
-                if (entity1Right >= entity2Left && (entity1Rect[0] < entity2Rect[0])) {
-                    System.out.println("RIGHT");
-                    this.directionMap.put(DIRECTION.RIGHT, false);
-                }
-                break;
-
-//                //Up collision
-//                if (entity1Up >= entity2Down && (entity1Rect[1] < entity2Rect[1])
-//                        && (entity1Right > entity2Left + 5)) {
-//                    System.out.println("UP");
-//                    this.directionMap.put(DIRECTION.UP, false);
-//                } //Down collision
-//                else if (entity1Down <= entity2Up && (entity1Rect[1] > entity2Rect[1])) {
-//                    System.out.println("DOWN");
-//                    this.directionMap.put(DIRECTION.DOWN, false);
-//                } //Left collision
-//                else if (entity1Left <= entity2Right && (entity1Rect[0] > entity2Rect[0])) {
-//                    System.out.println("LEFT");
-//                    this.directionMap.put(DIRECTION.LEFT, false);
-//                } //Right collision
-//                else if (entity1Right >= entity2Left && (entity1Rect[0] < entity2Rect[0])) {
-//                    System.out.println("RIGHT");
-//                    this.directionMap.put(DIRECTION.RIGHT, false);
-//                }
-        }
+    }
+    /**
+     * Returns a new rectangle equal to a rectangle between two collided rectangles
+     * @param rectangle1
+     * @param rectangle2
+     * @return rectangle     
+     */
+    public Rectangle rectangleIntersection(Rectangle rectangle1, Rectangle rectangle2){
+        return rectangle1.intersection(rectangle2);
     }
 
-    private boolean getCanMove(DIRECTION dir, Entity entity, World world) {
-        this.checkCollision(entity, world, dir);
-        System.out.println(this.directionMap.values());
-        return (Boolean) this.directionMap.get(dir);
-
-    }
-
-    @Override
-    public boolean canMoveUp(Entity entity, World world) {
-        return this.getCanMove(DIRECTION.UP, entity, world);
-    }
-
-    @Override
-    public boolean canMoveDown(Entity entity, World world) {
-        return this.getCanMove(DIRECTION.DOWN, entity, world);
-    }
-
-    @Override
-    public boolean canMoveLeft(Entity entity, World world) {
-        return this.getCanMove(DIRECTION.LEFT, entity, world);
-    }
-
-    @Override
-    public boolean canMoveRight(Entity entity, World world) {
-        return this.getCanMove(DIRECTION.DOWN, entity, world);
-    }
 }
