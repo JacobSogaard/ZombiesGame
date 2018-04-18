@@ -65,6 +65,7 @@
         <module>Collision</module>
         <module>MapObject</module>
         <module>CommonEnemy</module>
+        <module>Zombie</module>
     </modules>
 
     <properties>
