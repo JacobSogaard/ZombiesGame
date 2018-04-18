@@ -6,7 +6,7 @@
 package group8.commonenemy.damage;
 
 /**
- * Class used to set how much damage and enemy can give to other entities. 
+ * Class used to set how much damage an enemy can give to other entities. 
  * @author jacob
  */
 public class EntityDamage {
@@ -17,14 +17,14 @@ public class EntityDamage {
     }
 
     /**
-     * @return the damagepoint
+     * @return the damage point
      */
     public float getDamagepoint() {
         return damagepoint;
     }
 
     /**
-     * @param damagepoint the damagepoint to set
+     * @param damagepoint the damage point to set
      */
     public void setDamagepoint(float damagepoint) {
         this.damagepoint = damagepoint;
