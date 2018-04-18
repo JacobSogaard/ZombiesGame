@@ -51,6 +51,7 @@ public class SmallZombiePlugin implements IGamePluginService {
         smallZombie.add(new MovingPart(speed, 0, 0, 0));
         smallZombie.add(new PositionPart(x, y, 0));
         
+        
         smallZombie.setImagePath(SpritePath.UP);
         
         return smallZombie; 

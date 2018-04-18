@@ -92,7 +92,7 @@ public class SmallZombieControlSystem implements IEntityProcessingService {
         float y = positionPart.getY();
         //float radians = positionPart.getRadians();
 
-        //here we draw a rectangle for the player
+        //here we draw a rectangle for the zombie
         shapex[0] = (float) (x);
         shapey[0] = (float) (y);
 
