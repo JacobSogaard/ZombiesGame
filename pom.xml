@@ -65,11 +65,9 @@
         <module>Collision</module>
         <module>MapObject</module>
         <module>CommonEnemy</module>
-<<<<<<< HEAD
         <module>EnemyWave</module>
-=======
         <module>Zombie</module>
->>>>>>> zombie
+
     </modules>
 
     <properties>

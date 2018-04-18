@@ -10,11 +10,16 @@ import group8.common.data.EntityType;
 import group8.common.data.GameData;
 import group8.common.data.World;
 import group8.common.services.IEntityProcessingService;
+import org.openide.util.lookup.ServiceProvider;
+import org.openide.util.lookup.ServiceProviders;
 
 /**
  *
  * @author kasper
  */
+@ServiceProviders(value={
+    @ServiceProvider(service = IEntityProcessingService.class)
+})
 public class EnemyWaveControlSystem implements IEntityProcessingService {
     private EnemyWave enemyWave = new EnemyWave();
 
@@ -24,8 +29,10 @@ public class EnemyWaveControlSystem implements IEntityProcessingService {
         //Check if any more zombies in the world
         boolean noMoreZombies = true;
         for (Entity e : world.getEntities()) {
-            if (e.getType() == EntityType.ZOMBIE)
-                noMoreZombies = false;
+            if (e.getType() == EntityType.ZOMBIE) {
+                noMoreZombies = false; 
+                System.out.println(e.getType());
+            }
         }
         
         //Maybe also check if player is standing in the ready-spot or some time has elapsed or something

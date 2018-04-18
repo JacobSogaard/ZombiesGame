@@ -10,6 +10,7 @@ import group8.common.data.GameData;
 import group8.common.data.World;
 import group8.common.data.entityparts.MovingPart;
 import group8.common.data.entityparts.PositionPart;
+import group8.common.services.IEnemyPluginService;
 import group8.common.services.IEntityProcessingService;
 import group8.common.services.IGamePluginService;
 import group8.zombie.Zombie;
@@ -22,9 +23,9 @@ import org.openide.util.lookup.ServiceProviders;
  * @author jacob
  */
 @ServiceProviders(value = {
-    @ServiceProvider(service = IGamePluginService.class)})
+    @ServiceProvider(service = IEnemyPluginService.class)})
 
-public class SmallZombiePlugin implements IGamePluginService {
+public class SmallZombiePlugin implements IEnemyPluginService {
     private Random r = new Random();
     private Entity zombie;
     
@@ -44,8 +45,8 @@ public class SmallZombiePlugin implements IGamePluginService {
     
     public Entity createZombie(GameData gameData) {
         float speed = 1;
-        float x = r.nextFloat() * gameData.getDisplayWidth();
-        float y = r.nextFloat() * gameData.getDisplayHeight();
+        float x = gameData.getDisplayWidth() / 2 + 50;
+        float y = gameData.getDisplayHeight() / 2 + 30;
         
         Zombie smallZombie =  new SmallZombie();
         smallZombie.add(new MovingPart(speed, 0, 0, 0));

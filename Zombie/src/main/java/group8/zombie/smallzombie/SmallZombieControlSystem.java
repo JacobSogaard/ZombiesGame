@@ -28,7 +28,8 @@ public class SmallZombieControlSystem implements IEntityProcessingService {
 
     @Override
     public void process(GameData gameData, World world) {
-        for (Entity zombie : world.getEntities(Zombie.class)) {
+        
+        for (Entity zombie : world.getEntities(SmallZombie.class)) {
 
             PositionPart positionPart = zombie.getPart(PositionPart.class);
             MovingPart movingPart = zombie.getPart(MovingPart.class);
