@@ -19,10 +19,11 @@
                     <publicPackages>
                         <publicPackage>group8.common.data</publicPackage>
                         <publicPackage>group8.common.data.entityparts</publicPackage>
+                        <publicPackage>group8.common.entitycommon</publicPackage>
                         <publicPackage>group8.common.events</publicPackage>
-                        <publicPackage>group8.common.services</publicPackage>
                         <publicPackage>group8.common.mapcommon</publicPackage>
                         <publicPackage>group8.common.playercommon</publicPackage>
+                        <publicPackage>group8.common.services</publicPackage>
                     </publicPackages>
                 </configuration>
             </plugin>

@@ -5,7 +5,6 @@
  */
 package group8.mapobject;
 
-import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import group8.common.data.Entity;
@@ -14,25 +13,20 @@ import group8.common.data.World;
 import group8.common.data.entityparts.PositionPart;
 import group8.common.mapcommon.IMapCollision;
 import group8.common.services.IGamePluginService;
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import static java.lang.System.in;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
 
-@ServiceProviders(value
-        = {
-            @ServiceProvider(service = IGamePluginService.class)
-            ,@ServiceProvider(service = IMapCollision.class)})
+@ServiceProviders(value = {
+    @ServiceProvider(service = IGamePluginService.class),
+    @ServiceProvider(service = IMapCollision.class)
+})
 
 /**
  *

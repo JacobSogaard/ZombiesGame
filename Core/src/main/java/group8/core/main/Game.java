@@ -2,6 +2,7 @@ package group8.core.main;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -15,10 +16,10 @@ import group8.common.data.World;
 import group8.common.data.entityparts.PositionPart;
 import group8.common.services.IEntityProcessingService;
 import group8.common.services.IGamePluginService;
-
+import static group8.core.main.Game.texture;
 import group8.core.managers.GameInputProcessor;
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import org.openide.util.Lookup;
@@ -39,7 +40,7 @@ public class Game implements ApplicationListener {
     private static Texture texture1;
     public static Sprite sprite;
     private SpriteBatch spriteBatch;
-    private ArrayList<SpriteBatch> mapObjects;
+    private HashMap<String,Texture> textureMap;
     
     
     @Override
@@ -56,17 +57,18 @@ public class Game implements ApplicationListener {
         this.result = this.lookup.lookupResult(IGamePluginService.class);
         this.result.addLookupListener(lookupListener);
         this.result.allItems();
-
+        this.textureMap = new HashMap();
+        
         spriteBatch = new SpriteBatch();
         texture1 = new Texture(Gdx.files.internal(MAP_IMG));
-        
         sprite = new Sprite(texture1);
-        //this.renderBackground();
 
         for (IGamePluginService plugin : result.allInstances()) {
             plugin.start(gameData, world);
             gamePlugins.add(plugin);
         }
+        
+        this.loadTextures();
     }
 
     public void renderBackground() {
@@ -91,17 +93,12 @@ public class Game implements ApplicationListener {
             this.drawShapes(e);
             this.drawImg(e, part);
             if (e.getType() == EntityType.PLAYER) {
-                cam.position.set(part.getX(), part.getY(),0);
-                cam.update();
+                this.setCamFollowPlayer(part);
             }
         }
-       
-
+        
         gameData.setDelta(Gdx.graphics.getDeltaTime());
         gameData.getKeys().update();
-        spriteBatch.begin();
-        //this.renderBackground();
-        spriteBatch.end();
 
         update();
     }
@@ -131,14 +128,24 @@ public class Game implements ApplicationListener {
     
     private void drawImg(Entity entity, PositionPart part) {
         this.spriteBatch.begin();
-        texture = new Texture(Gdx.files.internal(entity.getImagePath()));
-        spriteBatch.draw(texture, part.getX(), part.getY(), entity.getWidth(), entity.getHeight());
+        if (!this.textureMap.containsKey(entity.getImagePath())) {
+            this.textureMap.put(entity.getImagePath(), new Texture(Gdx.files.internal(entity.getImagePath())));
+        }
+        this.texture = this.textureMap.get(entity.getImagePath());
+        spriteBatch.draw(this.texture, part.getX(), part.getY(), entity.getWidth(), entity.getHeight());
         this.spriteBatch.end();
-        texture.dispose();
     }
     
-    private void setCamFollowPlayer() {
-        
+    private void loadTextures() {
+        for (Entity entity : world.getEntities()) {
+            this.texture = new Texture(Gdx.files.internal(entity.getImagePath()));
+            this.textureMap.put(entity.getImagePath(), texture);
+        }
+    }
+    
+    private void setCamFollowPlayer(PositionPart part) {
+        cam.position.set(part.getX(), part.getY(),0);
+        cam.update();
     }
 
     @Override

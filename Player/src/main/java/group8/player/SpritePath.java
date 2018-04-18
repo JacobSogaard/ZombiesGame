@@ -1,21 +1,27 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ 
  */
 package group8.player;
 
 /**
- *
- * @author matiasmarek
+ * 
+ * @author group8
  */
-public class SpritePath {
-    public static final String UP = "Images/PlayerImages/UP.png"; 
-    public static final String LEFT = "Images/PlayerImages/LEFT.png"; 
-    public static final String DOWN = "Images/PlayerImages/DOWN.png"; 
-    public static final String RIGHT = "Images/PlayerImages/RIGHT.png"; 
-    public static final String UPLEFT = "Images/PlayerImages/UPLEFT.png"; 
-    public static final String UPRIGHT = "Images/PlayerImages/UPRIGHT.png"; 
-    public static final String DOWNLEFT = "Images/PlayerImages/DOWNLEFT.png";  
-    public static final String DOWNRIGHT = "Images/PlayerImages/DOWNRIGHT.png"; 
+public enum SpritePath {
+    
+    UP("Images/PlayerImages/UP.png"), DOWN("Images/PlayerImages/DOWN.png"), 
+    LEFT("Images/PlayerImages/LEFT.png"), RIGHT("Images/PlayerImages/RIGHT.png"), 
+    UPRIGHT("Images/PlayerImages/UPRIGHT.png"), UPLEFT("Images/PlayerImages/UPLEFT.png"),
+    DOWNRIGHT("Images/PlayerImages/DOWNRIGHT.png"), DOWNLEFT("Images/PlayerImages/DOWNLEFT.png");
+    
+    private final String path;
+    
+    private SpritePath(String p) {
+        this.path = p;
+    }
+    
+    @Override
+    public String toString() {
+        return this.path;
+    }
 }

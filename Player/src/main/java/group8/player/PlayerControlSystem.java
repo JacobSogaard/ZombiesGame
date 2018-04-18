@@ -6,7 +6,6 @@
 package group8.player;
 
 import group8.common.data.Entity;
-import group8.common.data.EntityType;
 import group8.common.data.GameData;
 import group8.common.data.World;
 import group8.common.data.entityparts.MovingPart;
@@ -14,9 +13,6 @@ import group8.common.data.entityparts.PositionPart;
 import group8.common.services.IEntityProcessingService;
 import group8.common.data.GameKeys;
 import group8.common.services.CollisionRequestServiceImpl;
-import group8.common.services.ICollisionRequestService;
-import group8.common.services.IGamePluginService;
-import group8.player.SpritePath2;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
 
@@ -46,7 +42,7 @@ public class PlayerControlSystem implements IEntityProcessingService {
             boolean andUp = false, andDown = false;
 
             if (gameData.getKeys().isDown(GameKeys.UP)) {
-                player.setImagePath(SpritePath.UP);
+                player.setImagePath(sp.UP);
 
                 if (movingPart.setUp(this.col.canMoveUp(player, world))) {
                     andUp = true;
@@ -54,7 +50,7 @@ public class PlayerControlSystem implements IEntityProcessingService {
             }
 
             if (gameData.getKeys().isDown(GameKeys.DOWN)) {
-                player.setImagePath(SpritePath.DOWN);
+                player.setImagePath(sp.DOWN);
 
                 if (movingPart.setDown(this.col.canMoveDown(player, world))) {
                     andDown = true;
@@ -62,22 +58,22 @@ public class PlayerControlSystem implements IEntityProcessingService {
             }
 
             if (gameData.getKeys().isDown(GameKeys.LEFT)) {
-                player.setImagePath(SpritePath.LEFT);
+                player.setImagePath(sp.LEFT);
                 if (andUp) {
-                    player.setImagePath(SpritePath.UPLEFT);
+                    player.setImagePath(sp.UPLEFT);
                 } else if (andDown) {
-                    player.setImagePath(SpritePath.DOWNLEFT);
+                    player.setImagePath(sp.DOWNLEFT);
                 }
                 movingPart.setLeft(this.col.canMoveLeft(player, world));
             }
 
             if (gameData.getKeys().isDown(GameKeys.RIGHT)) {
-                player.setImagePath(SpritePath.RIGHT);
+                player.setImagePath(sp.RIGHT);
 
                 if (andUp) {
-                    player.setImagePath(SpritePath.UPRIGHT);
+                    player.setImagePath(sp.UPRIGHT);
                 } else if (andDown) {
-                    player.setImagePath(SpritePath.DOWNRIGHT);
+                    player.setImagePath(sp.DOWNRIGHT);
                 }
                 movingPart.setRight(this.col.canMoveRight(player, world));
             }
