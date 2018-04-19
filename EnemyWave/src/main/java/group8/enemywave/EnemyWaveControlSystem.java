@@ -33,7 +33,7 @@ public class EnemyWaveControlSystem implements IEntityProcessingService {
         boolean noMoreZombies = true;
         for (Entity e : world.getEntities()) {
             if (e.getType() == EntityType.ZOMBIE) {
-                noMoreZombies = false;
+                noMoreZombies = false; 
             }
         }
 

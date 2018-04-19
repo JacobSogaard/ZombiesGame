@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package group8.commonenemy.damage;
+package group8.commonenemy.enemy;
 
 /**
  * Class used to set how much damage an enemy can give to other entities. 

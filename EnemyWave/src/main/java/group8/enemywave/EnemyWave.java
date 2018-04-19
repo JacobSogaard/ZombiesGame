@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.Random;
 import org.openide.util.Lookup;
 import org.openide.util.LookupEvent;
 import org.openide.util.LookupListener;
@@ -88,5 +89,26 @@ public class EnemyWave {
         }
 
     };
+    }
+    
+    //Arbitrarily calculates how many enemies should be spawned this wave.
+    private int howManyEnemies() {
+        Random rnd = new Random();
+        int limit = waveCount;
+        boolean oneMoreEnemy = true;
+        int amount = 3;
+        
+        while (oneMoreEnemy && amount < 20) {
+            int p = rnd.nextInt(limit) + 1;
+            if ((p % 3) < 2) {
+                amount++;
+            }
+            else
+                oneMoreEnemy = false;
+        }
+        
+        return amount;
+    }
+    
 }
 
