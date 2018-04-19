@@ -65,6 +65,7 @@
         <module>Player</module>
         <module>Collision</module>
         <module>MapObject</module>
+        <module>CommonCollision</module>
     </modules>
 
     <properties>
