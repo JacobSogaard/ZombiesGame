@@ -13,6 +13,7 @@ import group8.common.data.EntityType;
 import group8.common.data.GameData;
 import group8.common.data.World;
 import group8.common.data.entityparts.PositionPart;
+import group8.common.services.IEnemyPluginService;
 import group8.common.services.IEntityProcessingService;
 import group8.common.services.IGamePluginService;
 
@@ -40,32 +41,32 @@ public class Game implements ApplicationListener {
     public static Sprite sprite;
     private SpriteBatch spriteBatch;
     private ArrayList<SpriteBatch> mapObjects;
-    
-    
+
     @Override
     public void create() {
-        
+
         this.gameData.setDisplayHeight(Gdx.graphics.getHeight());
         this.gameData.setDisplayWidth(Gdx.graphics.getWidth());
-        
-        this.cam = new OrthographicCamera(this.gameData.getDisplayHeight()*1.2f, this.gameData.getDisplayWidth()*1.2f);
-        
+
+        this.cam = new OrthographicCamera(this.gameData.getDisplayHeight() * 1.2f, this.gameData.getDisplayWidth() * 1.2f);
+
         this.sr = new ShapeRenderer();
         Gdx.input.setInputProcessor(new GameInputProcessor(this.gameData));
-        
+
         this.result = this.lookup.lookupResult(IGamePluginService.class);
         this.result.addLookupListener(lookupListener);
         this.result.allItems();
 
         spriteBatch = new SpriteBatch();
         texture1 = new Texture(Gdx.files.internal(MAP_IMG));
-        
+
         sprite = new Sprite(texture1);
         //this.renderBackground();
 
         for (IGamePluginService plugin : result.allInstances()) {
-            plugin.start(gameData, world);
-            gamePlugins.add(plugin);
+                plugin.start(gameData, world);
+                gamePlugins.add(plugin);
+            
         }
     }
 
@@ -80,22 +81,21 @@ public class Game implements ApplicationListener {
         // clear screen to black
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        
+
         this.sr.setProjectionMatrix(cam.combined);
         this.spriteBatch.setProjectionMatrix(cam.combined);
-        
+
         this.renderBackground();
-        
+
         for (Entity e : world.getEntities()) {
             PositionPart part = e.getPart(PositionPart.class);
             this.drawShapes(e);
             this.drawImg(e, part);
             if (e.getType() == EntityType.PLAYER) {
-                cam.position.set(part.getX(), part.getY(),0);
+                cam.position.set(part.getX(), part.getY(), 0);
                 cam.update();
             }
         }
-       
 
         gameData.setDelta(Gdx.graphics.getDeltaTime());
         gameData.getKeys().update();
@@ -107,29 +107,28 @@ public class Game implements ApplicationListener {
     }
 
     private void update() {
-        
         // Update
         for (IEntityProcessingService entityProcessorService : getEntityProcessingServices()) {
             entityProcessorService.process(gameData, world);
         }
 
     }
-    
+
     private void drawShapes(Entity entity) {
-            sr.setColor(1, 1, 1, 1);
-            sr.begin(ShapeRenderer.ShapeType.Line);
-            float[] shapex = entity.getShapeX();
-            float[] shapey = entity.getShapeY();
+        sr.setColor(1, 1, 1, 1);
+        sr.begin(ShapeRenderer.ShapeType.Line);
+        float[] shapex = entity.getShapeX();
+        float[] shapey = entity.getShapeY();
 
-            for (int i = 0, j = shapex.length - 1;
-                    i < shapex.length;
-                    j = i++) {
+        for (int i = 0, j = shapex.length - 1;
+                i < shapex.length;
+                j = i++) {
 
-                sr.line(shapex[i], shapey[i], shapex[j], shapey[j]);
-            }
-            sr.end();
+            sr.line(shapex[i], shapey[i], shapex[j], shapey[j]);
+        }
+        sr.end();
     }
-    
+
     private void drawImg(Entity entity, PositionPart part) {
         this.spriteBatch.begin();
         texture = new Texture(Gdx.files.internal(entity.getImagePath()));
@@ -137,9 +136,9 @@ public class Game implements ApplicationListener {
         this.spriteBatch.end();
         texture.dispose();
     }
-    
+
     private void setCamFollowPlayer() {
-        
+
     }
 
     @Override

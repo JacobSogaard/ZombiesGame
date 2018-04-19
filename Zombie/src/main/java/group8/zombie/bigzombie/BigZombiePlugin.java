@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package group8.zombie.smallzombie;
+package group8.zombie.bigzombie;
 
 import group8.common.data.Entity;
 import group8.common.data.GameData;
@@ -25,14 +25,14 @@ import org.openide.util.lookup.ServiceProviders;
 @ServiceProviders(value = {
     @ServiceProvider(service = IEnemyPluginService.class)})
 
-public class SmallZombiePlugin implements IEnemyPluginService {
+public class BigZombiePlugin implements IEnemyPluginService {
     private Random r = new Random();
     private Entity zombie;
     
     @Override
     public void start(GameData gameData, World world) {
         //Add entitites to world
-        System.out.println("Small Zombie");
+        System.out.println("Big zombie");
         zombie = createZombie(gameData);
         world.addEntity(zombie); 
         
@@ -45,17 +45,17 @@ public class SmallZombiePlugin implements IEnemyPluginService {
     }
     
     public Entity createZombie(GameData gameData) {
-        float speed = 1;
+        float speed = 5;
         float x = gameData.getDisplayWidth() / 2 + 50;
         float y = gameData.getDisplayHeight() / 2 + 30;
         
-        Zombie smallZombie =  new SmallZombie();
-        smallZombie.add(new MovingPart(speed, 0, 0, 0));
-        smallZombie.add(new PositionPart(x, y, 0));
+        Zombie bigZombie =  new BigZombie();
+        bigZombie.add(new MovingPart(speed, 0, 0, 0));
+        bigZombie.add(new PositionPart(x, y, 0));
         
         
-        smallZombie.setImagePath(SpritePath.UP);
+        bigZombie.setImagePath(SpritePath.UP);
         
-        return smallZombie; 
+        return bigZombie; 
     }
 }
