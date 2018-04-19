@@ -11,6 +11,7 @@ import group8.common.data.GameData;
 import group8.common.data.World;
 import group8.common.services.IEnemyPluginService;
 import java.util.ArrayList;
+import java.util.Random;
 import org.openide.util.Lookup;
 
 /**
@@ -50,5 +51,25 @@ public class EnemyWave {
             zombie.start(gameData, world);
         }
     }
+    
+    //Arbitrarily calculates how many enemies should be spawned this wave.
+    private int howManyEnemies() {
+        Random rnd = new Random();
+        int limit = waveCount;
+        boolean oneMoreEnemy = true;
+        int amount = 3;
+        
+        while (oneMoreEnemy && amount < 20) {
+            int p = rnd.nextInt(limit) + 1;
+            if ((p % 3) < 2) {
+                amount++;
+            }
+            else
+                oneMoreEnemy = false;
+        }
+        
+        return amount;
+    }
+    
 }
 

@@ -7,7 +7,7 @@ package group8.zombie;
 
 import group8.common.data.Entity;
 import group8.common.data.EntityType;
-import group8.commonenemy.damage.EntityDamage;
+import group8.commonenemy.enemy.EntityDamage;
 
 /**
  * Super class for zombies. Only sets the entity type to be a zombie.
