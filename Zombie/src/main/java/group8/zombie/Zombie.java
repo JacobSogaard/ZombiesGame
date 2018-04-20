@@ -7,19 +7,20 @@ package group8.zombie;
 
 import group8.common.data.Entity;
 import group8.common.data.EntityType;
+import group8.commonenemy.enemy.Enemy;
 import group8.commonenemy.enemy.EntityDamage;
+import group8.commonenemy.enemy.Rating;
 
 /**
  * Super class for zombies. Only sets the entity type to be a zombie.
  * @author jacob
  */
-public class Zombie extends Entity {
+public abstract class Zombie extends Enemy {
     private EntityDamage damage;
     
-    public Zombie () {
+    public Zombie(Rating rating) {
+        super(rating);
         this.setType(EntityType.ZOMBIE);
     }
-    
-    
     
 }

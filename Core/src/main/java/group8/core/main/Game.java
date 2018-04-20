@@ -13,7 +13,6 @@ import group8.common.data.EntityType;
 import group8.common.data.GameData;
 import group8.common.data.World;
 import group8.common.data.entityparts.PositionPart;
-import group8.common.services.IEnemyPluginService;
 import group8.common.services.IEntityProcessingService;
 import group8.common.services.IGamePluginService;
 
@@ -170,8 +169,8 @@ public class Game implements ApplicationListener {
             for (IGamePluginService us : updated) {
                 // Newly installed modules
                 if (!gamePlugins.contains(us)) {
-                    us.start(gameData, world);
-                    gamePlugins.add(us);
+                        us.start(gameData, world);
+                        gamePlugins.add(us);
                 }
             }
             // Stop and remove module

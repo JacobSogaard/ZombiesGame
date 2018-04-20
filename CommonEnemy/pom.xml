@@ -18,6 +18,8 @@
                     <useOSGiDependencies>true</useOSGiDependencies>
                     <publicPackages>
                         <publicPackage>group8.commonenemy.damage</publicPackage>
+                        <publicPackage>group8.commonenemy.enemy</publicPackage>
+                        <publicPackage>group8.commonenemy.services</publicPackage>
                     </publicPackages>
                 </configuration>
             </plugin>

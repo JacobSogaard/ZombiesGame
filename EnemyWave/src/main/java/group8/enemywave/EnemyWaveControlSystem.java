@@ -39,7 +39,6 @@ public class EnemyWaveControlSystem implements IEntityProcessingService {
 
         //Maybe also check if player is standing in the ready-spot or some time has elapsed or something
         if (noMoreZombies) {
-
             enemyWave.startNextWave(gameData, world);
 
         }

@@ -12,5 +12,26 @@ package group8.commonenemy.enemy;
  * @author kasper
  */
 public enum Rating {
-    ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, MINIBOSS, BOSS;
+    ONE(1), TWO(2), THREE(3), FOUR(4), FIVE(5), SIX(6), SEVEN(7),
+    EIGHT(8), NINE(9), TEN(10), MINIBOSS(11), BOSS(12);
+     
+    Rating(int i) {
+        this.i = i;
+    }
+    
+    private int i;
+    
+    public int getIntValue() {
+        return this.i;
+    }
+    
+    public static int getMaxValue() {
+        int max = 0;
+        for (Rating r : Rating.values()) {
+            if (r.getIntValue() > max)
+                max = r.getIntValue();
+        }
+        
+        return max;
+    }
 }

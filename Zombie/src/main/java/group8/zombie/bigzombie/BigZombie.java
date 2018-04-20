@@ -5,6 +5,7 @@
  */
 package group8.zombie.bigzombie;
 
+import group8.commonenemy.enemy.Rating;
 import group8.zombie.Zombie;
 
 /**
@@ -13,7 +14,8 @@ import group8.zombie.Zombie;
  */
 public class BigZombie extends Zombie {
     
-    public BigZombie(){
-        super();
+    public BigZombie(Rating rating){
+        super(rating);
     }
+    
 }

@@ -3,12 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package group8.common.services;
+package group8.commonenemy.services;
+
+import group8.common.data.GameData;
+import group8.common.data.World;
+import group8.common.services.IGamePluginService;
+import group8.commonenemy.enemy.Rating;
 
 /**
  *
  * @author kasper
  */
-public interface IEnemyPluginService extends IGamePluginService {
-    
+public interface IEnemyPluginService {
+    void start(GameData gameData, World world);
+    void stop(GameData gameData, World world);
+    Rating getRating();
 }

@@ -9,8 +9,10 @@ import group8.common.data.Entity;
 import group8.common.data.EntityType;
 import group8.common.data.GameData;
 import group8.common.data.World;
-import group8.common.services.IEnemyPluginService;
+import group8.commonenemy.services.IEnemyPluginService;
 import group8.common.services.IGamePluginService;
+import group8.commonenemy.enemy.Enemy;
+import group8.commonenemy.enemy.Rating;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -40,6 +42,7 @@ public class EnemyWave {
      * Finds all relevant zombies and calls the start method from pluginService on them
      */
     public void startNextWave(GameData gameData, World world) {
+        System.out.println("SatrtNextWave");
         this.gameData = gameData;
         this.world = world;
         this.fillZombiesArray();
@@ -49,64 +52,44 @@ public class EnemyWave {
     
     private void fillZombiesArray() {
         result = Lookup.getDefault().lookupResult(IEnemyPluginService.class);
-        this.result.addLookupListener(lookupListener);
         this.result.allItems();
         
+        for (IEnemyPluginService ie : result.allInstances()) {
+            System.out.println("h");
+            for (int i = 0; i < howManyEnemies(ie); i++) {
+                ie.start(gameData, world);
+            }
+        }
         
         zombies = new ArrayList();
         //Find the zombie to call the start method on
-        for (IEnemyPluginService ig : result.allInstances()) {
-            zombies.add(ig);
+
+    }
+    
+    private void doStuff(GameData gameData, World world) {
+        for (IEnemyPluginService zombie : zombies) {
+            zombie.start(gameData, world);
         }
     }
     
-//    private void doStuff(GameData gameData, World world) {
-//        for (IEnemyPluginService zombie : zombies) {
-//            //zombie.start(gameData, world);
-//        }
-//    }
     
-    private final LookupListener lookupListener = new LookupListener() {
-        @Override
-        public void resultChanged(LookupEvent le) {
-
-            Collection<? extends IEnemyPluginService> updated = result.allInstances();
-
-            for (IEnemyPluginService us : updated) {
-                // Newly installed modules
-                if (!zombies.contains(us)) {
-                    us.start(gameData, world);
-                    zombies.add(us);
-                }
-            }
-            // Stop and remove module
-            for (IEnemyPluginService gs : zombies) {
-                if (!updated.contains(gs)) {
-                    gs.stop(gameData, world);
-                    zombies.remove(gs);
-                }
-            }
-        }
-
-    };
-    }
     
     //Arbitrarily calculates how many enemies should be spawned this wave.
-    private int howManyEnemies() {
+    private int howManyEnemies(IEnemyPluginService ie) {
+        //Basic variables (remember waveCount is in class scope)
         Random rnd = new Random();
-        int limit = waveCount;
-        boolean oneMoreEnemy = true;
-        int amount = 3;
+        double baseAmount = 4;
         
-        while (oneMoreEnemy && amount < 20) {
-            int p = rnd.nextInt(limit) + 1;
-            if ((p % 3) < 2) {
-                amount++;
-            }
-            else
-                oneMoreEnemy = false;
-        }
+        //Get information from specifc enemy and calculate its value
+        //double rating = ie.getRating().getIntValue();
+        double rating = 3;
+        double value = rating / Rating.getMaxValue();
         
+        //Calculate probability seed
+        double p = baseAmount + value;
+        
+        int amount = rnd.nextInt((int)p) + waveCount;
+        System.out.println("DEt her eramount: " + amount);
         return amount;
     }
     
