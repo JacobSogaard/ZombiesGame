@@ -42,15 +42,12 @@ public class PlayerPlugin implements IGamePluginService, IPlayerService {
     
     public Entity createPlayer(GameData gameData) {
         float speed = 3;
-        float acceleration = 300;
-        float rotationSpeed = 50;
-        float decelaration = 200;
         float x = gameData.getDisplayWidth() / 2;
         float y = gameData.getDisplayHeight() / 2;
         float radians = 3.1415f / 2;
         
         Entity playerRectangle =  new Player();
-        playerRectangle.add(new MovingPart(speed, acceleration, rotationSpeed, decelaration));
+        playerRectangle.add(new MovingPart(speed));
         playerRectangle.add(new PositionPart(x, y, radians));
         
         playerRectangle.setImagePath(sp.UP);
