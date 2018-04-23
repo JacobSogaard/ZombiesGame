@@ -30,7 +30,7 @@ public class EnemyWave {
     private Lookup.Result<IEnemyPluginService> result;
     private Lookup lookup = Lookup.getDefault();
     private List<IEnemyPluginService> zombies = new CopyOnWriteArrayList<>();
-    private int waveCount;
+    private double waveCount;
     private GameData gameData;
     private World world;
     
@@ -46,6 +46,7 @@ public class EnemyWave {
         this.gameData = gameData;
         this.world = world;
         this.fillZombiesArray();
+        this.waveCount += 0.2;
         //this.doStuff(gameData, world);
     }
   
@@ -55,7 +56,6 @@ public class EnemyWave {
         this.result.allItems();
         
         for (IEnemyPluginService ie : result.allInstances()) {
-            System.out.println("h");
             for (int i = 0; i < howManyEnemies(ie); i++) {
                 ie.start(gameData, world);
             }
@@ -75,7 +75,7 @@ public class EnemyWave {
     
     
     //Arbitrarily calculates how many enemies should be spawned this wave.
-    private int howManyEnemies(IEnemyPluginService ie) {
+    private double howManyEnemies(IEnemyPluginService ie) {
         //Basic variables (remember waveCount is in class scope)
         Random rnd = new Random();
         double baseAmount = 4;
@@ -88,7 +88,7 @@ public class EnemyWave {
         //Calculate probability seed
         double p = baseAmount + value;
         
-        int amount = rnd.nextInt((int)p) + waveCount;
+        double amount = rnd.nextInt((int)p) + waveCount;
         System.out.println("DEt her eramount: " + amount);
         return amount;
     }

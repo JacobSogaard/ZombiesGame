@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import group8.common.data.Entity;
 import group8.common.data.EntityType;
 import group8.common.data.GameData;
+import group8.common.data.GameKeys;
 import group8.common.data.World;
 import group8.common.data.entityparts.PositionPart;
 import group8.common.services.IEntityProcessingService;
@@ -94,7 +95,18 @@ public class Game implements ApplicationListener {
                 cam.position.set(part.getX(), part.getY(), 0);
                 cam.update();
             }
+            
+            //TEST FOR ENEMY WAVE
+            boolean hasRemoved = false;
+            if (e.getType() == EntityType.ZOMBIE && gameData.getKeys().isDown(GameKeys.ENTER) && !hasRemoved){
+                world.removeEntity(e);
+                hasRemoved = true;
+                
+            }
+            //END ENEMY WAVE TEST!
         }
+        
+      
 
         gameData.setDelta(Gdx.graphics.getDeltaTime());
         gameData.getKeys().update();
