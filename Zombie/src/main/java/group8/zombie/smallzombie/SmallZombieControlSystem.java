@@ -13,7 +13,7 @@ import group8.common.data.entityparts.MovingPart;
 import group8.common.data.entityparts.PositionPart;
 import group8.common.services.IEntityProcessingService;
 import group8.common.services.IGamePluginService;
-import group8.zombie.smallzombie.SpritePath;
+import group8.zombie.smallzombie.SmallZombieSpritePath;
 import group8.zombie.Zombie;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
@@ -37,14 +37,14 @@ public class SmallZombieControlSystem implements IEntityProcessingService {
             boolean andUp = false, andDown = false;
 
             if (gameData.getKeys().isDown(GameKeys.UP)) {
-                zombie.setImagePath(SpritePath.UP);
+                zombie.setImagePath(SmallZombieSpritePath.UP);
                 movingPart.setUp(true);
                 andUp = true;
                 
             }
 
             if (gameData.getKeys().isDown(GameKeys.DOWN)) {
-                zombie.setImagePath(SpritePath.DOWN);
+                zombie.setImagePath(SmallZombieSpritePath.DOWN);
 
                 movingPart.setDown(true);
                 andDown = true;
@@ -52,22 +52,22 @@ public class SmallZombieControlSystem implements IEntityProcessingService {
             }
 
             if (gameData.getKeys().isDown(GameKeys.LEFT)) {
-                zombie.setImagePath(SpritePath.LEFT);
+                zombie.setImagePath(SmallZombieSpritePath.LEFT);
                 if (andUp) {
-                    zombie.setImagePath(SpritePath.UPLEFT);
+                    zombie.setImagePath(SmallZombieSpritePath.UPLEFT);
                 } else if (andDown) {
-                    zombie.setImagePath(SpritePath.DOWNLEFT);
+                    zombie.setImagePath(SmallZombieSpritePath.DOWNLEFT);
                 }
                 movingPart.setLeft(true);
             }
 
             if (gameData.getKeys().isDown(GameKeys.RIGHT)) {
-                zombie.setImagePath(SpritePath.RIGHT);
+                zombie.setImagePath(SmallZombieSpritePath.RIGHT);
 
                 if (andUp) {
-                    zombie.setImagePath(SpritePath.UPRIGHT);
+                    zombie.setImagePath(SmallZombieSpritePath.UPRIGHT);
                 } else if (andDown) {
-                    zombie.setImagePath(SpritePath.DOWNRIGHT);
+                    zombie.setImagePath(SmallZombieSpritePath.DOWNRIGHT);
                 }
                 movingPart.setRight(true);
             }

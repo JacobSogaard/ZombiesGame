@@ -55,8 +55,8 @@ public class BigZombiePlugin implements IEnemyPluginService {
         bigZombie.add(new MovingPart(speed, 0, 0, 0));
         bigZombie.add(new PositionPart(x, y, 0));
         
-        
-        bigZombie.setImagePath(SpritePath.UP);
+        System.out.println("Create big zombie: " + BigZombieSpritePath.UP);
+        bigZombie.setImagePath(BigZombieSpritePath.UP);
         
         return bigZombie; 
     }

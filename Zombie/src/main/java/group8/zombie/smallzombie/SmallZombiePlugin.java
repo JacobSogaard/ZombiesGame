@@ -56,7 +56,7 @@ public class SmallZombiePlugin implements IEnemyPluginService {
         smallZombie.add(new PositionPart(x, y, 0));
         
         
-        smallZombie.setImagePath(SpritePath.UP);
+        smallZombie.setImagePath(SmallZombieSpritePath.UP);
         
         return smallZombie; 
     }
