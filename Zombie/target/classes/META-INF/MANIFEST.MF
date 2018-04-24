@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 OpenIDE-Module-Localizing-Bundle: group8/zombie/Bundle.properties
 OpenIDE-Module-Specification-Version: 1.0
 OpenIDE-Module-Implementation-Version: 1.0-20180424
-OpenIDE-Module-Build-Version: 201804241416
+OpenIDE-Module-Build-Version: 201804241429
 OpenIDE-Module: Group8.Zombie
 OpenIDE-Module-Public-Packages: -
 OpenIDE-Module-Requires: org.openide.modules.ModuleFormat1

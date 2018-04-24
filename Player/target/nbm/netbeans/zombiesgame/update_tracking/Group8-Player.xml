@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><module codename="Group8.Player">
+<<<<<<< Updated upstream
 <<<<<<< HEAD
     <module_version install_time="1524579378047" last="true" origin="installer" specification_version="1.0">
         <file crc="915457993" name="config/Modules/Group8-Player.xml"/>
@@ -8,5 +9,10 @@
         <file crc="915457993" name="config/Modules/Group8-Player.xml"/>
         <file crc="3274333596" name="modules/Group8-Player.jar"/>
 >>>>>>> Weapon
+=======
+    <module_version install_time="1524580169233" last="true" origin="installer" specification_version="1.0">
+        <file crc="915457993" name="config/Modules/Group8-Player.xml"/>
+        <file crc="604355297" name="modules/Group8-Player.jar"/>
+>>>>>>> Stashed changes
     </module_version>
 </module>
