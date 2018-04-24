@@ -36,7 +36,7 @@ public class SmallZombieControlSystem implements IEntityProcessingService {
     public void process(GameData gameData, World world) {
         
         for (Entity zombie : world.getEntities(SmallZombie.class)) {
-            Map<Integer, Boolean> directions = path.getDirection(zombie);
+            Map<Integer, Boolean> directions = path.getDirections(zombie);
             PositionPart positionPart = zombie.getPart(PositionPart.class);
             MovingPart movingPart = zombie.getPart(MovingPart.class);
 

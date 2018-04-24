@@ -38,7 +38,7 @@ public class BigZombieControlSystem implements IEntityProcessingService {
         
         
         for (Entity zombie : world.getEntities(BigZombie.class)) {
-            Map<Integer, Boolean> directions = path.getDirection(zombie);
+            Map<Integer, Boolean> directions = path.getDirections(zombie);
             PositionPart positionPart = zombie.getPart(PositionPart.class);
             MovingPart movingPart = zombie.getPart(MovingPart.class);
 

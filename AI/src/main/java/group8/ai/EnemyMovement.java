@@ -8,17 +8,23 @@ package group8.ai;
 import group8.common.data.Entity;
 import group8.common.data.GameKeys;
 import group8.common.playercommon.PlayerServiceImpl;
+import group8.commonenemy.services.IPathFinderService;
 import java.util.HashMap;
 import java.util.Map;
+import org.openide.util.lookup.ServiceProvider;
+import org.openide.util.lookup.ServiceProviders;
 
 /**
  *
  * @author kasper
  */
-public class EnemyMovement {
+@ServiceProviders(value = {
+    @ServiceProvider(service = IPathFinderService.class)})
+public class EnemyMovement implements IPathFinderService{
     private final PlayerServiceImpl pimpl = PlayerServiceImpl.getInstance();
     private Map<Integer, Boolean> directions;
     
+    @Override
     public Map<Integer, Boolean> getDirections(Entity enemy) {
         this.fillDirections(enemy, pimpl.getPlayer());
         return this.directions;
@@ -35,11 +41,11 @@ public class EnemyMovement {
         
         if (enemyCenter[0] < playerCenter[0])
             directions.put(GameKeys.RIGHT, true);
-        else if (enemyCenter[0] > playerCenter[0])
+        if (enemyCenter[0] > playerCenter[0])
             directions.put(GameKeys.LEFT, true);
-        else if (enemyCenter[1] < playerCenter[1])
+        if (enemyCenter[1] < playerCenter[1])
             directions.put(GameKeys.UP, true);
-        else if (enemyCenter[1] > playerCenter[1])
+        if (enemyCenter[1] > playerCenter[1])
             directions.put(GameKeys.DOWN, true);
         
     }

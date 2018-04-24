@@ -14,5 +14,5 @@ import java.util.Map;
  * @author jacob
  */
 public interface IPathFinderService {
-    Map<Integer, Boolean> getDirection(Entity enemy);
+    Map<Integer, Boolean> getDirections(Entity enemy);
 }

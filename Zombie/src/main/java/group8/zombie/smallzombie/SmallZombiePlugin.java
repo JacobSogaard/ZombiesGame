@@ -46,7 +46,7 @@ public class SmallZombiePlugin implements IEnemyPluginService {
     }
     
     public Enemy createZombie(GameData gameData) {
-        float speed = 1;
+        float speed = (float) 1.5;
         float x = gameData.getDisplayWidth() / 2 + r.nextInt(500) - 250;
         float y = gameData.getDisplayHeight() / 2 + r.nextInt(500) - 250;
         
