@@ -14,7 +14,6 @@ import group8.commonenemy.services.IEnemyPluginService;
 import group8.commonenemy.enemy.Enemy;
 import group8.commonenemy.enemy.Rating;
 import group8.zombie.Zombie;
-import java.util.Random;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
 
@@ -26,9 +25,7 @@ import org.openide.util.lookup.ServiceProviders;
     @ServiceProvider(service = IEnemyPluginService.class)})
 
 public class BigZombiePlugin implements IEnemyPluginService {
-    private Random r = new Random();
     private Enemy zombie;
-    
     
     @Override
     public void start(GameData gameData, World world) {
