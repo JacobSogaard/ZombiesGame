@@ -5,17 +5,23 @@
  */
 package group8.zombie.bigzombie;
 
+import group8.common.data.Entity;
 import group8.commonenemy.enemy.Rating;
+import group8.commonenemy.services.IPathFinderService;
 import group8.zombie.Zombie;
+import java.util.Map;
 
 /**
  *
  * @author jacob
  */
 public class BigZombie extends Zombie {
+
     
     public BigZombie(Rating rating){
         super(rating);
     }
+    
+
     
 }

@@ -6,9 +6,6 @@
 package group8.commonenemy.enemy;
 
 import group8.common.data.Entity;
-import group8.common.data.GameData;
-import group8.common.data.World;
-import group8.commonenemy.services.IEnemyPluginService;
 
 /**
  *
@@ -17,8 +14,10 @@ import group8.commonenemy.services.IEnemyPluginService;
 public abstract class Enemy extends Entity {
     protected final Rating rating;
     
+    
     public Enemy(Rating rating) {
         this.rating = rating;
+
     }
     
     public Rating getRating() {

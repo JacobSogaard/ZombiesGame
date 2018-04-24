@@ -5,18 +5,15 @@
  */
 package group8.zombie.bigzombie;
 
-import group8.common.data.Entity;
+
 import group8.common.data.GameData;
 import group8.common.data.World;
 import group8.common.data.entityparts.MovingPart;
 import group8.common.data.entityparts.PositionPart;
 import group8.commonenemy.services.IEnemyPluginService;
-import group8.common.services.IEntityProcessingService;
-import group8.common.services.IGamePluginService;
 import group8.commonenemy.enemy.Enemy;
 import group8.commonenemy.enemy.Rating;
 import group8.zombie.Zombie;
-import java.util.Random;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
 
@@ -28,7 +25,6 @@ import org.openide.util.lookup.ServiceProviders;
     @ServiceProvider(service = IEnemyPluginService.class)})
 
 public class BigZombiePlugin implements IEnemyPluginService {
-    private Random r = new Random();
     private Enemy zombie;
     
     @Override
@@ -46,22 +42,24 @@ public class BigZombiePlugin implements IEnemyPluginService {
     }
     
     public Enemy createZombie(GameData gameData) {
-        float speed = 5;
-        float x = gameData.getDisplayWidth() / 2 + r.nextInt(500) - 250;
-        float y = gameData.getDisplayHeight() / 2 + r.nextInt(500) - 250;
+        
+        float speed = (float)0.5;
+        
         
         Zombie bigZombie =  new BigZombie(Rating.ONE);
+        float x = bigZombie.setX(gameData, 200);
+        float y = bigZombie.setY(gameData, 200);
+        
         bigZombie.add(new MovingPart(speed, 0, 0, 0));
         bigZombie.add(new PositionPart(x, y, 0));
-        
-        System.out.println("Create big zombie: " + BigZombieSpritePath.UP);
         bigZombie.setImagePath(BigZombieSpritePath.UP);
         
         return bigZombie; 
     }
+    
 
     @Override
     public Rating getRating() {
-        return this.zombie.getRating();
+        return Rating.ONE;
     }
 }

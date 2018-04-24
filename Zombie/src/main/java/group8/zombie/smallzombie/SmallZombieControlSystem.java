@@ -13,8 +13,11 @@ import group8.common.data.entityparts.MovingPart;
 import group8.common.data.entityparts.PositionPart;
 import group8.common.services.IEntityProcessingService;
 import group8.common.services.IGamePluginService;
+import group8.commonenemy.services.IPathFinderService;
 import group8.zombie.smallzombie.SmallZombieSpritePath;
 import group8.zombie.Zombie;
+import java.util.Map;
+import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
 
@@ -26,24 +29,27 @@ import org.openide.util.lookup.ServiceProviders;
     @ServiceProvider(service = IEntityProcessingService.class)})
 public class SmallZombieControlSystem implements IEntityProcessingService {
 
+    private Lookup lookup = Lookup.getDefault();
+    protected IPathFinderService path = lookup.lookup(IPathFinderService.class);
+    
     @Override
     public void process(GameData gameData, World world) {
         
         for (Entity zombie : world.getEntities(SmallZombie.class)) {
-
+            Map<Integer, Boolean> directions = path.getDirections(zombie);
             PositionPart positionPart = zombie.getPart(PositionPart.class);
             MovingPart movingPart = zombie.getPart(MovingPart.class);
 
             boolean andUp = false, andDown = false;
 
-            if (gameData.getKeys().isDown(GameKeys.UP)) {
+            if (directions.get(GameKeys.UP)) {
                 zombie.setImagePath(SmallZombieSpritePath.UP);
                 movingPart.setUp(true);
                 andUp = true;
                 
             }
 
-            if (gameData.getKeys().isDown(GameKeys.DOWN)) {
+            if (directions.get(GameKeys.DOWN)) {
                 zombie.setImagePath(SmallZombieSpritePath.DOWN);
 
                 movingPart.setDown(true);
@@ -51,7 +57,7 @@ public class SmallZombieControlSystem implements IEntityProcessingService {
                 
             }
 
-            if (gameData.getKeys().isDown(GameKeys.LEFT)) {
+            if (directions.get(GameKeys.LEFT)) {
                 zombie.setImagePath(SmallZombieSpritePath.LEFT);
                 if (andUp) {
                     zombie.setImagePath(SmallZombieSpritePath.UPLEFT);
@@ -61,7 +67,7 @@ public class SmallZombieControlSystem implements IEntityProcessingService {
                 movingPart.setLeft(true);
             }
 
-            if (gameData.getKeys().isDown(GameKeys.RIGHT)) {
+            if (directions.get(GameKeys.RIGHT)) {
                 zombie.setImagePath(SmallZombieSpritePath.RIGHT);
 
                 if (andUp) {
@@ -98,12 +104,12 @@ public class SmallZombieControlSystem implements IEntityProcessingService {
         shapey[0] = (float) (y);
 
         shapex[1] = (float) (x);
-        shapey[1] = (float) (y + 70);
+        shapey[1] = (float) (y + 50);
 
-        shapex[2] = (float) (x + 40);
-        shapey[2] = (float) (y + 70);
+        shapex[2] = (float) (x + 28);
+        shapey[2] = (float) (y + 50);
 
-        shapex[3] = (float) (x + 40);
+        shapex[3] = (float) (x + 28);
         shapey[3] = (float) (y);
 
         entity.setShapeX(shapex);

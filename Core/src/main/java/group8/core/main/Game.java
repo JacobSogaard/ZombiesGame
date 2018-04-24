@@ -137,7 +137,7 @@ public class Game implements ApplicationListener {
                 i < shapex.length;
                 j = i++) {
 
-            sr.line(shapex[i], shapey[i], shapex[j], shapey[j]);
+            //sr.line(shapex[i], shapey[i], shapex[j], shapey[j]);
         }
         sr.end();
     }
