@@ -8,3 +8,8 @@
 /Collision/target/
 /MapObject/target/
 /Player/target/
+/EnemyCommon/target/
+/CommonEnemy/target/
+/Zombie/target/
+/EnemyWave/target/
+/AI/target/
