@@ -38,9 +38,12 @@ public class BulletPlugin implements IGamePluginService, IShootService {
 
     @Override
     public void shoot(Entity shooter, World world) {
-        bullet = this.createBullet(shooter);
-        world.addEntity(bullet);
-
+        TimerPart p = shooter.getPart(TimerPart.class);
+        if (p.getExpiration() == 0) {
+            bullet = this.createBullet(shooter);
+            p.setExpiration(10);
+            world.addEntity(bullet);
+        }
     }
 
     @Override
@@ -49,7 +52,7 @@ public class BulletPlugin implements IGamePluginService, IShootService {
     }
 
     private Entity createBullet(Entity entity) {
-        float speed = 7;
+        float speed = 10;
         PositionPart p = entity.getPart(PositionPart.class);
         MovingPart part = entity.getPart(MovingPart.class);
         float x = p.getX();
@@ -59,8 +62,8 @@ public class BulletPlugin implements IGamePluginService, IShootService {
         bullet = new Bullet();
         bullet.add(new MovingPart(speed));
         bullet.add(new PositionPart(x, y, radians));
-        bullet.add(new TimerPart(80));
-        bullet.setImagePath("Images/BulletImages/Bullet.png");
+        bullet.add(new TimerPart(60));
+        bullet.setImagePath(SpritePath.UP.toString());
         setDirection(part);
 
         return bullet;
@@ -72,14 +75,17 @@ public class BulletPlugin implements IGamePluginService, IShootService {
 
         if (part.isDown()) {
             bulletPart.setDown(true);
+            bullet.setImagePath(SpritePath.DOWN.toString());
         }
 
         if (part.isUp()) {
             bulletPart.setUp(true);
+            bullet.setImagePath(SpritePath.UP.toString());
         }
 
         if (part.isLeft()) {
             bulletPart.setLeft(true);
+            bullet.setImagePath(SpritePath.LEFT.toString());
             if (part.isUp()) {
                 bulletPart.setUp(true);
             } else if (part.isDown()) {
@@ -87,8 +93,9 @@ public class BulletPlugin implements IGamePluginService, IShootService {
             }
         }
 
-        if (part.setRight(true)) {
+        if (part.isRight()) {
             bulletPart.setRight(true);
+            bullet.setImagePath(SpritePath.RIGHT.toString());
             if (part.isUp()) {
                 bulletPart.setUp(true);
             } else if (part.isDown()) {

@@ -17,7 +17,7 @@ public class TimerPart
 
     private float expiration;
 
-    public TimerPart(float expiration) {
+    public TimerPart(int expiration) {
         this.expiration = expiration;
     }
 
@@ -25,12 +25,12 @@ public class TimerPart
         return expiration;
     }
 
-    public void setExpiration(float expiration) {
+    public void setExpiration(int expiration) {
         this.expiration = expiration;
     }
 
-    public void reduceExpiration(float delta) {
-        this.expiration -= delta;
+    public void reduceExpiration(int i) {
+        this.expiration -= i;
     }
     
     public void reduceEx(int time) {

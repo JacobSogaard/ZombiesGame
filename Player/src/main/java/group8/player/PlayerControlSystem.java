@@ -12,8 +12,10 @@ import group8.common.data.entityparts.MovingPart;
 import group8.common.data.entityparts.PositionPart;
 import group8.common.services.IEntityProcessingService;
 import group8.common.data.GameKeys;
+import group8.common.data.entityparts.TimerPart;
 import group8.common.services.CollisionRequestServiceImpl;
 import group8.common.services.IShootService;
+import java.util.Arrays;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
@@ -42,6 +44,7 @@ public class PlayerControlSystem implements IEntityProcessingService {
 
             PositionPart positionPart = player.getPart(PositionPart.class);
             MovingPart movingPart = player.getPart(MovingPart.class);
+            TimerPart timerPart = player.getPart(TimerPart.class);
 
             boolean andUp = false, andDown = false;
 
@@ -92,6 +95,7 @@ public class PlayerControlSystem implements IEntityProcessingService {
 
             movingPart.process(gameData, player);
             positionPart.process(gameData, player);
+            timerPart.process(gameData, player);
 
             updateShape(player);
 

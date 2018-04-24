@@ -111,7 +111,6 @@ public class MovingPart implements EntityPart {
 
         positionPart.setX(x);
         positionPart.setY(y);
-        
 
         positionPart.setRadians(radians);
     }

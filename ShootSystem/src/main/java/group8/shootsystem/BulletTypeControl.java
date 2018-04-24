@@ -12,6 +12,7 @@ import group8.common.data.entityparts.MovingPart;
 import group8.common.data.entityparts.PositionPart;
 import group8.common.data.entityparts.TimerPart;
 import group8.common.services.IEntityProcessingService;
+import java.util.Arrays;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
 
@@ -56,7 +57,6 @@ public class BulletTypeControl implements IEntityProcessingService {
         float[] shapex = entity.getShapeX();
         float[] shapey = entity.getShapeY();
         PositionPart positionPart = entity.getPart(PositionPart.class);
-
         float x = positionPart.getX();
         float y = positionPart.getY();
         //float radians = positionPart.getRadians();
@@ -66,12 +66,12 @@ public class BulletTypeControl implements IEntityProcessingService {
         shapey[0] = (float) (y);
 
         shapex[1] = (float) (x);
-        shapey[1] = (float) (y + 20);
+        shapey[1] = (float) (y + 40);
 
-        shapex[2] = (float) (x + 20);
-        shapey[2] = (float) (y + 20);
+        shapex[2] = (float) (x + 40);
+        shapey[2] = (float) (y + 40);
 
-        shapex[3] = (float) (x + 20);
+        shapex[3] = (float) (x + 40);
         shapey[3] = (float) (y);
 
         entity.setShapeX(shapex);

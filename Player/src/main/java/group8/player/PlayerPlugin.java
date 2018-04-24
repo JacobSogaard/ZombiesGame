@@ -10,6 +10,7 @@ import group8.common.data.GameData;
 import group8.common.data.World;
 import group8.common.data.entityparts.MovingPart;
 import group8.common.data.entityparts.PositionPart;
+import group8.common.data.entityparts.TimerPart;
 import group8.common.playercommon.IPlayerService;
 import group8.common.services.IGamePluginService;
 import org.openide.util.lookup.ServiceProvider;
@@ -49,7 +50,7 @@ public class PlayerPlugin implements IGamePluginService, IPlayerService {
         Entity playerRectangle =  new Player();
         playerRectangle.add(new MovingPart(speed));
         playerRectangle.add(new PositionPart(x, y, radians));
-        
+        playerRectangle.add(new TimerPart(0));
         playerRectangle.setImagePath(sp.UP);
         
         return playerRectangle; 
