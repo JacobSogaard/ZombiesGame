@@ -48,8 +48,8 @@ public class SmallZombiePlugin implements IEnemyPluginService {
     
     public Enemy createZombie(GameData gameData) {
         float speed = 1;
-        float x = gameData.getDisplayWidth() / 2 + r.nextInt(200) - 80;
-        float y = gameData.getDisplayHeight() / 2 + r.nextInt(200) - 80;
+        float x = gameData.getDisplayWidth() / 2 + r.nextInt(500) - 250;
+        float y = gameData.getDisplayHeight() / 2 + r.nextInt(500) - 250;
         
         Zombie smallZombie =  new SmallZombie(Rating.THREE);
         smallZombie.add(new MovingPart(speed, 0, 0, 0));

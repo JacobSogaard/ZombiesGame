@@ -67,7 +67,7 @@
         <module>CommonEnemy</module>
         <module>EnemyWave</module>
         <module>Zombie</module>
-
+        <module>AI</module>
     </modules>
 
     <properties>

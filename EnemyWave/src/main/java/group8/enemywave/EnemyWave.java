@@ -42,7 +42,6 @@ public class EnemyWave {
      * Finds all relevant zombies and calls the start method from pluginService on them
      */
     public void startNextWave(GameData gameData, World world) {
-        System.out.println("SatrtNextWave");
         this.gameData = gameData;
         this.world = world;
         this.fillZombiesArray();
@@ -89,7 +88,6 @@ public class EnemyWave {
         double p = baseAmount + value;
         
         double amount = rnd.nextInt((int)p) + waveCount;
-        System.out.println("DEt her eramount: " + amount);
         return amount;
     }
     

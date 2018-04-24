@@ -48,8 +48,8 @@ public class BigZombiePlugin implements IEnemyPluginService {
     
     public Enemy createZombie(GameData gameData) {
         float speed = 5;
-        float x = gameData.getDisplayWidth() / 2 + r.nextInt(120) - 80;
-        float y = gameData.getDisplayHeight() / 2 + r.nextInt(120) - 80;
+        float x = gameData.getDisplayWidth() / 2 + r.nextInt(500) - 250;
+        float y = gameData.getDisplayHeight() / 2 + r.nextInt(500) - 250;
         
         Zombie bigZombie =  new BigZombie(Rating.ONE);
         bigZombie.add(new MovingPart(speed, 0, 0, 0));

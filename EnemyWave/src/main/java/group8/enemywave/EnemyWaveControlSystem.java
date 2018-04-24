@@ -10,6 +10,7 @@ import group8.common.data.EntityType;
 import group8.common.data.GameData;
 import group8.common.data.World;
 import group8.common.services.IEntityProcessingService;
+import group8.commonenemy.enemy.Enemy;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.openide.util.lookup.ServiceProvider;
@@ -32,9 +33,9 @@ public class EnemyWaveControlSystem implements IEntityProcessingService {
         //Check if any more zombies in the world
         boolean noMoreZombies = true;
         for (Entity e : world.getEntities()) {
-            if (e.getType() == EntityType.ZOMBIE) {
-                noMoreZombies = false; 
-            }
+                if (e.getType() == EntityType.ZOMBIE) {
+                    noMoreZombies = false; 
+                }
         }
 
         //Maybe also check if player is standing in the ready-spot or some time has elapsed or something
