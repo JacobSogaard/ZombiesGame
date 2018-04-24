@@ -45,7 +45,7 @@ public class EnemyWave {
         this.gameData = gameData;
         this.world = world;
         this.fillZombiesArray();
-        this.waveCount += 0.2;
+        this.waveCount += 0.06;
         //this.doStuff(gameData, world);
     }
   
@@ -55,7 +55,9 @@ public class EnemyWave {
         this.result.allItems();
         
         for (IEnemyPluginService ie : result.allInstances()) {
-            for (int i = 0; i < howManyEnemies(ie); i++) {
+            
+            int max = (int) howManyEnemies(ie);
+            for (int i = 0; i < max; i++) {
                 ie.start(gameData, world);
             }
         }
@@ -77,17 +79,17 @@ public class EnemyWave {
     private double howManyEnemies(IEnemyPluginService ie) {
         //Basic variables (remember waveCount is in class scope)
         Random rnd = new Random();
-        double baseAmount = 4;
+        double baseAmount = 0;
         
         //Get information from specifc enemy and calculate its value
-        //double rating = ie.getRating().getIntValue();
-        double rating = 3;
+        double rating = ie.getRating().getIntValue(); //NOT IMPLEMENTET CORRECTLY ON ZOMBIE SIDE!
         double value = rating / Rating.getMaxValue();
+        value = Math.pow(Rating.getMaxValue(), 2) - (value * Math.pow(Rating.getMaxValue(), 2));
         
         //Calculate probability seed
         double p = baseAmount + value;
         
-        double amount = rnd.nextInt((int)p) + waveCount;
+        double amount = rnd.nextInt((int)p/40) + waveCount;
         return amount;
     }
     

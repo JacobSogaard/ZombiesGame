@@ -107,12 +107,12 @@ public class BigZombieControlSystem implements IEntityProcessingService {
         shapey[0] = (float) (y);
 
         shapex[1] = (float) (x);
-        shapey[1] = (float) (y + 70);
+        shapey[1] = (float) (y + 100);
 
-        shapex[2] = (float) (x + 40);
-        shapey[2] = (float) (y + 70);
+        shapex[2] = (float) (x + 58);
+        shapey[2] = (float) (y + 100);
 
-        shapex[3] = (float) (x + 40);
+        shapex[3] = (float) (x + 58);
         shapey[3] = (float) (y);
 
         entity.setShapeX(shapex);

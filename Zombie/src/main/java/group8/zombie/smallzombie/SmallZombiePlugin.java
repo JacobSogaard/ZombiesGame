@@ -43,10 +43,10 @@ public class SmallZombiePlugin implements IEnemyPluginService {
 
     public Enemy createZombie(GameData gameData) {
         float speed = (float) 1.5;
-
         Zombie smallZombie = new SmallZombie(Rating.THREE);
         float x = smallZombie.setX(gameData, 200);
         float y = smallZombie.setY(gameData, 200);
+
         smallZombie.add(new MovingPart(speed, 0, 0, 0));
         smallZombie.add(new PositionPart(x, y, 0));
 
@@ -57,6 +57,6 @@ public class SmallZombiePlugin implements IEnemyPluginService {
 
     @Override
     public Rating getRating() {
-        return this.zombie.getRating();
+        return Rating.SEVEN;
     }
 }
