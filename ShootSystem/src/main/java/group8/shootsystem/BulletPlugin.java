@@ -37,7 +37,7 @@ public class BulletPlugin implements IGamePluginService, IShootService {
     public void shoot(Entity shooter, World world) {
         bullet = this.createBullet(shooter);
         world.addEntity(bullet);
-        System.out.println(bullet.getImagePath());
+
     }
 
     @Override
@@ -45,7 +45,7 @@ public class BulletPlugin implements IGamePluginService, IShootService {
         world.removeEntity(bullet);
     }
     
-    public Entity createBullet(Entity entity) {
+    private Entity createBullet(Entity entity) {
         float speed = 4;
         PositionPart p = entity.getPart(PositionPart.class);
         float x = p.getX();
@@ -55,8 +55,8 @@ public class BulletPlugin implements IGamePluginService, IShootService {
         bullet = new Bullet();
         bullet.add(new MovingPart(speed));
         bullet.add(new PositionPart(x,y,radians));
-        bullet.add(new TimerPart(100));
-        bullet.setImagePath("Images/BulletImages/Bullet-bill.png");
+        bullet.add(new TimerPart(1000));
+        bullet.setImagePath("Images/BulletImages/Bullet.png");
         
         return bullet;
     }

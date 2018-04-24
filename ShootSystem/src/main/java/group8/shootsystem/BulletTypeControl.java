@@ -11,27 +11,36 @@ import group8.common.data.World;
 import group8.common.data.entityparts.MovingPart;
 import group8.common.data.entityparts.PositionPart;
 import group8.common.services.IEntityProcessingService;
+import org.openide.util.lookup.ServiceProvider;
+import org.openide.util.lookup.ServiceProviders;
+
+@ServiceProviders(value = {
+    @ServiceProvider(service = IEntityProcessingService.class)})
 
 /**
  *
  * @author MER
  */
 public class BulletTypeControl implements IEntityProcessingService {
-    
-    
+
     @Override
     public void process(GameData gameData, World world) {
         for (Entity entity : world.getEntities(Bullet.class)) {
+            PositionPart part1 = entity.getPart(PositionPart.class);
+            MovingPart part = entity.getPart(MovingPart.class);
+            part.setLeft(false);
+            part.setDown(false);
+            part.setRight(false);
+            part.setUp(true);
+            
+            part1.process(gameData, entity);
+            part.process(gameData, entity);
+
             this.updateShape(entity);
-            PositionPart part1 = entity.getPart(Bullet.class);
-            MovingPart part = entity.getPart(Bullet.class);
-                part.setLeft(false);
-                part.setDown(false);
-                part.setRight(false);
-                part.setUp(true);
+
         }
     }
-    
+
     private void updateShape(Entity entity) {
         float[] shapex = entity.getShapeX();
         float[] shapey = entity.getShapeY();
@@ -58,6 +67,4 @@ public class BulletTypeControl implements IEntityProcessingService {
         entity.setShapeY(shapey);
     }
 
-    
-    
 }

@@ -90,7 +90,6 @@ public class PlayerControlSystem implements IEntityProcessingService {
             
             if(gameData.getKeys().isDown(GameKeys.SPACE)) {
                 lookup.lookup(IShootService.class).shoot(player, world);
-                System.out.println("Shoot: space");
             }
 
             movingPart.process(gameData, player);
