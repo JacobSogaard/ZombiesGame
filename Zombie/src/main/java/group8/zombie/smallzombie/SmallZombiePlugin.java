@@ -34,7 +34,6 @@ public class SmallZombiePlugin implements IEnemyPluginService {
     @Override
     public void start(GameData gameData, World world) {
         //Add entitites to world
-        System.out.println("Small Zombie");
         zombie = createZombie(gameData);
         world.addEntity(zombie); 
         

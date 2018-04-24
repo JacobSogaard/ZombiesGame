@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><module codename="Group8.Player">
-<<<<<<< HEAD
-    <module_version install_time="1524043225318" last="true" origin="installer" specification_version="1.0">
+    <module_version install_time="1524568267474" last="true" origin="installer" specification_version="1.0">
         <file crc="915457993" name="config/Modules/Group8-Player.xml"/>
-        <file crc="1880601418" name="modules/Group8-Player.jar"/>
-=======
-    <module_version install_time="1524567849331" last="true" origin="installer" specification_version="1.0">
-        <file crc="915457993" name="config/Modules/Group8-Player.xml"/>
-        <file crc="1826435799" name="modules/Group8-Player.jar"/>
->>>>>>> zombie
+        <file crc="2356784043" name="modules/Group8-Player.jar"/>
     </module_version>
 </module>
