@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><module codename="Group8.EnemyWave">
-    <module_version install_time="1524567854481" last="true" origin="installer" specification_version="1.0">
+    <module_version install_time="1524568272373" last="true" origin="installer" specification_version="1.0">
         <file crc="2152081430" name="config/Modules/Group8-EnemyWave.xml"/>
-        <file crc="1145455915" name="modules/Group8-EnemyWave.jar"/>
+        <file crc="3511461368" name="modules/Group8-EnemyWave.jar"/>
     </module_version>
 </module>
