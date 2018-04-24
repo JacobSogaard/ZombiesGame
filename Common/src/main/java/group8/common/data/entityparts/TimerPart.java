@@ -32,12 +32,17 @@ public class TimerPart
     public void reduceExpiration(float delta) {
         this.expiration -= delta;
     }
+    
+    public void reduceEx(int time) {
+        this.expiration -= time;
+    }
 
     @Override
     public void process(GameData gameData, Entity entity) {
         if (expiration > 0) {
-            reduceExpiration(gameData.getDelta());
+//            reduceExpiration(gameData.getDelta());
+              reduceEx(1);
         }
     }
-
+    
 }

@@ -79,10 +79,8 @@ public class PlayerControlSystem implements IEntityProcessingService {
                 player.setImagePath(sp.RIGHT);
                 movingPart.setRight(true);
                 if (andUp) {
-                    movingPart.setRightup(true);
                     player.setImagePath(sp.UPRIGHT);
                 } else if (andDown) {
-                    movingPart.setRightdown(true);
                     player.setImagePath(sp.DOWNRIGHT);
                 }
                 movingPart.setRight(this.col.canMoveRight(player, world));
@@ -101,10 +99,6 @@ public class PlayerControlSystem implements IEntityProcessingService {
             movingPart.setDown(false);
             movingPart.setLeft(false);
             movingPart.setRight(false);
-            movingPart.setLeftdown(false);
-            movingPart.setLeftup(false);
-            movingPart.setRightdown(false);
-            movingPart.setRightup(false);
         }
     }
 

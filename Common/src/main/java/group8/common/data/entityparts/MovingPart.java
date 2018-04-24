@@ -23,7 +23,7 @@ public class MovingPart implements EntityPart {
     private float dx, dy;
     private float speed;
     private boolean[] directions;
-    private boolean left, right, up, down, leftup, leftdown, rightup, rightdown;
+    private boolean left, right, up, down;
 
     public MovingPart(float maxSpeed) {
         this.speed = maxSpeed;
@@ -143,61 +143,4 @@ public class MovingPart implements EntityPart {
     public boolean isDown() {
         return down;
     }
-
-    /**
-     * @return the leftup
-     */
-    public boolean isLeftup() {
-        return leftup;
-    }
-
-    /**
-     * @return the leftdown
-     */
-    public boolean isLeftdown() {
-        return leftdown;
-    }
-
-    /**
-     * @return the rightup
-     */
-    public boolean isRightup() {
-        return rightup;
-    }
-
-    /**
-     * @return the rightdown
-     */
-    public boolean isRightdown() {
-        return rightdown;
-    }
-
-    /**
-     * @param leftup the leftup to set
-     */
-    public void setLeftup(boolean leftup) {
-        this.leftup = leftup;
-    }
-
-    /**
-     * @param leftdown the leftdown to set
-     */
-    public void setLeftdown(boolean leftdown) {
-        this.leftdown = leftdown;
-    }
-
-    /**
-     * @param rightup the rightup to set
-     */
-    public void setRightup(boolean rightup) {
-        this.rightup = rightup;
-    }
-
-    /**
-     * @param rightdown the rightdown to set
-     */
-    public void setRightdown(boolean rightdown) {
-        this.rightdown = rightdown;
-    }
-
 }

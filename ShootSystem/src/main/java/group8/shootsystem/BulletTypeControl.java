@@ -10,6 +10,7 @@ import group8.common.data.GameData;
 import group8.common.data.World;
 import group8.common.data.entityparts.MovingPart;
 import group8.common.data.entityparts.PositionPart;
+import group8.common.data.entityparts.TimerPart;
 import group8.common.services.IEntityProcessingService;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
@@ -23,21 +24,31 @@ import org.openide.util.lookup.ServiceProviders;
  */
 public class BulletTypeControl implements IEntityProcessingService {
 
+    
     @Override
     public void process(GameData gameData, World world) {
+        
         for (Entity entity : world.getEntities(Bullet.class)) {
             PositionPart part1 = entity.getPart(PositionPart.class);
-            MovingPart part = entity.getPart(MovingPart.class);
-            part.setLeft(false);
-            part.setDown(false);
-            part.setRight(false);
-            part.setUp(true);
-            
+            MovingPart moving = entity.getPart(MovingPart.class);
+            TimerPart timer = entity.getPart(TimerPart.class);
+
             part1.process(gameData, entity);
-            part.process(gameData, entity);
+            moving.process(gameData, entity);
+            timer.process(gameData, entity);
+
+            bulletTimer(timer, world, entity);
 
             this.updateShape(entity);
 
+        }
+    }
+
+
+    private void bulletTimer(TimerPart timer, World world, Entity entity) {
+
+        if (timer.getExpiration() == 0) {
+            world.removeEntity(entity);
         }
     }
 
