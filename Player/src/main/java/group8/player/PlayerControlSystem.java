@@ -12,7 +12,11 @@ import group8.common.data.entityparts.MovingPart;
 import group8.common.data.entityparts.PositionPart;
 import group8.common.services.IEntityProcessingService;
 import group8.common.data.GameKeys;
+import group8.common.data.entityparts.TimerPart;
 import group8.common.services.CollisionRequestServiceImpl;
+import group8.common.services.IShootService;
+import java.util.Arrays;
+import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
 
@@ -30,20 +34,23 @@ public class PlayerControlSystem implements IEntityProcessingService {
     private boolean canMoveDown = true;
     private boolean canMoveLeft = true;
     private boolean canMoveRight = true;
+    private Lookup lookup = Lookup.getDefault();
 
     @Override
     public void process(GameData gameData, World world) {
+        
 
         for (Entity player : world.getEntities(Player.class)) {
 
             PositionPart positionPart = player.getPart(PositionPart.class);
             MovingPart movingPart = player.getPart(MovingPart.class);
+            TimerPart timerPart = player.getPart(TimerPart.class);
 
             boolean andUp = false, andDown = false;
 
             if (gameData.getKeys().isDown(GameKeys.UP)) {
                 player.setImagePath(sp.UP);
-
+                movingPart.setUp(true);
                 if (movingPart.setUp(this.col.canMoveUp(player, world))) {
                     andUp = true;
                 }
@@ -51,6 +58,7 @@ public class PlayerControlSystem implements IEntityProcessingService {
 
             if (gameData.getKeys().isDown(GameKeys.DOWN)) {
                 player.setImagePath(sp.DOWN);
+                movingPart.setDown(true);
 
                 if (movingPart.setDown(this.col.canMoveDown(player, world))) {
                     andDown = true;
@@ -59,17 +67,20 @@ public class PlayerControlSystem implements IEntityProcessingService {
 
             if (gameData.getKeys().isDown(GameKeys.LEFT)) {
                 player.setImagePath(sp.LEFT);
+                movingPart.setLeft(true);
                 if (andUp) {
                     player.setImagePath(sp.UPLEFT);
+                    movingPart.setUp(true);
                 } else if (andDown) {
                     player.setImagePath(sp.DOWNLEFT);
+                    movingPart.setDown(true);
                 }
                 movingPart.setLeft(this.col.canMoveLeft(player, world));
             }
 
             if (gameData.getKeys().isDown(GameKeys.RIGHT)) {
                 player.setImagePath(sp.RIGHT);
-
+                movingPart.setRight(true);
                 if (andUp) {
                     player.setImagePath(sp.UPRIGHT);
                 } else if (andDown) {
@@ -77,9 +88,14 @@ public class PlayerControlSystem implements IEntityProcessingService {
                 }
                 movingPart.setRight(this.col.canMoveRight(player, world));
             }
+            
+            if(gameData.getKeys().isDown(GameKeys.SPACE)) {
+                lookup.lookup(IShootService.class).shoot(player, world);
+            }
 
             movingPart.process(gameData, player);
             positionPart.process(gameData, player);
+            timerPart.process(gameData, player);
 
             updateShape(player);
 

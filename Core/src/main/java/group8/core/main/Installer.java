@@ -17,8 +17,6 @@ public class Installer extends ModuleInstall {
         cfg.title = "InZombia";
         cfg.width = 800;
         cfg.height = 600;
-        cfg.useGL30 = false;
-        cfg.resizable = false;
 
         new LwjglApplication(g, cfg);
     }

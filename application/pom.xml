@@ -92,6 +92,7 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
+<<<<<<< HEAD
             <artifactId>CommonEnemy</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -108,6 +109,9 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>AI</artifactId>
+=======
+            <artifactId>ShootSystem</artifactId>
+>>>>>>> Weapon
             <version>${project.version}</version>
         </dependency>
     </dependencies>

@@ -3,12 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package group8.common.data;
+package group8.common.services;
+
+import group8.common.data.Entity;
+import group8.common.data.World;
 
 /**
  *
- * @author kasper
+ * @author MER
  */
-public enum EntityType {
-    PLAYER, MAPOBJECT, ZOMBIE, BULLET, NONE;
+public interface IShootService {
+    public void shoot(Entity entity, World world);
 }
