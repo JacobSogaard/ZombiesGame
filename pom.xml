@@ -64,14 +64,11 @@
         <module>Player</module>
         <module>Collision</module>
         <module>MapObject</module>
-<<<<<<< HEAD
         <module>CommonEnemy</module>
         <module>EnemyWave</module>
         <module>Zombie</module>
         <module>AI</module>
-=======
         <module>ShootSystem</module>
->>>>>>> Weapon
     </modules>
 
     <properties>

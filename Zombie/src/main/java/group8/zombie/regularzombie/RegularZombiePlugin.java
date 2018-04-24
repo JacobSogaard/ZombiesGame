@@ -47,12 +47,12 @@ public class RegularZombiePlugin implements IEnemyPluginService {
     }
     
     public Enemy createZombie(GameData gameData) {
-        float speed = (float)0.5;
+        float speed = (float)0.859;
         float x = gameData.getDisplayWidth() / 2 + r.nextInt(500) - 250;
         float y = gameData.getDisplayHeight() / 2 + r.nextInt(500) - 250;
         
         Zombie regularZombie =  new RegularZombie(Rating.THREE);
-        regularZombie.add(new MovingPart(speed, 0, 0, 0));
+        regularZombie.add(new MovingPart(speed));
         regularZombie.add(new PositionPart(x, y, 0));
 
         regularZombie.setImagePath(RegularZombieSpritePath.UP);

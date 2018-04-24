@@ -7,12 +7,6 @@ package group8.common.data.entityparts;
 
 import group8.common.data.Entity;
 import group8.common.data.GameData;
-import static group8.common.data.GameKeys.LEFT;
-import static group8.common.data.GameKeys.RIGHT;
-import static group8.common.data.GameKeys.UP;
-import static java.lang.Math.cos;
-import static java.lang.Math.sin;
-import static java.lang.Math.sqrt;
 
 /**
  *

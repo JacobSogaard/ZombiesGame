@@ -47,7 +47,7 @@ public class SmallZombiePlugin implements IEnemyPluginService {
         float x = smallZombie.setX(gameData, 200);
         float y = smallZombie.setY(gameData, 200);
 
-        smallZombie.add(new MovingPart(speed, 0, 0, 0));
+        smallZombie.add(new MovingPart(speed));
         smallZombie.add(new PositionPart(x, y, 0));
 
         smallZombie.setImagePath(SmallZombieSpritePath.UP);
