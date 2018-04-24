@@ -53,8 +53,6 @@ public class BigZombiePlugin implements IEnemyPluginService {
         Zombie bigZombie =  new BigZombie(Rating.ONE);
         bigZombie.add(new MovingPart(speed, 0, 0, 0));
         bigZombie.add(new PositionPart(x, y, 0));
-        
-        System.out.println("Create big zombie: " + BigZombieSpritePath.UP);
         bigZombie.setImagePath(BigZombieSpritePath.UP);
         
         return bigZombie; 
@@ -62,6 +60,6 @@ public class BigZombiePlugin implements IEnemyPluginService {
 
     @Override
     public Rating getRating() {
-        return this.zombie.getRating();
+        return Rating.ONE;
     }
 }

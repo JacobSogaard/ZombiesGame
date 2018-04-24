@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package group8.zombie.smallzombie;
+package group8.zombie.regularzombie;
 
+import group8.zombie.bigzombie.*;
 import group8.common.data.Entity;
 import group8.common.data.GameData;
 import group8.common.data.World;
@@ -27,7 +28,7 @@ import org.openide.util.lookup.ServiceProviders;
 @ServiceProviders(value = {
     @ServiceProvider(service = IEnemyPluginService.class)})
 
-public class SmallZombiePlugin implements IEnemyPluginService {
+public class RegularZombiePlugin implements IEnemyPluginService {
     private Random r = new Random();
     private Enemy zombie;
     
@@ -46,22 +47,21 @@ public class SmallZombiePlugin implements IEnemyPluginService {
     }
     
     public Enemy createZombie(GameData gameData) {
-        float speed = (float) 1.5;
+        float speed = (float)0.5;
         float x = gameData.getDisplayWidth() / 2 + r.nextInt(500) - 250;
         float y = gameData.getDisplayHeight() / 2 + r.nextInt(500) - 250;
         
-        Zombie smallZombie =  new SmallZombie(Rating.SIX);
-        smallZombie.add(new MovingPart(speed, 0, 0, 0));
-        smallZombie.add(new PositionPart(x, y, 0));
+        Zombie regularZombie =  new RegularZombie(Rating.THREE);
+        regularZombie.add(new MovingPart(speed, 0, 0, 0));
+        regularZombie.add(new PositionPart(x, y, 0));
+
+        regularZombie.setImagePath(RegularZombieSpritePath.UP);
         
-        
-        smallZombie.setImagePath(SmallZombieSpritePath.UP);
-        
-        return smallZombie; 
+        return regularZombie; 
     }
 
     @Override
     public Rating getRating() {
-        return Rating.SEVEN;
+        return Rating.THREE;
     }
 }

@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package group8.zombie.smallzombie;
+package group8.zombie.regularzombie;
 
+import group8.zombie.bigzombie.*;
 import group8.common.data.Entity;
 import group8.common.data.GameData;
 import group8.common.data.GameKeys;
@@ -21,13 +22,14 @@ import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
 
+
 /**
  *
  * @author jacob
  */
 @ServiceProviders(value = {
     @ServiceProvider(service = IEntityProcessingService.class)})
-public class SmallZombieControlSystem implements IEntityProcessingService {
+public class RegularZombieControlSystem implements IEntityProcessingService {
 
     private Lookup lookup = Lookup.getDefault();
     protected IPathFinderService path = lookup.lookup(IPathFinderService.class);
@@ -35,22 +37,24 @@ public class SmallZombieControlSystem implements IEntityProcessingService {
     @Override
     public void process(GameData gameData, World world) {
         
-        for (Entity zombie : world.getEntities(SmallZombie.class)) {
+        
+        for (Entity zombie : world.getEntities(RegularZombie.class)) {
             Map<Integer, Boolean> directions = path.getDirections(zombie);
             PositionPart positionPart = zombie.getPart(PositionPart.class);
             MovingPart movingPart = zombie.getPart(MovingPart.class);
 
             boolean andUp = false, andDown = false;
-
+            
+            
             if (directions.get(GameKeys.UP)) {
-                zombie.setImagePath(SmallZombieSpritePath.UP);
+                zombie.setImagePath(RegularZombieSpritePath.UP);
                 movingPart.setUp(true);
                 andUp = true;
                 
             }
 
             if (directions.get(GameKeys.DOWN)) {
-                zombie.setImagePath(SmallZombieSpritePath.DOWN);
+                zombie.setImagePath(RegularZombieSpritePath.DOWN);
 
                 movingPart.setDown(true);
                 andDown = true;
@@ -58,22 +62,22 @@ public class SmallZombieControlSystem implements IEntityProcessingService {
             }
 
             if (directions.get(GameKeys.LEFT)) {
-                zombie.setImagePath(SmallZombieSpritePath.LEFT);
+                zombie.setImagePath(RegularZombieSpritePath.LEFT);
                 if (andUp) {
-                    zombie.setImagePath(SmallZombieSpritePath.UPLEFT);
+                    zombie.setImagePath(RegularZombieSpritePath.UPLEFT);
                 } else if (andDown) {
-                    zombie.setImagePath(SmallZombieSpritePath.DOWNLEFT);
+                    zombie.setImagePath(RegularZombieSpritePath.DOWNLEFT);
                 }
                 movingPart.setLeft(true);
             }
 
             if (directions.get(GameKeys.RIGHT)) {
-                zombie.setImagePath(SmallZombieSpritePath.RIGHT);
+                zombie.setImagePath(RegularZombieSpritePath.RIGHT);
 
                 if (andUp) {
-                    zombie.setImagePath(SmallZombieSpritePath.UPRIGHT);
+                    zombie.setImagePath(RegularZombieSpritePath.UPRIGHT);
                 } else if (andDown) {
-                    zombie.setImagePath(SmallZombieSpritePath.DOWNRIGHT);
+                    zombie.setImagePath(RegularZombieSpritePath.DOWNRIGHT);
                 }
                 movingPart.setRight(true);
             }
@@ -104,12 +108,12 @@ public class SmallZombieControlSystem implements IEntityProcessingService {
         shapey[0] = (float) (y);
 
         shapex[1] = (float) (x);
-        shapey[1] = (float) (y + 50);
+        shapey[1] = (float) (y + 70);
 
-        shapex[2] = (float) (x + 28);
-        shapey[2] = (float) (y + 50);
+        shapex[2] = (float) (x + 40);
+        shapey[2] = (float) (y + 70);
 
-        shapex[3] = (float) (x + 28);
+        shapex[3] = (float) (x + 40);
         shapey[3] = (float) (y);
 
         entity.setShapeX(shapex);
