@@ -29,11 +29,9 @@ import org.openide.util.lookup.ServiceProviders;
 public class BulletPlugin implements IGamePluginService, IShootService {
 
     private Entity bullet;
-    private Entity player;
 
     @Override
     public void start(GameData gameData, World world) {
-
     }
 
     @Override

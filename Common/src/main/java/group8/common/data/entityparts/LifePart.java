@@ -53,6 +53,5 @@ public class LifePart implements EntityPart {
         if (life <= 0) {
             dead = true;
         }
-        
     }
 }
