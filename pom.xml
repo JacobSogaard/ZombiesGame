@@ -69,6 +69,7 @@
         <module>Zombie</module>
         <module>AI</module>
         <module>ShootSystem</module>
+        <module>Weapon</module>
     </modules>
 
     <properties>

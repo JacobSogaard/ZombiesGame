@@ -6,7 +6,7 @@
         <artifactId>ZombiesGame-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>ShootSystem</artifactId>
+    <artifactId>Weapon</artifactId>
     <packaging>nbm</packaging>
     <build>
         <plugins>
@@ -38,9 +38,13 @@
             <artifactId>Common</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+		<groupId>com.fasterxml.jackson.core</groupId>
+		<artifactId>jackson-databind</artifactId>
+		<version>2.9.4</version>
+	</dependency>
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-    <name>ShootSystem</name>
 </project>

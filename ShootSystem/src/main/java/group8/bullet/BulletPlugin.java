@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package group8.shootsystem;
+package group8.bullet;
 
+import group8.common.bulletcreationservice.ILoadBulletService;
 import group8.common.data.Entity;
 import group8.common.data.GameData;
 import group8.common.data.World;
@@ -14,24 +15,28 @@ import group8.common.data.entityparts.TimerPart;
 import group8.common.services.IEntityProcessingService;
 import group8.common.services.IGamePluginService;
 import group8.common.services.IShootService;
+import java.util.HashMap;
+import java.util.Map;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
 
 @ServiceProviders(value = {
-    @ServiceProvider(service = IGamePluginService.class)
-    ,
-    @ServiceProvider(service = IShootService.class)
+    @ServiceProvider(service = IGamePluginService.class),
+    @ServiceProvider(service = IShootService.class),
+    @ServiceProvider(service = ILoadBulletService.class)
 })
 /**
  *
  * @author MER
  */
-public class BulletPlugin implements IGamePluginService, IShootService {
+public class BulletPlugin implements IGamePluginService, IShootService, ILoadBulletService {
 
     private Entity bullet;
+    private HashMap<String,String> sprites;
 
     @Override
     public void start(GameData gameData, World world) {
+        this.loadSprites();
     }
 
     @Override
@@ -50,40 +55,45 @@ public class BulletPlugin implements IGamePluginService, IShootService {
     }
 
     private Entity createBullet(Entity entity) {
-        float speed = 10;
         PositionPart p = entity.getPart(PositionPart.class);
         MovingPart part = entity.getPart(MovingPart.class);
         float x = p.getX();
         float y = p.getY();
         float radians = 3.1415f / 2;
 
-        bullet = new Bullet();
-        bullet.add(new MovingPart(speed));
-        bullet.add(new PositionPart(x, y, radians));
-        bullet.add(new TimerPart(60));
-        bullet.setImagePath(SpritePath.UP.toString());
-        setDirection(part);
+        this.bullet = new Bullet();
+        this.bullet.add(new PositionPart(x, y, radians));
+        if (this.bullet.getImagePath() == null) {
+            this.setBullet(7, 60, this.sprites);
+        }
+        this.setDirection(part);
 
         return bullet;
     }
+    
+    public void setBullet(int speed, int time, Map spritePaths) {
+        this.bullet.add(new MovingPart(speed));
+        this.bullet.add(new TimerPart(time));
+        this.sprites = (HashMap<String, String>) spritePaths;
+    }
 
-    public void setDirection(MovingPart part) {
+    private void setDirection(MovingPart part) {
 
-        MovingPart bulletPart = bullet.getPart(MovingPart.class);
+        MovingPart bulletPart = this.bullet.getPart(MovingPart.class);
 
         if (part.isDown()) {
             bulletPart.setDown(true);
-            bullet.setImagePath(SpritePath.DOWN.toString());
+            this.bullet.setImagePath(this.sprites.get("DOWN"));
         }
 
         if (part.isUp()) {
             bulletPart.setUp(true);
-            bullet.setImagePath(SpritePath.UP.toString());
+            this.bullet.setImagePath(this.sprites.get("UP"));
         }
 
         if (part.isLeft()) {
             bulletPart.setLeft(true);
-            bullet.setImagePath(SpritePath.LEFT.toString());
+            this.bullet.setImagePath(this.sprites.get("LEFT"));
             if (part.isUp()) {
                 bulletPart.setUp(true);
             } else if (part.isDown()) {
@@ -93,13 +103,20 @@ public class BulletPlugin implements IGamePluginService, IShootService {
 
         if (part.isRight()) {
             bulletPart.setRight(true);
-            bullet.setImagePath(SpritePath.RIGHT.toString());
+            this.bullet.setImagePath(this.sprites.get("RIGHT"));
             if (part.isUp()) {
                 bulletPart.setUp(true);
             } else if (part.isDown()) {
                 bulletPart.setDown(true);
             }
         }
+    }
+    
+    private void loadSprites() {
+        this.sprites.put("UP", SpritePath.UP.toString());
+        this.sprites.put("DOWN", SpritePath.DOWN.toString());
+        this.sprites.put("LEFT", SpritePath.LEFT.toString());
+        this.sprites.put("RIGHT", SpritePath.RIGHT.toString());
     }
 
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package group8.shootsystem;
+package group8.bullet;
 
 import group8.common.data.Entity;
 import group8.common.data.GameData;
@@ -66,12 +66,12 @@ public class BulletTypeControl implements IEntityProcessingService {
         shapey[0] = (float) (y);
 
         shapex[1] = (float) (x);
-        shapey[1] = (float) (y + 40);
+        shapey[1] = (float) (y + entity.getHeight());
 
-        shapex[2] = (float) (x + 40);
-        shapey[2] = (float) (y + 40);
+        shapex[2] = (float) (x + entity.getWidth());
+        shapey[2] = (float) (y + entity.getHeight());
 
-        shapex[3] = (float) (x + 40);
+        shapex[3] = (float) (x + entity.getWidth());
         shapey[3] = (float) (y);
 
         entity.setShapeX(shapex);
