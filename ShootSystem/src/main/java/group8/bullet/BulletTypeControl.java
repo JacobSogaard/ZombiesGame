@@ -59,9 +59,7 @@ public class BulletTypeControl implements IEntityProcessingService {
         PositionPart positionPart = entity.getPart(PositionPart.class);
         float x = positionPart.getX();
         float y = positionPart.getY();
-        //float radians = positionPart.getRadians();
 
-        //here we draw a rectangle for the player
         shapex[0] = (float) (x);
         shapey[0] = (float) (y);
 

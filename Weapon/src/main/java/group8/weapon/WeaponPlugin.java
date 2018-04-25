@@ -6,8 +6,10 @@
 package group8.weapon;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import group8.common.data.Entity;
 import group8.common.data.GameData;
 import group8.common.data.World;
+import group8.common.data.entityparts.PositionPart;
 import group8.common.services.IGamePluginService;
 import java.io.File;
 import java.io.IOException;
@@ -26,11 +28,11 @@ import org.openide.util.lookup.ServiceProviders;
  */
 public class WeaponPlugin implements IGamePluginService {
     
-    private Weapon w;
+    private Weapon weapon;
     
     @Override
     public void start(GameData gameData, World world) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      
     }
 
     @Override
@@ -45,12 +47,24 @@ public class WeaponPlugin implements IGamePluginService {
         while(jsonFile != null) {
             jsonFile = new File("Images/weapon/object"+i);
             Weapon w;
-            try {
-                w = mapper.readValue(jsonFile, Weapon.class);
-            } catch (IOException ex) {
-                Logger.getLogger(WeaponPlugin.class.getName()).log(Level.SEVERE, null, ex);
-            }
+//            try {
+//                w = mapper.readValue(jsonFile, Weapon.class);
+//            } catch (IOException ex) {
+//                Logger.getLogger(WeaponPlugin.class.getName()).log(Level.SEVERE, null, ex);
+//            }
         }
+    }
+    
+    private Entity createWeapon(Entity player) {
+        PositionPart playerPosition = player.getPart(PositionPart.class);
+        float x = playerPosition.getX();
+        float y = playerPosition.getY();
+        float radians = 3.1415f / 2;
+        
+        this.weapon = new Weapon();
+        this.weapon.add(new PositionPart(x, y, radians));
+        
+        return weapon;   
     }
     
 }
