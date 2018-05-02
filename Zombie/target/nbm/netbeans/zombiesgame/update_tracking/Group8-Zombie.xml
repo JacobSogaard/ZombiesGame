@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><module codename="Group8.Zombie">
-<<<<<<< Updated upstream
-    <module_version install_time="1524649742989" last="true" origin="installer" specification_version="1.0">
+    <module_version install_time="1525264225296" last="true" origin="installer" specification_version="1.0">
         <file crc="1337215217" name="config/Modules/Group8-Zombie.xml"/>
-        <file crc="3941524558" name="modules/Group8-Zombie.jar"/>
-=======
-    <module_version install_time="1525256810438" last="true" origin="installer" specification_version="1.0">
-        <file crc="1337215217" name="config/Modules/Group8-Zombie.xml"/>
-        <file crc="2006214716" name="modules/Group8-Zombie.jar"/>
->>>>>>> Stashed changes
+        <file crc="2512771124" name="modules/Group8-Zombie.jar"/>
     </module_version>
 </module>

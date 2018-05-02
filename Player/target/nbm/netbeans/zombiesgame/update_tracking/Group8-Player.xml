@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><module codename="Group8.Player">
-<<<<<<< Updated upstream
-    <module_version install_time="1524649718747" last="true" origin="installer" specification_version="1.0">
+    <module_version install_time="1525264216602" last="true" origin="installer" specification_version="1.0">
         <file crc="915457993" name="config/Modules/Group8-Player.xml"/>
-        <file crc="1542331366" name="modules/Group8-Player.jar"/>
-=======
-    <module_version install_time="1525256804032" last="true" origin="installer" specification_version="1.0">
-        <file crc="915457993" name="config/Modules/Group8-Player.xml"/>
-        <file crc="2250402263" name="modules/Group8-Player.jar"/>
->>>>>>> Stashed changes
+        <file crc="1667725527" name="modules/Group8-Player.jar"/>
     </module_version>
 </module>

@@ -60,6 +60,7 @@ public class MapObjectPlugin implements IGamePluginService, IMapCollision {
             MapObject map = new MapObject();
             map.add(new PositionPart(map.getXCoor(), map.getYCoor(), 0));
             map.setImagePath(map.getMapType().toString());
+            this.mapObjects.add(map);
             world.addEntity(this.initMap(map));
         }
     }
@@ -115,6 +116,7 @@ public class MapObjectPlugin implements IGamePluginService, IMapCollision {
 
     @Override
     public ArrayList<Entity> getMapObjects() {
+        System.out.println("In map: " + this.mapObjects.size());
         return this.mapObjects;
     }
 
