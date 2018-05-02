@@ -90,10 +90,12 @@ public class PlayerControlSystem implements IEntityProcessingService {
             }
 
             if (gameData.getKeys().isDown(GameKeys.SPACE)) {
+                
                 lookup.lookup(IShootService.class).shoot(player, world);
             }
 
-            if (gameData.getKeys().isDown(GameKeys.SHIFT)) {              
+            if (gameData.getKeys().isDown(GameKeys.SHIFT)) {   
+                lookup.lookup(IShootService.class).changeBullet();
                 lookup.lookup(IWeaponService.class).changeWeapon();
             }
             lookup.lookup(IWeaponService.class).setWeaponDirection(player, world);

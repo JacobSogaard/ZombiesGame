@@ -35,12 +35,8 @@ public class WeaponPlugin implements IGamePluginService, IWeaponService {
 
     @Override
     public void start(GameData gameData, World world) {
-
-        System.out.println("hello");
         weaponMap = new HashMap<>();
         this.addWeaponPath();
-        System.out.println("SIZE: " + this.weaponMap.size());
-        System.out.println("path: " + this.weaponMap.get(key)[1]);
 
         this.weapon = new Weapon();
     }
@@ -64,6 +60,7 @@ public class WeaponPlugin implements IGamePluginService, IWeaponService {
 //            }
 //        }
 //    }
+    
     private Entity createWeapon(Entity player) {
         PositionPart playerPosition = player.getPart(PositionPart.class);
         MovingPart part = player.getPart(MovingPart.class);
@@ -136,7 +133,7 @@ public class WeaponPlugin implements IGamePluginService, IWeaponService {
         if(key == 0 || key < this.weaponMap.size()) {
             key++;
         }
-        else if(key >= this.weaponMap.size()) {
+        else if(key == this.weaponMap.size()) {
             key--;
         }
     }

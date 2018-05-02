@@ -22,7 +22,8 @@ import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
 
 @ServiceProviders(value = {
-    @ServiceProvider(service = IGamePluginService.class),
+    @ServiceProvider(service = IGamePluginService.class)
+    ,
     @ServiceProvider(service = IShootService.class)
 })
 /**
@@ -32,11 +33,13 @@ import org.openide.util.lookup.ServiceProviders;
 public class BulletPlugin implements IGamePluginService, IShootService {
 
     private Entity bullet;
-//    private HashMap<String,String> sprites;
+    private HashMap<Integer, String[]> bulletMap;
+    private Integer key = 1;
 
     @Override
     public void start(GameData gameData, World world) {
-//        this.loadSprites();
+        bulletMap = new HashMap<>();
+        this.addBullet();
     }
 
     @Override
@@ -74,30 +77,29 @@ public class BulletPlugin implements IGamePluginService, IShootService {
 
         return bullet;
     }
-    
+
 //    public void setBullet(int speed, int time, Map spritePaths) {
 //        this.bullet.add(new MovingPart(speed));
 //        this.bullet.add(new TimerPart(time));
 //        this.sprites = (HashMap<String, String>) spritePaths;
 //    }
-
     private void setDirection(MovingPart part) {
 
         MovingPart bulletPart = this.bullet.getPart(MovingPart.class);
 
         if (part.isDown()) {
             bulletPart.setDown(true);
-            this.bullet.setImagePath(SpritePath.DOWN.toString());
+            this.bullet.setImagePath(this.bulletMap.get(key)[0]);
         }
 
         if (part.isUp()) {
             bulletPart.setUp(true);
-            this.bullet.setImagePath(SpritePath.UP.toString());
+            this.bullet.setImagePath(this.bulletMap.get(key)[1]);
         }
 
         if (part.isLeft()) {
             bulletPart.setLeft(true);
-            this.bullet.setImagePath(SpritePath.LEFT.toString());
+            this.bullet.setImagePath(this.bulletMap.get(key)[2]);
             if (part.isUp()) {
                 bulletPart.setUp(true);
             } else if (part.isDown()) {
@@ -107,7 +109,7 @@ public class BulletPlugin implements IGamePluginService, IShootService {
 
         if (part.isRight()) {
             bulletPart.setRight(true);
-            this.bullet.setImagePath(SpritePath.RIGHT.toString());
+            this.bullet.setImagePath(this.bulletMap.get(key)[3]);
             if (part.isUp()) {
                 bulletPart.setUp(true);
             } else if (part.isDown()) {
@@ -115,12 +117,19 @@ public class BulletPlugin implements IGamePluginService, IShootService {
             }
         }
     }
-    
-//    private void loadSprites() {
-//        this.sprites.put("UP", SpritePath.UP.toString());
-//        this.sprites.put("DOWN", SpritePath.DOWN.toString());
-//        this.sprites.put("LEFT", SpritePath.LEFT.toString());
-//        this.sprites.put("RIGHT", SpritePath.RIGHT.toString());
-//    }
+
+    private void addBullet() {
+        this.bulletMap.put(1, new String[]{"Images/BulletImages/DOWN.png", "Images/BulletImages/UP.png", "Images/BulletImages/LEFT.png", "Images/BulletImages/RIGHT.png"});
+        this.bulletMap.put(2, new String[] {"Images/BulletImages/UP1.jpg", "Images/BulletImages/UP1.jpg", "Images/BulletImages/LEFT1.png", "Images/BulletImages/RIGHT1.png"});
+    }
+
+    @Override
+    public void changeBullet() {
+        if (key == 0 || key < this.bulletMap.size()) {
+            key++;
+        } else if (key == this.bulletMap.size()) {
+            key--;
+        }
+    }
 
 }
