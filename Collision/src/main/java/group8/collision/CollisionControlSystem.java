@@ -13,6 +13,9 @@ import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.Collection;
+import static java.util.Collections.list;
+import java.util.List;
 import org.openide.util.Lookup;
 
 /**
@@ -20,11 +23,11 @@ import org.openide.util.Lookup;
  */
 
 //Should i implement a CollisionProcessingService.class ? 
-//@ServiceProviders(value = {
-//    @ServiceProvider(service = IEntityProcessingService.class)
-//})
+@ServiceProviders(value = {
+    @ServiceProvider(service = IEntityProcessingService.class)
+})
 
-public class CollisionControlSystem {
+public class CollisionControlSystem implements IEntityProcessingService{
     private Lookup lookup = Lookup.getDefault(); 
     protected IStandardCollisionService standardCollisionService = lookup.lookup(IStandardCollisionService.class);
    
@@ -60,16 +63,55 @@ public class CollisionControlSystem {
      * @param world
      * @return true if there is a collision / false if same type or no collision. 
      */
-    private boolean checkCollision(Entity entity, World world) {
-        //entity1 is an entity calling to see if they have made a collision. 
-        Rectangle entity1 = getEntityRect(entity); 
+//    private boolean checkCollision(Entity entity, World world) {
+//        //entity1 is an entity calling to see if they have made a collision. 
+//        Rectangle entity1 = getEntityRect(entity); 
+//        for(Entity entityOnTheMap : world.getEntities()){
+//            //If we check collision on the the same entity
+//            if(isSameEntity(entity, entityOnTheMap)){
+//                break;//should return to forloop and try for other elements. 
+//            }
+//            Rectangle entity2 = getEntityRect(entityOnTheMap);
+//            Rectangle intersectioRectangle = rectangleIntersection(entity1, entity2); 
+//            //Should the next section be its own method
+//            if(intersectioRectangle != null){
+//            //Collision detected
+//            PositionPart placeCorrectly = entity.getPart(PositionPart.class);
+//            //x should be moved away equal to 1/2 of the intersection rectangle witdth. 
+//            float x = placeCorrectly.getX() - (intersectioRectangle.width) / 2; 
+//            //y should be moved away equal to 1/2 og the intersection rectangle height. 
+//            float y = placeCorrectly.getY() - (intersectioRectangle.height) / 2;
+//            placeCorrectly.setPosition(x, y); //Move to the correct location. 
+//            //The collision position have been adjusted, and objects should be placed correct.
+//            return true; 
+//            }
+//        }
+//        return false;
+//    }
+//    
+    /**
+     * This method checks for collision between 2 different entity.
+     * @param entity 
+     * @param world
+     * @return true if there is a collision / false if same type or no collision. 
+     */
+    private void checkCollision(World world) {
+        System.out.println("ehj");
+        //make a list containing all Entity in the world. 
+        ArrayList<Entity> listOfEntity = new ArrayList<>(); 
+        listOfEntity.addAll(world.getEntities());
+        //an Entity checking all entity's to see if there have been a collision. 
+        while (!world.getEntities().isEmpty()) {
+            Entity entity = listOfEntity.get(0); //Get the first index in the list.
+        //Are entity 1 colliding with an entity.
+        Rectangle entity1 = getEntityRect(entity);
         for(Entity entityOnTheMap : world.getEntities()){
-            //If we check collision on the the same entity
+        //If we check collision on the the same entity
             if(isSameEntity(entity, entityOnTheMap)){
                 break;//should return to forloop and try for other elements. 
             }
             Rectangle entity2 = getEntityRect(entityOnTheMap);
-            Rectangle intersectioRectangle = rectangleIntersection(entity1, entity2); 
+            Rectangle intersectioRectangle = rectangleIntersection(entity1, entity2);
             //Should the next section be its own method
             if(intersectioRectangle != null){
             //Collision detected
@@ -79,11 +121,12 @@ public class CollisionControlSystem {
             //y should be moved away equal to 1/2 og the intersection rectangle height. 
             float y = placeCorrectly.getY() - (intersectioRectangle.height) / 2;
             placeCorrectly.setPosition(x, y); //Move to the correct location. 
-            //The collision position have been adjusted, and objects should be placed correct.
-            return true; 
+            //The collision position have been adjusted, and objects should be placed correct.           
             }
         }
-        return false;
+        //The following entity have not made a collision
+        listOfEntity.remove(0); 
+        }
     }
     
     private void updateCollisionServices(Entity e1, Entity e2) {
@@ -100,5 +143,10 @@ public class CollisionControlSystem {
      */
     public Rectangle rectangleIntersection(Rectangle rectangle1, Rectangle rectangle2){
         return rectangle1.intersection(rectangle2);
+    }
+
+    @Override
+    public void process(GameData gameData, World world) {
+        checkCollision(world);
     }
 }

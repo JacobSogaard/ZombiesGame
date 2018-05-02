@@ -2,8 +2,8 @@ Manifest-Version: 1.0
 OpenIDE-Module-Install: group8/player/Installer.class
 OpenIDE-Module-Localizing-Bundle: group8/player/Bundle.properties
 OpenIDE-Module-Specification-Version: 1.0
-OpenIDE-Module-Implementation-Version: 1.0-20180420
-OpenIDE-Module-Build-Version: 201804200835
+OpenIDE-Module-Implementation-Version: 1.0-20180502
+OpenIDE-Module-Build-Version: 201805021008
 OpenIDE-Module: Group8.Player
 OpenIDE-Module-Public-Packages: -
 OpenIDE-Module-Requires: org.openide.modules.ModuleFormat1

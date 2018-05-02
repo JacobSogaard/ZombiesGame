@@ -110,6 +110,7 @@ public class Game implements ApplicationListener {
         // Update
         for (IEntityProcessingService entityProcessorService : getEntityProcessingServices()) {
             entityProcessorService.process(gameData, world);
+            System.out.println(entityProcessorService.getClass());
         }
 
     }
