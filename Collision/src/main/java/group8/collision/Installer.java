@@ -5,12 +5,12 @@
  */
 package group8.collision;
 
+import org.openide.modules.ModuleInstall;
 
+public class Installer extends ModuleInstall {
 
-/**
- *
- * @author jacob
- */
-public class Collision {
-   
+    @Override
+    public void restored() {
     }
+
+}

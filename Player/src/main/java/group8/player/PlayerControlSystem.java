@@ -13,7 +13,6 @@ import group8.common.data.entityparts.PositionPart;
 import group8.common.services.IEntityProcessingService;
 import group8.common.data.GameKeys;
 import group8.common.data.entityparts.TimerPart;
-import group8.common.services.CollisionRequestServiceImpl;
 import group8.common.services.IShootService;
 import java.util.Arrays;
 import org.openide.util.Lookup;
@@ -29,7 +28,6 @@ import org.openide.util.lookup.ServiceProviders;
  */
 public class PlayerControlSystem implements IEntityProcessingService {
 
-    private CollisionRequestServiceImpl col = CollisionRequestServiceImpl.getInstance();
     private boolean canMoveUp = true;
     private boolean canMoveDown = true;
     private boolean canMoveLeft = true;
@@ -51,18 +49,13 @@ public class PlayerControlSystem implements IEntityProcessingService {
             if (gameData.getKeys().isDown(GameKeys.UP)) {
                 player.setImagePath(sp.UP);
                 movingPart.setUp(true);
-                if (movingPart.setUp(this.col.canMoveUp(player, world))) {
-                    andUp = true;
-                }
+                andUp = true;
             }
 
             if (gameData.getKeys().isDown(GameKeys.DOWN)) {
                 player.setImagePath(sp.DOWN);
                 movingPart.setDown(true);
-
-                if (movingPart.setDown(this.col.canMoveDown(player, world))) {
-                    andDown = true;
-                }
+                andDown = true;
             }
 
             if (gameData.getKeys().isDown(GameKeys.LEFT)) {
@@ -75,7 +68,6 @@ public class PlayerControlSystem implements IEntityProcessingService {
                     player.setImagePath(sp.DOWNLEFT);
                     movingPart.setDown(true);
                 }
-                movingPart.setLeft(this.col.canMoveLeft(player, world));
             }
 
             if (gameData.getKeys().isDown(GameKeys.RIGHT)) {
@@ -86,7 +78,6 @@ public class PlayerControlSystem implements IEntityProcessingService {
                 } else if (andDown) {
                     player.setImagePath(sp.DOWNRIGHT);
                 }
-                movingPart.setRight(this.col.canMoveRight(player, world));
             }
             
             if(gameData.getKeys().isDown(GameKeys.SPACE)) {
