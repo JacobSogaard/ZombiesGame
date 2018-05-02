@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 OpenIDE-Module-Localizing-Bundle: group8/commonenemy/Bundle.properties
 OpenIDE-Module-Specification-Version: 1.0
-OpenIDE-Module-Implementation-Version: 1.0-20180425
-OpenIDE-Module-Build-Version: 201804250731
+OpenIDE-Module-Implementation-Version: 1.0-20180502
+OpenIDE-Module-Build-Version: 201805021242
 OpenIDE-Module: Group8.CommonEnemy
 OpenIDE-Module-Public-Packages: group8.commonenemy.damage.*, group8.co
  mmonenemy.enemy.*, group8.commonenemy.services.*

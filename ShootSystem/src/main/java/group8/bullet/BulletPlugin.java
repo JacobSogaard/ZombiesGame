@@ -5,6 +5,7 @@
  */
 package group8.bullet;
 
+import static group8.bullet.SpritePath.UP;
 import group8.common.bulletcreationservice.ILoadBulletService;
 import group8.common.data.Entity;
 import group8.common.data.GameData;
@@ -22,21 +23,20 @@ import org.openide.util.lookup.ServiceProviders;
 
 @ServiceProviders(value = {
     @ServiceProvider(service = IGamePluginService.class),
-    @ServiceProvider(service = IShootService.class),
-    @ServiceProvider(service = ILoadBulletService.class)
+    @ServiceProvider(service = IShootService.class)
 })
 /**
  *
  * @author MER
  */
-public class BulletPlugin implements IGamePluginService, IShootService, ILoadBulletService {
+public class BulletPlugin implements IGamePluginService, IShootService {
 
     private Entity bullet;
-    private HashMap<String,String> sprites;
+//    private HashMap<String,String> sprites;
 
     @Override
     public void start(GameData gameData, World world) {
-        this.loadSprites();
+//        this.loadSprites();
     }
 
     @Override
@@ -62,20 +62,24 @@ public class BulletPlugin implements IGamePluginService, IShootService, ILoadBul
         float radians = 3.1415f / 2;
 
         this.bullet = new Bullet();
+        this.bullet.setWidth(40);
+        this.bullet.setHeight(40);
         this.bullet.add(new PositionPart(x, y, radians));
+        this.bullet.add(new MovingPart(10));
+        this.bullet.add(new TimerPart(80));
         if (this.bullet.getImagePath() == null) {
-            this.setBullet(7, 60, this.sprites);
+            this.bullet.setImagePath(SpritePath.UP.toString());
         }
         this.setDirection(part);
 
         return bullet;
     }
     
-    public void setBullet(int speed, int time, Map spritePaths) {
-        this.bullet.add(new MovingPart(speed));
-        this.bullet.add(new TimerPart(time));
-        this.sprites = (HashMap<String, String>) spritePaths;
-    }
+//    public void setBullet(int speed, int time, Map spritePaths) {
+//        this.bullet.add(new MovingPart(speed));
+//        this.bullet.add(new TimerPart(time));
+//        this.sprites = (HashMap<String, String>) spritePaths;
+//    }
 
     private void setDirection(MovingPart part) {
 
@@ -83,17 +87,17 @@ public class BulletPlugin implements IGamePluginService, IShootService, ILoadBul
 
         if (part.isDown()) {
             bulletPart.setDown(true);
-            this.bullet.setImagePath(this.sprites.get("DOWN"));
+            this.bullet.setImagePath(SpritePath.DOWN.toString());
         }
 
         if (part.isUp()) {
             bulletPart.setUp(true);
-            this.bullet.setImagePath(this.sprites.get("UP"));
+            this.bullet.setImagePath(SpritePath.UP.toString());
         }
 
         if (part.isLeft()) {
             bulletPart.setLeft(true);
-            this.bullet.setImagePath(this.sprites.get("LEFT"));
+            this.bullet.setImagePath(SpritePath.LEFT.toString());
             if (part.isUp()) {
                 bulletPart.setUp(true);
             } else if (part.isDown()) {
@@ -103,7 +107,7 @@ public class BulletPlugin implements IGamePluginService, IShootService, ILoadBul
 
         if (part.isRight()) {
             bulletPart.setRight(true);
-            this.bullet.setImagePath(this.sprites.get("RIGHT"));
+            this.bullet.setImagePath(SpritePath.RIGHT.toString());
             if (part.isUp()) {
                 bulletPart.setUp(true);
             } else if (part.isDown()) {
@@ -112,11 +116,11 @@ public class BulletPlugin implements IGamePluginService, IShootService, ILoadBul
         }
     }
     
-    private void loadSprites() {
-        this.sprites.put("UP", SpritePath.UP.toString());
-        this.sprites.put("DOWN", SpritePath.DOWN.toString());
-        this.sprites.put("LEFT", SpritePath.LEFT.toString());
-        this.sprites.put("RIGHT", SpritePath.RIGHT.toString());
-    }
+//    private void loadSprites() {
+//        this.sprites.put("UP", SpritePath.UP.toString());
+//        this.sprites.put("DOWN", SpritePath.DOWN.toString());
+//        this.sprites.put("LEFT", SpritePath.LEFT.toString());
+//        this.sprites.put("RIGHT", SpritePath.RIGHT.toString());
+//    }
 
 }

@@ -15,6 +15,7 @@ import group8.common.data.GameKeys;
 import group8.common.data.entityparts.TimerPart;
 import group8.common.services.CollisionRequestServiceImpl;
 import group8.common.services.IShootService;
+import group8.common.services.IWeaponService;
 import java.util.Arrays;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
@@ -38,7 +39,6 @@ public class PlayerControlSystem implements IEntityProcessingService {
 
     @Override
     public void process(GameData gameData, World world) {
-        
 
         for (Entity player : world.getEntities(Player.class)) {
 
@@ -88,10 +88,15 @@ public class PlayerControlSystem implements IEntityProcessingService {
                 }
                 movingPart.setRight(this.col.canMoveRight(player, world));
             }
-            
-            if(gameData.getKeys().isDown(GameKeys.SPACE)) {
+
+            if (gameData.getKeys().isDown(GameKeys.SPACE)) {
                 lookup.lookup(IShootService.class).shoot(player, world);
             }
+
+            if (gameData.getKeys().isDown(GameKeys.SHIFT)) {              
+                lookup.lookup(IWeaponService.class).changeWeapon();
+            }
+            lookup.lookup(IWeaponService.class).setWeaponDirection(player, world);
 
             movingPart.process(gameData, player);
             positionPart.process(gameData, player);

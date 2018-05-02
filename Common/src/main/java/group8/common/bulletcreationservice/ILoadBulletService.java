@@ -5,6 +5,7 @@
  */
 package group8.common.bulletcreationservice;
 
+import group8.common.data.Entity;
 import java.util.Map;
 
 /**
@@ -12,5 +13,5 @@ import java.util.Map;
  * @author MER
  */
 public interface ILoadBulletService {
-    public void setBullet(int speed, int time, Map spritePaths);
+    public void setBullet(Entity entity);
 }

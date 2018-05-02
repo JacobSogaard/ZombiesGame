@@ -17,6 +17,7 @@
                 <configuration>
                     <useOSGiDependencies>true</useOSGiDependencies>
                     <publicPackages>
+                        <publicPackage>group8.common.bulletcreationservice</publicPackage>
                         <publicPackage>group8.common.data</publicPackage>
                         <publicPackage>group8.common.data.entityparts</publicPackage>
                         <publicPackage>group8.common.entitycommon</publicPackage>

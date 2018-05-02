@@ -8,6 +8,7 @@ package group8.weapon;
 import group8.common.data.Entity;
 import group8.common.data.GameData;
 import group8.common.data.World;
+import group8.common.data.entityparts.MovingPart;
 import group8.common.data.entityparts.PositionPart;
 import group8.common.services.IEntityProcessingService;
 import org.openide.util.lookup.ServiceProvider;
@@ -23,26 +24,25 @@ public class WeaponControlSystem implements IEntityProcessingService {
 
     @Override
     public void process(GameData gameData, World world) {
-                
+
         for (Entity entity : world.getEntities(Weapon.class)) {
             PositionPart position = entity.getPart(PositionPart.class);
+            MovingPart moving = entity.getPart(MovingPart.class);
 
             position.process(gameData, entity);
+            moving.process(gameData, entity);
 
             this.updateShape(entity);
 
         }
     }
-    
-        private void updateShape(Entity entity) {
+
+    private void updateShape(Entity entity) {
         float[] shapex = entity.getShapeX();
         float[] shapey = entity.getShapeY();
         PositionPart positionPart = entity.getPart(PositionPart.class);
         float x = positionPart.getX();
         float y = positionPart.getY();
-        
-        entity.setWidth(20);
-        entity.setHeight(20);
 
         shapex[0] = (float) (x);
         shapey[0] = (float) (y);
