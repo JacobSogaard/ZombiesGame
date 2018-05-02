@@ -114,5 +114,9 @@ public class MovingPart implements EntityPart {
 
         positionPart.setRadians(radians);
     }
+    
+    public float getSpeed(){
+        return this.speed;
+    }
 
 }
