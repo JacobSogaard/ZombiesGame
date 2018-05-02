@@ -131,7 +131,7 @@ public class CollisionControlSystem implements IEntityProcessingService{
                 System.out.println("COLLISION DETECTED");
             //Collision detected
             PositionPart placeCorrectly = entity.getPart(PositionPart.class);
-            PositionPart placeCorrectlyEntityOnTheMap =  entity.getPart(PositionPart.class); 
+            PositionPart placeCorrectlyEntityOnTheMap =  entityOnTheMap.getPart(PositionPart.class); 
             //x should be moved away equal to 1/2 of the intersection rectangle witdth. 
             float x = placeCorrectly.getX() - (intersectioRectangle.width) / 2; 
             float xEntityOnMap = placeCorrectlyEntityOnTheMap.getX() + (intersectioRectangle.width) /2;
