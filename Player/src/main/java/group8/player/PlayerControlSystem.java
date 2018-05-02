@@ -30,10 +30,6 @@ import org.openide.util.lookup.ServiceProviders;
 public class PlayerControlSystem implements IEntityProcessingService {
 
     private CollisionRequestServiceImpl col = CollisionRequestServiceImpl.getInstance();
-    private boolean canMoveUp = true;
-    private boolean canMoveDown = true;
-    private boolean canMoveLeft = true;
-    private boolean canMoveRight = true;
 
     @Override
     public void process(GameData gameData, World world) {

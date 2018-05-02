@@ -6,13 +6,13 @@ package group8.collision;
 import group8.common.data.Entity;
 import group8.common.data.GameData;
 import group8.common.data.World;
+import group8.common.data.entityparts.PositionPart;
 import group8.common.services.IEntityProcessingService;
 import group8.commoncollision.IStandardCollisionService;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
 import java.awt.Rectangle;
 import java.util.ArrayList;
-import java.util.List;
 import org.openide.util.Lookup;
 
 /**
@@ -20,19 +20,14 @@ import org.openide.util.Lookup;
  */
 
 //Should i implement a CollisionProcessingService.class ? 
-@ServiceProviders(value = {
-    @ServiceProvider(service = IEntityProcessingService.class)
-})
+//@ServiceProviders(value = {
+//    @ServiceProvider(service = IEntityProcessingService.class)
+//})
 
-public class CollisionControlSystem implements IEntityProcessingService {
+public class CollisionControlSystem {
     private Lookup lookup = Lookup.getDefault(); 
     protected IStandardCollisionService standardCollisionService = lookup.lookup(IStandardCollisionService.class);
    
-
-    @Override
-    public void process(GameData gameData, World world) {
-            checkCollision(world);
-    }
 
     /**
      * This method calculates a rectangle based on a entity and returns it. 
@@ -60,45 +55,35 @@ public class CollisionControlSystem implements IEntityProcessingService {
     }
     
     /**
-     * Note : Det er denne service som dette komponent kan tilbyde.
      * This method checks for collision between 2 different entity.
      * @param entity 
      * @param world
      * @return true if there is a collision / false if same type or no collision. 
      */
-    private boolean checkCollision(World world) {
-        ArrayList<Entity> entityList = new ArrayList<>(); 
-        entityList.addAll(world.getEntities());//(ArrayList<Entity>) world.getEntities(); //Create a temporary list of entity.
-        System.out.println("Check Collision");
-        //entityRectangle is a rectangle based on the enyity.
-       
-        //Look for collesion between all entity in the world.
-        while (!entityList.isEmpty()) {
-            Rectangle movingEntityRectangle = this.getEntityRect(entityList.get(0)); //Draw a rectangle from the first element in the arraylist.
-            Entity entity = entityList.get(0);
-            for(Entity somekindOfEntity : entityList){
-            //make sure we do not check on the identical entity.
-            if(!isSameEntity(somekindOfEntity, entity)){
-                
-                //Draw the rectangle  for any given entity that is not the "original" entity. 
-             Rectangle someKindofEntityRectangle = getEntityRect(somekindOfEntity);
-                //Get the collisionRectangle. 
-                Rectangle collisionRectangle = rectangleIntersection(movingEntityRectangle, someKindofEntityRectangle);
-                //collisionRectanlge is null when there is no coliison
-                if(collisionRectangle == null){
-                    return false; //Collision not happening
-                }
-                //there is a collision rectangle and therefor collision. 
-                else{
-                    this.updateCollisionServices(somekindOfEntity, entity);
-                    return true; //Collision between 2 entitys.
-                }
+    private boolean checkCollision(Entity entity, World world) {
+        //entity1 is an entity calling to see if they have made a collision. 
+        Rectangle entity1 = getEntityRect(entity); 
+        for(Entity entityOnTheMap : world.getEntities()){
+            //If we check collision on the the same entity
+            if(isSameEntity(entity, entityOnTheMap)){
+                break;//should return to forloop and try for other elements. 
+            }
+            Rectangle entity2 = getEntityRect(entityOnTheMap);
+            Rectangle intersectioRectangle = rectangleIntersection(entity1, entity2); 
+            //Should the next section be its own method
+            if(intersectioRectangle != null){
+            //Collision detected
+            PositionPart placeCorrectly = entity.getPart(PositionPart.class);
+            //x should be moved away equal to 1/2 of the intersection rectangle witdth. 
+            float x = placeCorrectly.getX() - (intersectioRectangle.width) / 2; 
+            //y should be moved away equal to 1/2 og the intersection rectangle height. 
+            float y = placeCorrectly.getY() - (intersectioRectangle.height) / 2;
+            placeCorrectly.setPosition(x, y); //Move to the correct location. 
+            //The collision position have been adjusted, and objects should be placed correct.
+            return true; 
             }
         }
-            entityList.remove(0);
-        }
-        
-    return false; 
+        return false;
     }
     
     private void updateCollisionServices(Entity e1, Entity e2) {
@@ -108,9 +93,10 @@ public class CollisionControlSystem implements IEntityProcessingService {
     
     /**
      * Returns a new rectangle equal to a rectangle between two collided rectangles
+     * if they do not intersect, the rectangle returned will be null
      * @param rectangle1
      * @param rectangle2
-     * @return rectangle     
+     * @return rectangle    
      */
     public Rectangle rectangleIntersection(Rectangle rectangle1, Rectangle rectangle2){
         return rectangle1.intersection(rectangle2);
