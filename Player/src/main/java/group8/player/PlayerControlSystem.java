@@ -18,6 +18,7 @@ import java.util.Arrays;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
+import group8.common.services.IStandardCollisionService; 
 
 @ServiceProviders(value = {
     @ServiceProvider(service = IEntityProcessingService.class)})
@@ -33,6 +34,7 @@ public class PlayerControlSystem implements IEntityProcessingService {
     private boolean canMoveLeft = true;
     private boolean canMoveRight = true;
     private Lookup lookup = Lookup.getDefault();
+
 
     @Override
     public void process(GameData gameData, World world) {
@@ -87,6 +89,10 @@ public class PlayerControlSystem implements IEntityProcessingService {
             movingPart.process(gameData, player);
             positionPart.process(gameData, player);
             timerPart.process(gameData, player);
+            //Detect collision when player walks into an entity. 
+            lookup.lookup(IStandardCollisionService.class).detectCollision(player, world); 
+            
+            
 
             updateShape(player);
 
