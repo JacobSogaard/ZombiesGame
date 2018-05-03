@@ -28,6 +28,7 @@ public class EnemyAStar {
     private List<Float> successorUp, successorDown, successorLeft, successorRight;
     private Lookup lookup = Lookup.getDefault();
     protected IMapCollision map = lookup.lookup(IMapCollision.class);
+    private Integer previousDir = GameKeys.SHIFT;
     private List<Entity> mapObjects;
 
     /**
@@ -37,7 +38,7 @@ public class EnemyAStar {
      * @param player
      */
     public EnemyAStar(Entity enemy, Entity player) {
-        
+
         this.enemy = enemy;
         this.player = player;
         this.result = new ArrayList();
@@ -63,8 +64,8 @@ public class EnemyAStar {
      */
     public List<Integer> getResult() {
         //this.result.clear();
-        if(this.mapObjects == null){
-            System.out.println("map");
+        if (this.mapObjects == null) {
+
             this.mapObjects = this.map.getMapObjects();
         }
         System.out.println(this.map.getClass());
@@ -112,7 +113,7 @@ public class EnemyAStar {
 
         //Iterator 
         Iterator it = successors.entrySet().iterator();
-        
+
         //Init dist, set at max value to ensure first direction is the best distance
         float dist = Float.MAX_VALUE;
 
@@ -120,19 +121,21 @@ public class EnemyAStar {
             Map.Entry successor = (Map.Entry) it.next();
             List<Float> successorValue = (List<Float>) successor.getValue();
             float calculatedDist = this.calcDist(successorValue.get(0), successorValue.get(1));
-            
+
             //If next straight line distance is shorter than previous, set this at the new.
-            if (dist >= calculatedDist && !this.isMapCollision(successorValue.get(0), successorValue.get(1))) {
+            if (dist >= calculatedDist && !GameKeys.isOpposite((Integer) successor.getKey(), this.previousDir)
+                    && !this.isMapCollision(successorValue.get(0), successorValue.get(1))) {
+                System.out.println("next");
                 dist = calculatedDist;
                 this.successorX = successorValue.get(0);
                 this.successorY = successorValue.get(1);
                 successorDir = (Integer) successor.getKey();
             }
-
         }
 
         this.setEnemyCoordinates();
         this.result.add(successorDir);
+        this.previousDir = successorDir;
 
     }
 
@@ -145,30 +148,50 @@ public class EnemyAStar {
     private float calcDist(float enemyX, float enemyY) {
         float dist = (float) Math.abs(Math.sqrt(Math.pow(this.goalX - enemyX, 2) + Math.pow(goalY - enemyY, 2)));
         return dist;
-    } 
+    }
 
     //Return true if the enemy is in range of the goal considering the enemy speed
     private boolean enemyInRange() {
         return this.enemyX >= this.goalX - 10.0f && this.enemyX <= this.goalX + 10.0f
                 && this.enemyY >= this.goalY - 10.0f && this.enemyY <= this.goalY + 10.0f;
     }
-    
-    private boolean mapInRange(float[] shapeX, float[] shapeY, float enemyX, float enemyY){
-        float width = this.enemy.getWidth();
-        float height = this.enemy.getHeight();
-        
-        return enemyX + width >= shapeX[0] - 10.0f && enemyX <= shapeX[2] + 10.0f
-                && enemyY + height >= shapeY[0] - 10.0f && enemyY <= shapeY[2] + 10.0f;
+
+    private boolean mapInRange(float[] enemy, float[] map) {
+//        System.out.println("Enemy 0: " + enemy[0]);
+//        System.out.println("Enemy 1: " + enemy[1]);
+//        System.out.println("Enemy 2: " + enemy[2]);
+//        System.out.println("Enemy 3: " + enemy[3]);
+//        System.out.println("Map   0: " + map[0]);
+//        System.out.println("Map   1: " + map[1]);
+//        System.out.println("Map   2: " + map[2]);
+//        System.out.println("Map   3: " + map[3]);
+//        System.out.println("--------------------");
+        boolean f = enemy[0] < map[0] + map[2] + 5.0f
+                && enemy[0] + enemy[2] > map[0] - 5.0f
+                && enemy[1] < map[1] + map[3] + 5.0f
+                && enemy[1] + enemy[3] > map[1] - 5.0f;
+        return f;
     }
-    
-    private boolean isMapCollision(float x, float y){
+
+    private boolean isMapCollision(float x, float y) {
         boolean col = false;
-        for (Entity mapObject : this.mapObjects){
-            System.out.println("Map: " + mapObject.getShapeX() + "  " + mapObject.getShapeY());
-            col = this.mapInRange(mapObject.getShapeX(), mapObject.getShapeY(), x, y);
+        float[] enemyRect = {x, y, this.enemy.getWidth(), this.enemy.getHeight()};
+        for (Entity mapObject : this.mapObjects) {
+            PositionPart mapPosition = mapObject.getPart(PositionPart.class);
+            float[] mapRect = {mapPosition.getX(), mapPosition.getY(), mapObject.getWidth(), mapObject.getHeight()};
+            //System.out.println("Map: " + mapObject.getShapeX()[0] + "  " + mapObject.getShapeY()[1]);
+            if (this.mapInRange(enemyRect, mapRect)) {
+//                System.out.println(enemyRect[0]);
+//                System.out.println(enemyRect[1]);
+//                System.out.println(mapRect[0]);
+//                System.out.println(mapRect[1]);
+//                System.out.println("------------");
+                //System.out.println("in range");
+                return true;
+            }
+
         }
 
-        
         return col;
     }
 
