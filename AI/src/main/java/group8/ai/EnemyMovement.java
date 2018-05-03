@@ -10,6 +10,7 @@ import group8.common.data.GameKeys;
 import group8.common.playercommon.PlayerServiceImpl;
 import group8.commonenemy.services.IPathFinderService;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
@@ -66,5 +67,11 @@ public class EnemyMovement implements IPathFinderService{
         
         float[] center = {xCenter, yCenter};
         return center;
+    }
+
+    @Override
+    public List<Integer> AStarDirections(Entity enemy) {
+        EnemyAStar astar = new EnemyAStar(enemy, pimpl.getPlayer());
+        return astar.getResult();
     }
 }

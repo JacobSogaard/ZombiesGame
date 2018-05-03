@@ -20,6 +20,21 @@ public class GameKeys {
         pkeys = new boolean[NUM_KEYS];
 
     }
+    
+    public static boolean isOpposite(int key1, int key2){
+        switch(key1){
+            case UP:
+                return key1 + 2 == key2;
+            case DOWN:
+                return key1 - 2 == key1;
+            case LEFT:
+                return key1 + 2 == key2;
+            case RIGHT:
+                return key1 - 2 == key2;
+            default:
+                return false;
+        }         
+    }
 
     public void update() {
         for (int i = 0; i < NUM_KEYS; i++) {

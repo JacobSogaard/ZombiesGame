@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><module codename="Group8.Zombie">
 <<<<<<< HEAD
+<<<<<<< HEAD
     <module_version install_time="1524581128661" last="true" origin="installer" specification_version="1.0">
         <file crc="1337215217" name="config/Modules/Group8-Zombie.xml"/>
         <file crc="395991936" name="modules/Group8-Zombie.jar"/>
@@ -8,5 +9,10 @@
         <file crc="1337215217" name="config/Modules/Group8-Zombie.xml"/>
         <file crc="80503333" name="modules/Group8-Zombie.jar"/>
 >>>>>>> 342dc5e77658d96d159086b9a5193669682f5609
+=======
+    <module_version install_time="1525271154408" last="true" origin="installer" specification_version="1.0">
+        <file crc="1337215217" name="config/Modules/Group8-Zombie.xml"/>
+        <file crc="1712823031" name="modules/Group8-Zombie.jar"/>
+>>>>>>> zombie
     </module_version>
 </module>
