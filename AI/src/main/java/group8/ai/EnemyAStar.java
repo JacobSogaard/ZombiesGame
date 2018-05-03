@@ -99,6 +99,7 @@ public class EnemyAStar {
         this.successorRight.add(this.enemyY);
     }
 
+    //Method to get the successor of current entity position
     private void getNextSuccessor() {
         this.setSuccessors();
 
@@ -138,6 +139,7 @@ public class EnemyAStar {
 
     }
 
+    //Sets the enemy coordinates to the found successor coordinates
     private void setEnemyCoordinates() {
         this.enemyX = this.successorX;
         this.enemyY = this.successorY;
@@ -155,37 +157,24 @@ public class EnemyAStar {
                 && this.enemyY >= this.goalY - 10.0f && this.enemyY <= this.goalY + 10.0f;
     }
 
+    //Returns true if map object is in range of the enemy. 
     private boolean mapInRange(float[] enemy, float[] map) {
-//        System.out.println("Enemy 0: " + enemy[0]);
-//        System.out.println("Enemy 1: " + enemy[1]);
-//        System.out.println("Enemy 2: " + enemy[2]);
-//        System.out.println("Enemy 3: " + enemy[3]);
-//        System.out.println("Map   0: " + map[0]);
-//        System.out.println("Map   1: " + map[1]);
-//        System.out.println("Map   2: " + map[2]);
-//        System.out.println("Map   3: " + map[3]);
-//        System.out.println("--------------------");
-        boolean f = enemy[0] < map[0] + map[2] + 5.0f
+        return enemy[0] < map[0] + map[2] + 5.0f
                 && enemy[0] + enemy[2] > map[0] - 5.0f
                 && enemy[1] < map[1] + map[3] + 5.0f
                 && enemy[1] + enemy[3] > map[1] - 5.0f;
-        return f;
+        
     }
 
+    //Iterates through map objects and checks if x and y coordinates parsed as 
+    //parameters would be a collision with that object
     private boolean isMapCollision(float x, float y) {
         boolean col = false;
         float[] enemyRect = {x, y, this.enemy.getWidth(), this.enemy.getHeight()};
         for (Entity mapObject : this.mapObjects) {
             PositionPart mapPosition = mapObject.getPart(PositionPart.class);
             float[] mapRect = {mapPosition.getX(), mapPosition.getY(), mapObject.getWidth(), mapObject.getHeight()};
-            //System.out.println("Map: " + mapObject.getShapeX()[0] + "  " + mapObject.getShapeY()[1]);
             if (this.mapInRange(enemyRect, mapRect)) {
-//                System.out.println(enemyRect[0]);
-//                System.out.println(enemyRect[1]);
-//                System.out.println(mapRect[0]);
-//                System.out.println(mapRect[1]);
-//                System.out.println("------------");
-                //System.out.println("in range");
                 return true;
             }
 
