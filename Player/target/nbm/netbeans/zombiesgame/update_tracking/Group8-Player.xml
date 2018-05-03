@@ -1,30 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><module codename="Group8.Player">
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <module_version install_time="1524581120581" last="true" origin="installer" specification_version="1.0">
+    <module_version install_time="1525343648943" last="true" origin="installer" specification_version="1.0">
         <file crc="915457993" name="config/Modules/Group8-Player.xml"/>
-        <file crc="3216704226" name="modules/Group8-Player.jar"/>
-=======
-<<<<<<< Updated upstream
-<<<<<<< HEAD
-    <module_version install_time="1524579378047" last="true" origin="installer" specification_version="1.0">
-        <file crc="915457993" name="config/Modules/Group8-Player.xml"/>
-        <file crc="1701358969" name="modules/Group8-Player.jar"/>
-=======
-    <module_version install_time="1524580029793" last="true" origin="installer" specification_version="1.0">
-        <file crc="915457993" name="config/Modules/Group8-Player.xml"/>
-        <file crc="3274333596" name="modules/Group8-Player.jar"/>
->>>>>>> Weapon
-=======
-    <module_version install_time="1524580169233" last="true" origin="installer" specification_version="1.0">
-        <file crc="915457993" name="config/Modules/Group8-Player.xml"/>
-        <file crc="604355297" name="modules/Group8-Player.jar"/>
->>>>>>> Stashed changes
->>>>>>> 342dc5e77658d96d159086b9a5193669682f5609
-=======
-    <module_version install_time="1525271147605" last="true" origin="installer" specification_version="1.0">
-        <file crc="915457993" name="config/Modules/Group8-Player.xml"/>
-        <file crc="2148442906" name="modules/Group8-Player.jar"/>
->>>>>>> zombie
+        <file crc="3380122853" name="modules/Group8-Player.jar"/>
     </module_version>
 </module>

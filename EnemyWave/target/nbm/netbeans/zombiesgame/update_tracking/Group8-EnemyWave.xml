@@ -1,18 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><module codename="Group8.EnemyWave">
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <module_version install_time="1524581128148" last="true" origin="installer" specification_version="1.0">
+    <module_version install_time="1525343655443" last="true" origin="installer" specification_version="1.0">
         <file crc="2152081430" name="config/Modules/Group8-EnemyWave.xml"/>
-        <file crc="2919473816" name="modules/Group8-EnemyWave.jar"/>
-=======
-    <module_version install_time="1524580173983" last="true" origin="installer" specification_version="1.0">
-        <file crc="2152081430" name="config/Modules/Group8-EnemyWave.xml"/>
-        <file crc="726254393" name="modules/Group8-EnemyWave.jar"/>
->>>>>>> 342dc5e77658d96d159086b9a5193669682f5609
-=======
-    <module_version install_time="1525271154067" last="true" origin="installer" specification_version="1.0">
-        <file crc="2152081430" name="config/Modules/Group8-EnemyWave.xml"/>
-        <file crc="1719357071" name="modules/Group8-EnemyWave.jar"/>
->>>>>>> zombie
+        <file crc="3107748857" name="modules/Group8-EnemyWave.jar"/>
     </module_version>
 </module>
