@@ -6,6 +6,7 @@ package group8.collision;
 import group8.common.data.Entity;
 import group8.common.data.GameData;
 import group8.common.data.World;
+import group8.common.data.entityparts.MovingPart;
 import group8.common.data.entityparts.PositionPart;
 import group8.common.services.IGamePluginService;
 import group8.common.services.IStandardCollisionService;
@@ -82,51 +83,56 @@ public class CollisionControlSystem implements IGamePluginService, IStandardColl
             if(intersectioRectangle.height > 0 && intersectioRectangle.width > 0){
             //Collision detected
             PositionPart placeCorrectly = entity.getPart(PositionPart.class);
-            //This if works
-            if(placeCorrectly.getX() < entity2.getX() && !(placeCorrectly.getX() > entity2.getMinX() && placeCorrectly.getX() < entity2.getMaxX() )){
-                          //x should be moved away equal to 1/2 of the intersection rectangle witdth. 
-            float x = placeCorrectly.getX() - (intersectioRectangle.width) / 2; 
-            //y should be moved away equal to 1/2 og the intersection rectangle height. 
-            float y = placeCorrectly.getY() - (intersectioRectangle.height) / 2;
-                whereToGo(placeCorrectly, entity2);
-            placeCorrectly.setPosition(x, placeCorrectly.getY()); //Move to the correct location. 
-            //The collision position have been adjusted, and objects should be placed correct.
+            MovingPart movingPart = entity.getPart(MovingPart.class);
+            
+            if(movingPart.isRight() && placeCorrectly.getX() < entity2.getX()){
+            float x = placeCorrectly.getX() - (intersectioRectangle.width);
+            placeCorrectly.setPosition(x, placeCorrectly.getY()); 
             return true;
             }
-//            //This else if works
-//            else if (placeCorrectly.getX() > entity2.getX() && (placeCorrectly.getY()< entity2.getY() && placeCorrectly.getY()< entity2.getY() )) {
-//                                          //x should be moved away equal to 1/2 of the intersection rectangle witdth. 
-//            float x = placeCorrectly.getX() + (intersectioRectangle.width) / 2; 
-//            //y should be moved away equal to 1/2 og the intersection rectangle height. 
-//            float y = placeCorrectly.getY() - (intersectioRectangle.height) / 2;
-//                whereToGo(placeCorrectly, entity2);
-//            placeCorrectly.setPosition(x, placeCorrectly.getY()); //Move to the correct location. 
-//            //The collision position have been adjusted, and objects should be placed correct.
-//            return true;
-//            }
-            else if(placeCorrectly.getY() < entity2.getY() && (placeCorrectly.getX() > entity2.getMinX() && placeCorrectly.getX() < entity2.getMaxX()) ){
-                System.out.println("UP");
-            float y = placeCorrectly.getY() - (intersectioRectangle.height) / 2;
-                whereToGo(placeCorrectly, entity2);
-            placeCorrectly.setPosition(placeCorrectly.getX(), y); //Move to the correct location. 
-            //The collision position have been adjusted, and objects should be placed correct.
+            
+            else if (movingPart.isLeft()) {
+            float x = placeCorrectly.getX() - (intersectioRectangle.width) / 2;
+            placeCorrectly.setPosition(x, placeCorrectly.getY()); 
             return true;
             }
-            else if(placeCorrectly.getY() > entity2.getY() && (placeCorrectly.getX() > entity2.getMinX() && placeCorrectly.getX() < entity2.getMaxX())){
-                System.out.println("DOWN");
-                                                          //x should be moved away equal to 1/2 of the intersection rectangle witdth. 
-            //float x = placeCorrectly.getY() -  (intersectioRectangle.height) / 2; 
-            //y should be moved away equal to 1/2 og the intersection rectangle height. 
+            
+            else if(movingPart.isUp()){
             float y = placeCorrectly.getY() + (intersectioRectangle.height) / 2;
-                whereToGo(placeCorrectly, entity2);
-            placeCorrectly.setPosition(placeCorrectly.getX(), y); //Move to the correct location. 
-            //The collision position have been adjusted, and objects should be placed correct.
+            placeCorrectly.setPosition(placeCorrectly.getX(), y);
             return true;
             }
+            
+            else if(movingPart.isDown()){
+            // float x = placeCorrectly.getY() -  (intersectioRectangle.height) / 2;
+            float y = placeCorrectly.getY() + (intersectioRectangle.height) / 2;
+            placeCorrectly.setPosition(placeCorrectly.getX(), y); 
+            return true;
+            }
+            
+            else if(movingPart.isUp() && movingPart.isRight()){
+                
+            }
+            
+            else if(movingPart.isUp() && movingPart.isLeft()){
+                
+            }
+            
+            else if(movingPart.isDown() && movingPart.isRight()){
+                
+            }
+            
+            else if (movingPart.isDown() && movingPart.isLeft()) {
+                    
+                }
+            
+            
+            
             }
         }
         return false;
     }
+   
     
 //    /**
 //     * This method checks for collision between 2 different entity.

@@ -96,7 +96,7 @@ public class Game implements ApplicationListener {
 
         for (Entity e : world.getEntities()) {
             PositionPart part = e.getPart(PositionPart.class);
-            //this.drawShapes(e);
+            this.drawShapes(e);
             if (e.getImagePath() != null) {
                 this.drawImg(e, part);
             }

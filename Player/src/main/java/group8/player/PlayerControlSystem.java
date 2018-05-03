@@ -49,6 +49,7 @@ public class PlayerControlSystem implements IEntityProcessingService {
             boolean andUp = false, andDown = false;
 
             if (gameData.getKeys().isDown(GameKeys.UP)) {
+                positionPart.setRadians(0);
                 player.setImagePath(sp.UP);
                 movingPart.setUp(true);
                 andUp = true;
@@ -103,9 +104,6 @@ public class PlayerControlSystem implements IEntityProcessingService {
         }
     }
 
-    private void colide(Entity player, int direction) {
-
-    }
 
     private void updateShape(Entity entity) {
         float[] shapex = entity.getShapeX();
