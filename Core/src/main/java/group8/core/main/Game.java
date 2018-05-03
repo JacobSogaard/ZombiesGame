@@ -96,8 +96,10 @@ public class Game implements ApplicationListener {
 
         for (Entity e : world.getEntities()) {
             PositionPart part = e.getPart(PositionPart.class);
-            this.drawShapes(e);
-            this.drawImg(e, part);
+            //this.drawShapes(e);
+            if (e.getImagePath() != null) {
+                this.drawImg(e, part);
+            }
             if (e.getType() == EntityType.PLAYER) {
                 this.setCamFollowPlayer(part);
             }
@@ -133,18 +135,17 @@ public class Game implements ApplicationListener {
         float[] shapex = entity.getShapeX();
         float[] shapey = entity.getShapeY();
 
-        for (int i = 0, j = shapex.length - 1;
-                i < shapex.length;
-                j = i++) {
-
-            //sr.line(shapex[i], shapey[i], shapex[j], shapey[j]);
-        }
-        sr.end();
+            for (int i = 0, j = shapex.length - 1;
+                    i < shapex.length;
+                    j = i++) {
+                sr.line(shapex[i], shapey[i], shapex[j], shapey[j]);
+            }
+            sr.end();
     }
 
     private void drawImg(Entity entity, PositionPart part) {
         this.spriteBatch.begin();
-        if (!this.textureMap.containsKey(entity.getImagePath())) {
+        if (!this.textureMap.containsKey(entity.getImagePath()) && entity.getImagePath() != null) {
             this.textureMap.put(entity.getImagePath(), new Texture(Gdx.files.internal(entity.getImagePath())));
         }
         this.texture = this.textureMap.get(entity.getImagePath());
@@ -179,6 +180,7 @@ public class Game implements ApplicationListener {
 
     @Override
     public void dispose() {
+        this.textureMap.clear();
     }
 
     private Collection<? extends IEntityProcessingService> getEntityProcessingServices() {

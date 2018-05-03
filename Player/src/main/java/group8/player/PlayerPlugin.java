@@ -10,6 +10,7 @@ import group8.common.data.GameData;
 import group8.common.data.World;
 import group8.common.data.entityparts.MovingPart;
 import group8.common.data.entityparts.PositionPart;
+import group8.common.data.entityparts.TimerPart;
 import group8.common.playercommon.IPlayerService;
 import group8.common.services.IGamePluginService;
 import org.openide.util.lookup.ServiceProvider;
@@ -42,17 +43,14 @@ public class PlayerPlugin implements IGamePluginService, IPlayerService {
     
     public Entity createPlayer(GameData gameData) {
         float speed = 3;
-        float acceleration = 300;
-        float rotationSpeed = 50;
-        float decelaration = 200;
         float x = gameData.getDisplayWidth() / 2;
         float y = gameData.getDisplayHeight() / 2;
         float radians = 3.1415f / 2;
         
         Entity playerRectangle =  new Player();
-        playerRectangle.add(new MovingPart(speed, acceleration, rotationSpeed, decelaration));
+        playerRectangle.add(new MovingPart(speed));
         playerRectangle.add(new PositionPart(x, y, radians));
-        
+        playerRectangle.add(new TimerPart(0));
         playerRectangle.setImagePath(sp.UP);
         
         return playerRectangle; 

@@ -7,12 +7,6 @@ package group8.common.data.entityparts;
 
 import group8.common.data.Entity;
 import group8.common.data.GameData;
-import static group8.common.data.GameKeys.LEFT;
-import static group8.common.data.GameKeys.RIGHT;
-import static group8.common.data.GameKeys.UP;
-import static java.lang.Math.cos;
-import static java.lang.Math.sin;
-import static java.lang.Math.sqrt;
 
 /**
  *
@@ -22,9 +16,10 @@ public class MovingPart implements EntityPart {
 
     private float dx, dy;
     private float speed;
+    private boolean[] directions;
     private boolean left, right, up, down;
 
-    public MovingPart(float maxSpeed, float acceleration, float rotationSpeed, float deceleration) {
+    public MovingPart(float maxSpeed) {
         this.speed = maxSpeed;
     }
 
@@ -67,23 +62,23 @@ public class MovingPart implements EntityPart {
         float tempSpeed = speed;
         
         //Checks if the player is moving diagonally
-        if(up && right || up && left || down && right || down && left){
+        if(isUp() && isRight() || isUp() && isLeft() || isDown() && isRight() || isDown() && isLeft()){
             tempSpeed *= 0.667;
         }
         
         //Checks which button player is pressing.
-        if (up) {
+        if (isUp()) {
             y += tempSpeed;
             
         }
-        if (right) {
+        if (isRight()) {
             x += tempSpeed;
         }
-        if(down){
+        if(isDown()){
             y -= tempSpeed; 
         }
         
-        if(left){
+        if(isLeft()){
             x -= tempSpeed; 
         }
         
@@ -110,7 +105,6 @@ public class MovingPart implements EntityPart {
 
         positionPart.setX(x);
         positionPart.setY(y);
-        
 
         positionPart.setRadians(radians);
     }
@@ -119,4 +113,31 @@ public class MovingPart implements EntityPart {
         return this.speed;
     }
 
+    /**
+     * @return the left
+     */
+    public boolean isLeft() {
+        return left;
+    }
+
+    /**
+     * @return the right
+     */
+    public boolean isRight() {
+        return right;
+    }
+
+    /**
+     * @return the up
+     */
+    public boolean isUp() {
+        return up;
+    }
+
+    /**
+     * @return the down
+     */
+    public boolean isDown() {
+        return down;
+    }
 }

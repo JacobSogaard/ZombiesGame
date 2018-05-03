@@ -50,7 +50,7 @@ public class BigZombiePlugin implements IEnemyPluginService {
         float x = bigZombie.setX(gameData, 200);
         float y = bigZombie.setY(gameData, 200);
         
-        bigZombie.add(new MovingPart(speed, 0, 0, 0));
+        bigZombie.add(new MovingPart(speed));
         bigZombie.add(new PositionPart(x, y, 0));
         bigZombie.setImagePath(BigZombieSpritePath.UP);
         

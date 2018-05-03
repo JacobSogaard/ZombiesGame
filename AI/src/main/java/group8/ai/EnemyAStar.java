@@ -125,7 +125,6 @@ public class EnemyAStar {
             //If next straight line distance is shorter than previous, set this at the new.
             if (dist >= calculatedDist && !GameKeys.isOpposite((Integer) successor.getKey(), this.previousDir)
                     && !this.isMapCollision(successorValue.get(0), successorValue.get(1))) {
-                System.out.println("next");
                 dist = calculatedDist;
                 this.successorX = successorValue.get(0);
                 this.successorY = successorValue.get(1);

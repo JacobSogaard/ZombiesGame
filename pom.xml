@@ -68,6 +68,7 @@
         <module>EnemyWave</module>
         <module>Zombie</module>
         <module>AI</module>
+        <module>ShootSystem</module>
     </modules>
 
     <properties>
