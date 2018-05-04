@@ -22,15 +22,15 @@ import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
 
 @ServiceProviders(value = {
-    @ServiceProvider(service = IGamePluginService.class)
-    ,
-    @ServiceProvider(service = IShootService.class)
+    @ServiceProvider(service = IGamePluginService.class),
+    @ServiceProvider(service = IShootService.class),
+    @ServiceProvider(service = ILoadBulletService.class)
 })
 /**
  *
  * @author MER
  */
-public class BulletPlugin implements IGamePluginService, IShootService {
+public class BulletPlugin implements IGamePluginService, IShootService, ILoadBulletService {
 
     private Entity bullet;
     private HashMap<Integer, String[]> bulletMap;
@@ -78,11 +78,13 @@ public class BulletPlugin implements IGamePluginService, IShootService {
         return bullet;
     }
 
-//    public void setBullet(int speed, int time, Map spritePaths) {
-//        this.bullet.add(new MovingPart(speed));
-//        this.bullet.add(new TimerPart(time));
-//        this.sprites = (HashMap<String, String>) spritePaths;
-//    }
+    public void setBullet(int speed, int time, int key, String[] spritePaths) {
+        this.bullet.add(new MovingPart(speed));
+        this.bullet.add(new TimerPart(time));
+        this.bulletMap.put(key, spritePaths);
+    }
+    
+    
     private void setDirection(MovingPart part) {
 
         MovingPart bulletPart = this.bullet.getPart(MovingPart.class);

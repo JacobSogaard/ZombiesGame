@@ -13,5 +13,5 @@ import java.util.Map;
  * @author MER
  */
 public interface ILoadBulletService {
-    public void setBullet(Entity entity);
+    public void setBullet(int speed, int time, int key, String[] spritePaths);
 }
