@@ -13,7 +13,10 @@ import group8.common.services.IStandardCollisionService;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
 import java.awt.Rectangle;
+import java.util.List;
 import org.openide.util.Lookup;
+import group8.common.services.IWhoHaveCollidedService;
+import java.util.ArrayList;
 
 /**
  * @author group8
@@ -26,6 +29,7 @@ import org.openide.util.Lookup;
 })
 
 public class CollisionControlSystem implements IGamePluginService, IStandardCollisionService{
+    private int moveAwayFactor = 1; 
     private Lookup lookup = Lookup.getDefault();
     
 //    @Override
@@ -42,13 +46,13 @@ public class CollisionControlSystem implements IGamePluginService, IStandardColl
      * @param entity
      * @return entityRectangle  
      */
-    private Rectangle getEntityRect(Entity entity) {
-        //Test to see how much info we loose when converting to int. 
-        int x = (int) (entity.getShapeX()[0]); 
-        int y = (int) (entity.getShapeY()[0]);
-        int width = (int) (entity.getShapeX()[3] - x);
-        int height = (int) (entity.getShapeY()[1] - y);
-        return new Rectangle(x, y, width, height);  
+    private float[] getEntityRect(Entity entity) {
+        float[] rectangleArray = new float[4]; 
+        rectangleArray[0]= (entity.getShapeX()[0]); //x
+        rectangleArray[1] = (entity.getShapeY()[0]);//y
+        rectangleArray[2] = (entity.getShapeX()[3] - rectangleArray[0]);//Width
+        rectangleArray[3] =  (entity.getShapeY()[1] - rectangleArray[1]);
+        return rectangleArray; 
     }
     
     /**
@@ -69,146 +73,132 @@ public class CollisionControlSystem implements IGamePluginService, IStandardColl
      * @return true if there is a collision / false if same type or no collision. 
      */
     @Override
-    public boolean detectCollision(Entity entity, World world) {
+    public synchronized boolean detectCollision(Entity entity, World world) {
+        //Create list to run collision checks on
+        List<Entity> objectsList = new ArrayList();
+        objectsList.addAll(world.getEntities());
+        //Remove the entity to check on from the list
+        objectsList.remove(entity);
+        
         //entity1 is an entity calling to see if they have made a collision. 
         Rectangle entity1 = getEntityRect(entity); 
-        for(Entity entityOnTheMap : world.getEntities()){
-            //If we check collision on the the same entity
-            if(isSameEntity(entity, entityOnTheMap)){
-                break;//should return to forloop and try for other elements. 
-            }
+        for(Entity entityOnTheMap : objectsList){
             Rectangle entity2 = getEntityRect(entityOnTheMap);
             Rectangle intersectioRectangle = rectangleIntersection(entity1, entity2); 
+            
             //Should the next section be its own method
             if(intersectioRectangle.height > 0 && intersectioRectangle.width > 0){
+//                lookup.lookup(IWhoHaveCollidedService.class).collisionDetected(entity, entityOnTheMap); //Tell someone that i have collided.
+                
             //Collision detected
             PositionPart placeCorrectly = entity.getPart(PositionPart.class);
             MovingPart movingPart = entity.getPart(MovingPart.class);
             
-            if(movingPart.isRight() && placeCorrectly.getX() < entity2.getX()){
-            float x = placeCorrectly.getX() - (intersectioRectangle.width);
+            //     P -> |T|
+            if(movingPart.isRight() // if right button is down. 
+                    && placeCorrectly.getX() < entity2.getMinX() // if i move from left to right
+                    && entity2.getMinY() <= entity1.getMaxY() // if my lowest point is still touching the "Wall" 
+                    && entity2.getMaxY() >= entity1.getMinY() // if my lowest point is still touching the "Wall" 
+                    && !(movingPart.isUp() || movingPart.isDown())){ // and i am only moving with one button. 
+            float x = (float) (entity1.getMaxX() - entity2.getMinX());
+                    //(intersectioRectangle.width) * moveAwayFactor;
+                System.out.println("Player X" + entity1.getMaxX());
+                System.out.println("Entity X" + entity1.getMinX());
+                System.out.println("Intersection" + intersectioRectangle.getWidth());
             placeCorrectly.setPosition(x, placeCorrectly.getY()); 
             return true;
             }
             
-            else if (movingPart.isLeft()) {
-            float x = placeCorrectly.getX() - (intersectioRectangle.width) / 2;
+            //  |T| <- q
+            else if(movingPart.isLeft()// if right button is down. 
+                    && placeCorrectly.getX() > entity2.getMinX() // if i move from right to left.
+                    && entity2.getMinY() <= entity1.getMaxY() // if my lowest point is still touching the "Wall" 
+                    && entity2.getMaxY() >= entity1.getMinY() // if my lowest point is still touching the "Wall" 
+                    && !(movingPart.isUp() || movingPart.isDown())){ // and i am only moving with one button. 
+            float x = placeCorrectly.getX() + (intersectioRectangle.width) * moveAwayFactor;
+            placeCorrectly.setPosition(x, placeCorrectly.getY()); 
+            return true;
+            }
+
+            //  |T| <- q
+            else if(movingPart.isDown()// if down button is down. 
+                    && entity1.getMinY() <= entity2.getMaxY() // if i move from up to down.  HERE THERE MIGHT BE A PROBLEM
+                    && entity2.getMinX()<= entity1.getMaxX() // if my lowest point is still touching the "Wall" 
+                    && entity2.getMaxX() >= entity1.getMinX() // if my lowest point is still touching the "Wall" 
+                    && !(movingPart.isRight() || movingPart.isLeft())){ // and i am only moving with one button. 
+            float y = placeCorrectly.getY() + (intersectioRectangle.height) * moveAwayFactor;
+            placeCorrectly.setPosition(placeCorrectly.getX(),y); 
+            return true;
+            }
+
+            //  |T| <- q
+            else if(movingPart.isUp()// if down button is down. 
+                    && entity1.getMaxY() >= entity2.getMinY()// if i move from up to down.  HERE THERE MIGHT BE A PROBLEM
+                    && entity2.getMinX() <= entity1.getMaxX() // if my lowest point is still touching the "Wall" 
+                    && entity2.getMaxX() >= entity1.getMinX() // if my lowest point is still touching the "Wall" 
+                    && !(movingPart.isRight() || movingPart.isLeft())){ // and i am only moving with one button. 
+            float y = placeCorrectly.getY() - (intersectioRectangle.height) * moveAwayFactor;
+            placeCorrectly.setPosition(placeCorrectly.getX(),y); 
+            return true;
+            }
+            
+                        //     P -> |T|
+            else if(movingPart.isRight() && movingPart.isUp() // if right button is down. 
+                    && placeCorrectly.getX() < entity2.getMinX() // if i move from left to right
+                    && entity2.getMinY() <= entity1.getMaxY() // if my lowest point is still touching the "Wall" 
+                    && entity2.getMaxY() >= entity1.getMinY() // if my lowest point is still touching the "Wall" 
+                    && !(movingPart.isDown())){ // and i am only moving with one button. 
+            float x = placeCorrectly.getX() - (intersectioRectangle.width) * moveAwayFactor;
+            placeCorrectly.setPosition(x, placeCorrectly.getY()); 
+            return true;
+            }
+
+            //  |T| <- q
+            else if(movingPart.isLeft() && movingPart.isUp()// if right button is down. 
+                    && placeCorrectly.getX() > entity2.getMinX() // if i move from right to left.
+                    && entity2.getMinY() <= entity1.getMaxY() // if my lowest point is still touching the "Wall" 
+                    && entity2.getMaxY() >= entity1.getMinY() // if my lowest point is still touching the "Wall" 
+                    && !(movingPart.isDown())){ // and i am only moving with one button. 
+            float x = placeCorrectly.getX() + (intersectioRectangle.width) * moveAwayFactor;
             placeCorrectly.setPosition(x, placeCorrectly.getY()); 
             return true;
             }
             
-            else if(movingPart.isUp()){
-            float y = placeCorrectly.getY() + (intersectioRectangle.height) / 2;
-            placeCorrectly.setPosition(placeCorrectly.getX(), y);
+                        //  |T| <- q
+            else if(movingPart.isLeft() && movingPart.isDown()// if right button is down. 
+                    && placeCorrectly.getX() > entity2.getMinX() // if i move from right to left.
+                    && entity2.getMinY() <= entity1.getMaxY() // if my lowest point is still touching the "Wall" 
+                    && entity2.getMaxY() >= entity1.getMinY() // if my lowest point is still touching the "Wall" 
+                    && !(movingPart.isUp())){ // and i am only moving with one button. 
+            float x = placeCorrectly.getX() + (intersectioRectangle.width) * moveAwayFactor;
+            placeCorrectly.setPosition(x, placeCorrectly.getY()); 
             return true;
             }
-            
-            else if(movingPart.isDown()){
-            // float x = placeCorrectly.getY() -  (intersectioRectangle.height) / 2;
-            float y = placeCorrectly.getY() + (intersectioRectangle.height) / 2;
-            placeCorrectly.setPosition(placeCorrectly.getX(), y); 
+                        //  |T| <- q
+            else if(movingPart.isDown() && movingPart.isLeft()// if down button is down. 
+                    && entity1.getMinY() <= entity2.getMaxY() // if i move from up to down.  HERE THERE MIGHT BE A PROBLEM
+                    && entity2.getMinX()<= entity1.getMaxX() // if my lowest point is still touching the "Wall" 
+                    && entity2.getMaxX() >= entity1.getMinX() // if my lowest point is still touching the "Wall" 
+                    && !(movingPart.isRight())){ // and i am only moving with one button. 
+            float y = placeCorrectly.getY()+ (intersectioRectangle.height) * moveAwayFactor;
+            placeCorrectly.setPosition(placeCorrectly.getX(),y); 
             return true;
             }
-            
-            else if(movingPart.isUp() && movingPart.isRight()){
-                
+            //  |T| <- q
+            else if(movingPart.isDown() && movingPart.isRight()// if down button is down. 
+                    && entity1.getMinY() <= entity2.getMaxY() // if i move from up to down.  HERE THERE MIGHT BE A PROBLEM
+                    && entity2.getMinX()<= entity1.getMaxX() // if my lowest point is still touching the "Wall" 
+                    && entity2.getMaxX() >= entity1.getMinX() // if my lowest point is still touching the "Wall" 
+                    && !(movingPart.isLeft())){ // and i am only moving with one button. 
+            float y = placeCorrectly.getY()+ (intersectioRectangle.height) * moveAwayFactor;
+            placeCorrectly.setPosition(placeCorrectly.getX(),y); 
+            return true;
             }
-            
-            else if(movingPart.isUp() && movingPart.isLeft()){
-                
-            }
-            
-            else if(movingPart.isDown() && movingPart.isRight()){
-                
-            }
-            
-            else if (movingPart.isDown() && movingPart.isLeft()) {
-                    
-                }
-            
-            
-            
             }
         }
         return false;
     }
-   
-    
-//    /**
-//     * This method checks for collision between 2 different entity.
-//     * @param entity 
-//     * @param world
-//     * @return true if there is a collision / false if same type or no collision. 
-//     */
-//    private void checkCollision(World world) {
-//        
-//        make a list containing all Entity in the world. 
-//        ArrayList<Entity> listOfEntity = new ArrayList<>(); 
-//        listOfEntity.addAll(world.getEntities());
-//        an Entity checking all entity's to see if there have been a collision. 
-//        while (!listOfEntity.isEmpty()) {
-//            System.out.println("checkCollision() WHILE LOOP");
-//            
-//            Entity entity = listOfEntity.get(0); //Get the first index in the list.
-//        Are entity 1 colliding with an entity.
-//        Rectangle entity1 = getEntityRect(entity);
-//        for(Entity entityOnTheMap : world.getEntities()){
-//            System.out.println("checkCollision() for()");
-//        If we check collision on the the same entity
-//            if(isSameEntity(entity, entityOnTheMap)){
-//                System.out.println("checkCollision() if LOOP");
-//                break;//should return to forloop and try for other elements. 
-//            }
-//            Rectangle entity2 = getEntityRect(entityOnTheMap);
-//            Rectangle intersectioRectangle = rectangleIntersection(entity1, entity2);
-//            Should the next section be its own method
-//            if(intersectioRectangle.height > 0 && intersectioRectangle.width > 0){
-//                System.out.println("Height : " + intersectioRectangle.height + "Width : " +  intersectioRectangle.width);
-//                System.out.println("COLLISION DETECTED");
-//            Collision detected
-//            PositionPart placeCorrectly = entity.getPart(PositionPart.class);
-//            PositionPart placeCorrectlyEntityOnTheMap =  entityOnTheMap.getPart(PositionPart.class); 
-//            x should be moved away equal to 1/2 of the intersection rectangle witdth. 
-//            float x = placeCorrectly.getX() - (intersectioRectangle.width) / 2; 
-//            float xEntityOnMap = placeCorrectlyEntityOnTheMap.getX() + (intersectioRectangle.width) /2;
-//                
-//            y should be moved away equal to 1/2 og the intersection rectangle height. 
-//            float y = placeCorrectly.getY() - (intersectioRectangle.height) / 2;
-//            float yEntityOnTheMap = placeCorrectlyEntityOnTheMap.getY() + (intersectioRectangle.height) / 2;
-//            placeCorrectly.setPosition(x, y); //Move to the correct location. 
-//            System.out.println("Entity coordinate : " + "X =" + x + "Y = " + y );
-//                System.out.println("EntityOnTheMap : " + "X = " + xEntityOnMap + "Y = " + yEntityOnTheMap);
-//            placeCorrectlyEntityOnTheMap.setPosition(xEntityOnMap, yEntityOnTheMap);
-//            
-//            The collision position have been adjusted, and objects should be placed correct.           
-//            }
-//        }
-//        The following entity have not made a collision
-//        listOfEntity.remove(0); 
-//        }
-//    }
-//    
         
-   public void whereToGo(PositionPart positionPart, Rectangle rectangle){
-       //Going RIGHT into an entity. 
-       System.out.println("Where to GO ");
-       System.out.println("Rectangle X" + rectangle.getX());
-       System.out.println("Player X " + positionPart.getX() );
-       if(positionPart.getX() < rectangle.getX() && positionPart.getY() == rectangle.getY()){
-           System.out.println("RIGHT");
-           
-       }
-       else if(positionPart.getX() == rectangle.getX() || rectangle.getY() < rectangle.getY()){
-           System.out.println("UP");
-       }
-       else if(positionPart.getX() > rectangle.getX() || rectangle.getY() ==  rectangle.getY()){
-           System.out.println("LEFT");
-       }
-       else if(positionPart.getX() == rectangle.getX() || positionPart.getY() > rectangle.getY()){
-           System.out.println("DOWN");
-       }
-       
-   }
     
     /**
      * Returns a new rectangle equal to a rectangle between two collided rectangles
@@ -228,6 +218,9 @@ public class CollisionControlSystem implements IGamePluginService, IStandardColl
     @Override
     public void stop(GameData gameData, World world) {
     }
+     
+
+
 
 
 }
