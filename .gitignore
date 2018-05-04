@@ -8,12 +8,10 @@
 /Collision/target/
 /MapObject/target/
 /Player/target/
-<<<<<<< HEAD
 /EnemyCommon/target/
 /CommonEnemy/target/
 /Zombie/target/
 /EnemyWave/target/
 /AI/target/
-=======
 /ShootSystem/target/
->>>>>>> Weapon
+/HealthSystem/target/
