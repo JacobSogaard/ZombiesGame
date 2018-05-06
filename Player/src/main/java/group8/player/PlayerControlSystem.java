@@ -13,6 +13,7 @@ import group8.common.data.entityparts.PositionPart;
 import group8.common.services.IEntityProcessingService;
 import group8.common.data.GameKeys;
 import group8.common.data.entityparts.TimerPart;
+import group8.common.services.IMoveCollisionService;
 import group8.common.services.IShootService;
 import java.util.Arrays;
 import org.openide.util.Lookup;
@@ -51,31 +52,49 @@ public class PlayerControlSystem implements IEntityProcessingService {
             if (gameData.getKeys().isDown(GameKeys.UP)) {
                 positionPart.setRadians(0);
                 player.setImagePath(sp.UP);
-                movingPart.setUp(true);
+                if (!lookup.lookup(IMoveCollisionService.class).checkUpCollision(player, world)) {
+                    movingPart.setUp(true); 
+                }
+                
                 andUp = true;
             }
 
             if (gameData.getKeys().isDown(GameKeys.DOWN)) {
                 player.setImagePath(sp.DOWN);
-                movingPart.setDown(true);
+                if(!lookup.lookup(IMoveCollisionService.class).checkDownCollision(player, world)){
+                    movingPart.setDown(true);  
+                }
+                
                 andDown = true;
             }
 
             if (gameData.getKeys().isDown(GameKeys.LEFT)) {
                 player.setImagePath(sp.LEFT);
-                movingPart.setLeft(true);
+                
+                if(!lookup.lookup(IMoveCollisionService.class).checkLeftCollision(player, world)){
+                    movingPart.setLeft(true);
+                }
+                
                 if (andUp) {
                     player.setImagePath(sp.UPLEFT);
-                    movingPart.setUp(true);
+                    if (!lookup.lookup(IMoveCollisionService.class).checkUpCollision(player, world)) {
+                    movingPart.setUp(true); 
+                }
+                   
                 } else if (andDown) {
                     player.setImagePath(sp.DOWNLEFT);
-                    movingPart.setDown(true);
+                    if(!lookup.lookup(IMoveCollisionService.class).checkDownCollision(player, world)){
+                    movingPart.setDown(true);  
+                }
                 }
             }
 
             if (gameData.getKeys().isDown(GameKeys.RIGHT)) {
                 player.setImagePath(sp.RIGHT);
-                movingPart.setRight(true);
+                if(!lookup.lookup(IMoveCollisionService.class).checkRightCollision(player, world)){
+                    movingPart.setRight(true);
+                }
+                
                 if (andUp) {
                     player.setImagePath(sp.UPRIGHT);
                 } else if (andDown) {
@@ -91,7 +110,7 @@ public class PlayerControlSystem implements IEntityProcessingService {
             positionPart.process(gameData, player);
             timerPart.process(gameData, player);
             //Detect collision when player walks into an entity. 
-            lookup.lookup(IStandardCollisionService.class).detectCollision(player, world); 
+             
             
             
 
