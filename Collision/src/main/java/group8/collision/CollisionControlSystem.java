@@ -31,15 +31,6 @@ import java.util.ArrayList;
 public class CollisionControlSystem implements IGamePluginService, IStandardCollisionService, IMoveCollisionService{
     private int moveAwayFactor = 1; 
     private Lookup lookup = Lookup.getDefault();
-    
-//    @Override
-//    public void process(GameData gameData, World world) {
-//        if (frameCount >= 0) {
-//           //  checkCollision(world);
-//            frameCount =0;
-//        }
-//        frameCount++;
-//    }
 
     /**
      * This method calculates a rectangle based on a entity and returns it. 
@@ -50,7 +41,7 @@ public class CollisionControlSystem implements IGamePluginService, IStandardColl
         int x =(int)  (entity.getShapeX()[1]); //x
         int y =(int)  (entity.getShapeY()[1]);//y
         int width = (int) entity.getWidth(); //Width
-        int high= (int)  entity.getHeight(); 
+        int high= (int)  entity.getHeight();
         Rectangle rectangle = new Rectangle(x, y, width, high); 
 
         return rectangle; 
@@ -93,6 +84,7 @@ public class CollisionControlSystem implements IGamePluginService, IStandardColl
             
             //Should the next section be its own method
             if(intersectioRectangle.height > 0 && intersectioRectangle.width > 0){
+                return true; 
 //                lookup.lookup(IWhoHaveCollidedService.class).collisionDetected(entity, entityOnTheMap); //Tell someone that i have collided.
             }
         }

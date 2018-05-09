@@ -13,6 +13,7 @@ import group8.common.data.entityparts.MovingPart;
 import group8.common.data.entityparts.PositionPart;
 import group8.common.services.IEntityProcessingService;
 import group8.common.services.IGamePluginService;
+import group8.common.services.IMoveCollisionService; 
 import group8.commonenemy.services.IPathFinderService;
 import group8.zombie.smallzombie.SmallZombieSpritePath;
 import group8.zombie.Zombie;
@@ -44,22 +45,24 @@ public class BigZombieControlSystem implements IEntityProcessingService {
 
             boolean andUp = false, andDown = false;
             
-            
+            //UP
             if (directions.get(GameKeys.UP)) {
                 zombie.setImagePath(BigZombieSpritePath.UP);
-                movingPart.setUp(true);
+                if(!lookup.lookup(IMoveCollisionService.class).checkUpCollision(zombie, world)){
+                    movingPart.setUp(true);
+                }
                 andUp = true;
-                
             }
-
+            //DOWN
             if (directions.get(GameKeys.DOWN)) {
                 zombie.setImagePath(BigZombieSpritePath.DOWN);
-
-                movingPart.setDown(true);
-                andDown = true;
                 
+                if(!lookup.lookup(IMoveCollisionService.class).checkDownCollision(zombie, world)){
+                    movingPart.setDown(true);
+                }
+                andDown = true;
             }
-
+            //Left
             if (directions.get(GameKeys.LEFT)) {
                 zombie.setImagePath(BigZombieSpritePath.LEFT);
                 if (andUp) {
@@ -67,7 +70,9 @@ public class BigZombieControlSystem implements IEntityProcessingService {
                 } else if (andDown) {
                     zombie.setImagePath(BigZombieSpritePath.DOWNLEFT);
                 }
+                if(!lookup.lookup(IMoveCollisionService.class).checkLeftCollision(zombie, world)){
                 movingPart.setLeft(true);
+                }
             }
 
             if (directions.get(GameKeys.RIGHT)) {
@@ -78,9 +83,10 @@ public class BigZombieControlSystem implements IEntityProcessingService {
                 } else if (andDown) {
                     zombie.setImagePath(BigZombieSpritePath.DOWNRIGHT);
                 }
+                 if(!lookup.lookup(IMoveCollisionService.class).checkRightCollision(zombie, world)){
                 movingPart.setRight(true);
+                 }
             }
-
             movingPart.process(gameData, zombie);
             positionPart.process(gameData, zombie);
 

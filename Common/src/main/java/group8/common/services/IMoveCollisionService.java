@@ -21,4 +21,6 @@ public interface IMoveCollisionService {
     boolean checkUpCollision(Entity entity, World world);
     
     boolean checkDownCollision(Entity entity, World world);
+
+  
 }

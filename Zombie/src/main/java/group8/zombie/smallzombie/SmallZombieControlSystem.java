@@ -13,6 +13,7 @@ import group8.common.data.entityparts.MovingPart;
 import group8.common.data.entityparts.PositionPart;
 import group8.common.services.IEntityProcessingService;
 import group8.common.services.IGamePluginService;
+import group8.common.services.IMoveCollisionService;
 import group8.commonenemy.services.IPathFinderService;
 import group8.zombie.smallzombie.SmallZombieSpritePath;
 import group8.zombie.Zombie;
@@ -51,15 +52,18 @@ public class SmallZombieControlSystem implements IEntityProcessingService {
             
             if (directions.get(dirIndex) == GameKeys.UP) {
                 zombie.setImagePath(SmallZombieSpritePath.UP);
-                movingPart.setUp(true);
+                if(!lookup.lookup(IMoveCollisionService.class).checkUpCollision(zombie, world)){
+                    movingPart.setUp(true);
+                }
                 andUp = true;
                 
             }
 
             if (directions.get(dirIndex) == GameKeys.DOWN) {
                 zombie.setImagePath(SmallZombieSpritePath.DOWN);
-
-                movingPart.setDown(true);
+                if(!lookup.lookup(IMoveCollisionService.class).checkDownCollision(zombie, world)){
+                    movingPart.setDown(true);
+                }
                 andDown = true;
                 
             }
@@ -71,7 +75,9 @@ public class SmallZombieControlSystem implements IEntityProcessingService {
                 } else if (andDown) {
                     zombie.setImagePath(SmallZombieSpritePath.DOWNLEFT);
                 }
+                if(!lookup.lookup(IMoveCollisionService.class).checkLeftCollision(zombie, world)){
                 movingPart.setLeft(true);
+                }
             }
 
             if (directions.get(dirIndex) == GameKeys.RIGHT) {
@@ -82,7 +88,9 @@ public class SmallZombieControlSystem implements IEntityProcessingService {
                 } else if (andDown) {
                     zombie.setImagePath(SmallZombieSpritePath.DOWNRIGHT);
                 }
+                if(!lookup.lookup(IMoveCollisionService.class).checkRightCollision(zombie, world)){
                 movingPart.setRight(true);
+                 }
             }
 
             movingPart.process(gameData, zombie);
