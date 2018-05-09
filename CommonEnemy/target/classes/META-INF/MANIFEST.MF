@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Manifest-Version: 1.0
 OpenIDE-Module-Localizing-Bundle: group8/commonenemy/Bundle.properties
 OpenIDE-Module-Specification-Version: 1.0
@@ -14,3 +15,21 @@ OpenIDE-Module-Long-Description: <undefined>
 OpenIDE-Module-Module-Dependencies: org.netbeans.api.annotations.commo
  n/1 > 1.27.1, Group8.Common > 1.0, org.openide.util.lookup > 8.33.1
 
+=======
+Manifest-Version: 1.0
+OpenIDE-Module-Localizing-Bundle: group8/commonenemy/Bundle.properties
+OpenIDE-Module-Specification-Version: 1.0
+OpenIDE-Module-Implementation-Version: 1.0-20180506
+OpenIDE-Module-Build-Version: 201805061440
+OpenIDE-Module: Group8.CommonEnemy
+OpenIDE-Module-Public-Packages: group8.commonenemy.damage.*, group8.co
+ mmonenemy.enemy.*, group8.commonenemy.services.*
+OpenIDE-Module-Requires: org.openide.modules.ModuleFormat1
+OpenIDE-Module-Display-Category: Group8
+OpenIDE-Module-Name: CommonEnemy
+OpenIDE-Module-Short-Description: <undefined>
+OpenIDE-Module-Long-Description: <undefined>
+OpenIDE-Module-Module-Dependencies: org.netbeans.api.annotations.commo
+ n/1 > 1.27.1, Group8.Common > 1.0, org.openide.util.lookup > 8.33.1
+
+>>>>>>> Collision3.0

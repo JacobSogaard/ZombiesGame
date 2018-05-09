@@ -51,6 +51,14 @@ public class MovingPart implements EntityPart {
         this.down = down; 
         return this.down; 
     }
+    
+    public float getSpeed(){
+        return this.speed; 
+    }
+    
+    public void setSpeed(float newSpeed){
+        this.speed = newSpeed;         
+    }
 
     @Override
     public void process(GameData gameData, Entity entity) {

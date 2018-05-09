@@ -6,8 +6,6 @@
 package group8.common.playercommon;
 
 import group8.common.data.Entity;
-import group8.common.services.CollisionRequestServiceImpl;
-import group8.common.services.ICollisionRequestService;
 import org.openide.util.Lookup;
 
 /**
