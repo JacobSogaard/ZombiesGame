@@ -19,7 +19,6 @@ import java.util.Arrays;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
-import group8.common.services.IStandardCollisionService; 
 
 @ServiceProviders(value = {
     @ServiceProvider(service = IEntityProcessingService.class)})

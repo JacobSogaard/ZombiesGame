@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><module codename="Group8.CommonEnemy">
-<<<<<<< HEAD
-    <module_version install_time="1525348041217" last="true" origin="installer" specification_version="1.0">
+    <module_version install_time="1525855117193" last="true" origin="installer" specification_version="1.0">
         <file crc="3873278870" name="config/Modules/Group8-CommonEnemy.xml"/>
-        <file crc="3842067008" name="modules/Group8-CommonEnemy.jar"/>
-=======
-    <module_version install_time="1525617605310" last="true" origin="installer" specification_version="1.0">
-        <file crc="3873278870" name="config/Modules/Group8-CommonEnemy.xml"/>
-        <file crc="3572426729" name="modules/Group8-CommonEnemy.jar"/>
->>>>>>> Collision3.0
+        <file crc="64272498" name="modules/Group8-CommonEnemy.jar"/>
     </module_version>
 </module>

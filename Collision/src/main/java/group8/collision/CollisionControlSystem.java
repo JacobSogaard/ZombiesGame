@@ -7,7 +7,6 @@ import group8.common.data.Entity;
 import group8.common.data.GameData;
 import group8.common.data.World;
 import group8.common.data.entityparts.MovingPart;
-import group8.common.data.entityparts.PositionPart;
 import group8.common.services.IGamePluginService;
 import group8.common.services.IMoveCollisionService;
 import group8.common.services.IStandardCollisionService;
@@ -17,9 +16,7 @@ import java.awt.Rectangle;
 import java.util.List;
 import org.openide.util.Lookup;
 import group8.common.services.IWhoHaveCollidedService;
-import java.awt.Point;
 import java.util.ArrayList;
-import org.omg.PortableServer.IMPLICIT_ACTIVATION_POLICY_ID;
 
 /**
  * @author group8
@@ -197,12 +194,6 @@ public class CollisionControlSystem implements IGamePluginService, IStandardColl
         return false;
         
     }
-
-    @Override
-    public boolean movingCollision(Entity entity, World world, float x2, float y2) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-     
 
 
 

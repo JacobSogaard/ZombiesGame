@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><module codename="Group8.Zombie">
-<<<<<<< HEAD
-    <module_version install_time="1525348043825" last="true" origin="installer" specification_version="1.0">
+    <module_version install_time="1525855118261" last="true" origin="installer" specification_version="1.0">
         <file crc="1337215217" name="config/Modules/Group8-Zombie.xml"/>
-        <file crc="3947798085" name="modules/Group8-Zombie.jar"/>
-=======
-    <module_version install_time="1525617605860" last="true" origin="installer" specification_version="1.0">
-        <file crc="1337215217" name="config/Modules/Group8-Zombie.xml"/>
-        <file crc="99560048" name="modules/Group8-Zombie.jar"/>
->>>>>>> Collision3.0
+        <file crc="2730473418" name="modules/Group8-Zombie.jar"/>
     </module_version>
 </module>

@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><module codename="Group8.AI">
-<<<<<<< HEAD
-    <module_version install_time="1525348044706" last="true" origin="installer" specification_version="1.0">
+    <module_version install_time="1525855118740" last="true" origin="installer" specification_version="1.0">
         <file crc="856835378" name="config/Modules/Group8-AI.xml"/>
-        <file crc="725147369" name="modules/Group8-AI.jar"/>
-=======
-    <module_version install_time="1525617606053" last="true" origin="installer" specification_version="1.0">
-        <file crc="856835378" name="config/Modules/Group8-AI.xml"/>
-        <file crc="771095396" name="modules/Group8-AI.jar"/>
->>>>>>> Collision3.0
+        <file crc="3103779492" name="modules/Group8-AI.jar"/>
     </module_version>
 </module>

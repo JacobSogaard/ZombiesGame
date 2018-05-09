@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><module codename="Group8.EnemyWave">
-<<<<<<< HEAD
-    <module_version install_time="1525348042414" last="true" origin="installer" specification_version="1.0">
+    <module_version install_time="1525855117644" last="true" origin="installer" specification_version="1.0">
         <file crc="2152081430" name="config/Modules/Group8-EnemyWave.xml"/>
-        <file crc="1234520205" name="modules/Group8-EnemyWave.jar"/>
-=======
-    <module_version install_time="1525617605541" last="true" origin="installer" specification_version="1.0">
-        <file crc="2152081430" name="config/Modules/Group8-EnemyWave.xml"/>
-        <file crc="1032153837" name="modules/Group8-EnemyWave.jar"/>
->>>>>>> Collision3.0
+        <file crc="1394752231" name="modules/Group8-EnemyWave.jar"/>
     </module_version>
 </module>
