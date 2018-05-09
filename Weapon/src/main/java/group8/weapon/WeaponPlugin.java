@@ -5,7 +5,6 @@
  */
 package group8.weapon;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import group8.common.data.Entity;
 import group8.common.data.GameData;
 import group8.common.data.World;
@@ -41,6 +40,7 @@ public class WeaponPlugin implements IGamePluginService, IWeaponService {
 
     @Override
     public void start(GameData gameData, World world) {
+        this.setWeapon(weapon, world);
         this.loadJsonWeapons();
         this.weapon = this.weaponMap.get(key);
         world.addEntity(weapon);
@@ -52,17 +52,8 @@ public class WeaponPlugin implements IGamePluginService, IWeaponService {
     }
 
     private void loadJsonWeapons() {
-        ObjectMapper mapper = new ObjectMapper();
-        for (int i = 0; i < new File("Images/weapon/objects").listFiles().length; i++) {
-            File jsonFile = new File("Images/weapon/objects/weapon"+i+".json");
-            try {
-                this.weapon = mapper.readValue(jsonFile, Weapon.class);
-                this.weaponMap.put(i,this.weapon);
-            } catch (IOException ex) {
-                Logger.getLogger(WeaponPlugin.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-        }
+        this.weaponMap.put(key, weapon);
+
     }
     
     private Weapon createWeapon(Entity player) {
