@@ -102,11 +102,12 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-<<<<<<< HEAD
             <artifactId>HealthSystem</artifactId>
-=======
-            <artifactId>Weapon</artifactId>
->>>>>>> Weapon
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>Weapon</artifactId>            
             <version>${project.version}</version>
         </dependency>
     </dependencies>

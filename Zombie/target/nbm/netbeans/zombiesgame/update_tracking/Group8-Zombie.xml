@@ -1,18 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><module codename="Group8.Zombie">
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <module_version install_time="1525855118261" last="true" origin="installer" specification_version="1.0">
+    <module_version install_time="1525859942541" last="true" origin="installer" specification_version="1.0">
         <file crc="1337215217" name="config/Modules/Group8-Zombie.xml"/>
-        <file crc="2730473418" name="modules/Group8-Zombie.jar"/>
-=======
-    <module_version install_time="1525289011552" last="true" origin="installer" specification_version="1.0">
-        <file crc="3251082216" name="config/Modules/Group8-Zombie.xml"/>
-        <file crc="1783199828" name="modules/Group8-Zombie.jar"/>
->>>>>>> Weapon
-=======
-    <module_version install_time="1525859614682" last="true" origin="installer" specification_version="1.0">
-        <file crc="1337215217" name="config/Modules/Group8-Zombie.xml"/>
-        <file crc="3465439076" name="modules/Group8-Zombie.jar"/>
->>>>>>> Weapon
+        <file crc="2558220701" name="modules/Group8-Zombie.jar"/>
     </module_version>
 </module>

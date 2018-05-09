@@ -1,18 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><module codename="Group8.EnemyWave">
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <module_version install_time="1525855117644" last="true" origin="installer" specification_version="1.0">
+    <module_version install_time="1525859939865" last="true" origin="installer" specification_version="1.0">
         <file crc="2152081430" name="config/Modules/Group8-EnemyWave.xml"/>
-        <file crc="1394752231" name="modules/Group8-EnemyWave.jar"/>
-=======
-    <module_version install_time="1525289010863" last="true" origin="installer" specification_version="1.0">
-        <file crc="386976185" name="config/Modules/Group8-EnemyWave.xml"/>
-        <file crc="2249951599" name="modules/Group8-EnemyWave.jar"/>
->>>>>>> Weapon
-=======
-    <module_version install_time="1525859614290" last="true" origin="installer" specification_version="1.0">
-        <file crc="2152081430" name="config/Modules/Group8-EnemyWave.xml"/>
-        <file crc="4230489482" name="modules/Group8-EnemyWave.jar"/>
->>>>>>> Weapon
+        <file crc="3915364074" name="modules/Group8-EnemyWave.jar"/>
     </module_version>
 </module>
