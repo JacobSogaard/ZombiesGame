@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package group8.shootsystem;
+package group8.bullet;
 
 import group8.common.data.Entity;
 import group8.common.data.GameData;
@@ -12,7 +12,6 @@ import group8.common.data.entityparts.MovingPart;
 import group8.common.data.entityparts.PositionPart;
 import group8.common.data.entityparts.TimerPart;
 import group8.common.services.IEntityProcessingService;
-import java.util.Arrays;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
 
@@ -59,19 +58,17 @@ public class BulletTypeControl implements IEntityProcessingService {
         PositionPart positionPart = entity.getPart(PositionPart.class);
         float x = positionPart.getX();
         float y = positionPart.getY();
-        //float radians = positionPart.getRadians();
 
-        //here we draw a rectangle for the player
         shapex[0] = (float) (x);
         shapey[0] = (float) (y);
 
         shapex[1] = (float) (x);
-        shapey[1] = (float) (y + 40);
+        shapey[1] = (float) (y + entity.getHeight());
 
-        shapex[2] = (float) (x + 40);
-        shapey[2] = (float) (y + 40);
+        shapex[2] = (float) (x + entity.getWidth());
+        shapey[2] = (float) (y + entity.getHeight());
 
-        shapex[3] = (float) (x + 40);
+        shapex[3] = (float) (x + entity.getWidth());
         shapey[3] = (float) (y);
 
         entity.setShapeX(shapex);

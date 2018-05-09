@@ -14,4 +14,10 @@
 /EnemyWave/target/
 /AI/target/
 /ShootSystem/target/
+<<<<<<< HEAD
 /HealthSystem/target/
+=======
+>>>>>>> Weapon
+/Bullet/target/
+/Weapon/target/
+>>>>>>> Weapon

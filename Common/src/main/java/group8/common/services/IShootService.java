@@ -14,4 +14,6 @@ import group8.common.data.World;
  */
 public interface IShootService {
     public void shoot(Entity entity, World world);
+    
+    public void changeBullet();
 }

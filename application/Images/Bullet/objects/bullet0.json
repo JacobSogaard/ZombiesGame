@@ -1,0 +1,6 @@
+{
+	"spritePaths" : ["Images/weapon/objects/weapon1images/UP.png", "Images/weapon/objects/weapon1images/DOWN.png", "Images/weapon/objects/weapon1images/LEFT.png", "Images/weapon/objects/weapon1images/RIGHT.png"],
+	"speed" : 6,
+	"height" : 20,
+	"width" : 10
+}

@@ -1,0 +1,5 @@
+{
+	"imagePath" : "Images/weapon/images/weapon1.png",
+	"bulletAttributes" : [6, 20, 10],
+	"bulletSpritePaths" : ["Images/weapon/objects/weapon1images/UP.png", "Images/weapon/objects/weapon1images/DOWN.png", "Images/weapon/objects/weapon1images/LEFT.png", "Images/weapon/objects/weapon1images/RIGHT.png"]
+}

@@ -69,7 +69,11 @@
         <module>Zombie</module>
         <module>AI</module>
         <module>ShootSystem</module>
+<<<<<<< HEAD
         <module>HealthSystem</module>
+=======
+        <module>Weapon</module>
+>>>>>>> Weapon
     </modules>
 
     <properties>

@@ -3,14 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package group8.shootsystem;
+package group8.common.services;
 
 import group8.common.data.Entity;
+import group8.common.data.World;
 
 /**
  *
- * @author MER
+ * @author Bruger
  */
-public class Bullet extends Entity {
+public interface IWeaponService {
+    public void setWeapon(Entity entity, World world);
     
+    public void changeWeapon();
+    
+  
 }
