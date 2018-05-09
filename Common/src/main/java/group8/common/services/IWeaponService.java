@@ -13,7 +13,7 @@ import group8.common.data.World;
  * @author Bruger
  */
 public interface IWeaponService {
-    public void setWeapon(Entity entity, World world);
+    public void setWeaponDirection(Entity entity, World world);
     
     public void changeWeapon();
     

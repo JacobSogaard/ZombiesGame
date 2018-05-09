@@ -26,14 +26,14 @@ public class WeaponControlSystem implements IEntityProcessingService {
     public void process(GameData gameData, World world) {
 
         for (Entity entity : world.getEntities(Weapon.class)) {
-            
-            
             PositionPart position = entity.getPart(PositionPart.class);
             MovingPart moving = entity.getPart(MovingPart.class);
+
             position.process(gameData, entity);
             moving.process(gameData, entity);
 
             this.updateShape(entity);
+
         }
     }
 
