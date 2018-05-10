@@ -13,6 +13,7 @@ import group8.common.data.World;
 import group8.common.data.entityparts.PositionPart;
 import group8.common.mapcommon.IMapCollision;
 import group8.common.services.IGamePluginService;
+import group8.common.services.ISpawnService;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
 
@@ -36,10 +38,11 @@ public class MapObjectPlugin implements IGamePluginService, IMapCollision {
 
     private static ArrayList<Entity> mapObjects = new ArrayList<>();
     protected static final String MAPOBJECTSPATH = "Images/MapObjects/objects.json";
+    private Lookup lookup = Lookup.getDefault();
 
     @Override
     public void start(GameData gameData, World world) {
-        this.createMapObject(world);
+        this.createMapObject(gameData, world);
     }
 
     @Override
@@ -55,13 +58,23 @@ public class MapObjectPlugin implements IGamePluginService, IMapCollision {
         this.mapObjects.clear();
     }
     
-    private void createMapObject(World world) {
-        for (int i = 0; i < 30; i++) {
+    private void createMapObject(GameData gameData, World world) {
+        for (int i = 0; i < 20; i++) {
             MapObject map = new MapObject();
             map.add(new PositionPart(map.getXCoor(), map.getYCoor(), 0));
+            map = this.initMap(map);
+            
+            PositionPart pp = map.getPart(PositionPart.class);
+            System.out.println("1PP x: " + pp.getX() + " og y: " + pp.getY());
+            
+            map = (MapObject) lookup.lookup(ISpawnService.class).spawnHere(map, gameData, world);
+            
+            pp = map.getPart(PositionPart.class);
+            System.out.println("2PP x: " + pp.getX() + " og y: " + pp.getY());
+           
             map.setImagePath(map.getMapType().toString());
             this.mapObjects.add(map);
-            world.addEntity(this.initMap(map));
+            world.addEntity(map);
         }
     }
 
@@ -109,8 +122,6 @@ public class MapObjectPlugin implements IGamePluginService, IMapCollision {
     }
     
     private MapObject initMap(MapObject map){
-        this.setShapeX(map);
-        this.setShapeY(map);
         return this.setShapeY(this.setShapeX(map));
     }
 

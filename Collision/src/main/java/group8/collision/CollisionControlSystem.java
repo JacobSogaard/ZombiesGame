@@ -7,8 +7,10 @@ import group8.common.data.Entity;
 import group8.common.data.GameData;
 import group8.common.data.World;
 import group8.common.data.entityparts.MovingPart;
+import group8.common.data.entityparts.PositionPart;
 import group8.common.services.IGamePluginService;
 import group8.common.services.IMoveCollisionService;
+import group8.common.services.ISpawnService;
 import group8.common.services.IStandardCollisionService;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
@@ -17,6 +19,7 @@ import java.util.List;
 import org.openide.util.Lookup;
 import group8.common.services.IWhoHaveCollidedService;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * @author group8
@@ -26,9 +29,11 @@ import java.util.ArrayList;
     @ServiceProvider(service = IGamePluginService.class)
     ,
     @ServiceProvider(service = IStandardCollisionService.class)
+    ,
+    @ServiceProvider(service = ISpawnService.class)
 })
 
-public class CollisionControlSystem implements IGamePluginService, IStandardCollisionService, IMoveCollisionService{
+public class CollisionControlSystem implements IGamePluginService, IStandardCollisionService, IMoveCollisionService, ISpawnService {
     private int moveAwayFactor = 1; 
     private Lookup lookup = Lookup.getDefault();
 
@@ -75,9 +80,6 @@ public class CollisionControlSystem implements IGamePluginService, IStandardColl
         
         
         //entity1 is an entity calling to see if they have made a collision. 
-        
-      
-        
         for(Entity entityOnTheMap : objectsList){
             Rectangle entity2 = getEntityRect(entityOnTheMap);
             Rectangle intersectioRectangle = rectangleIntersection(entityA, entity2); 
@@ -104,8 +106,9 @@ public class CollisionControlSystem implements IGamePluginService, IStandardColl
         for(Entity entityOnTheMap : objectsList){
             Rectangle entity2 = getEntityRect(entityOnTheMap);
             Rectangle intersectioRectangle = rectangleIntersection(rectangle, entity2); 
+            //System.out.println(intersectioRectangle.toString());
             if(intersectioRectangle.height > 0 && intersectioRectangle.width > 0){
-                lookup.lookup(IWhoHaveCollidedService.class).collisionDetected(entity, entityOnTheMap, world); //Tell someone that i have collided.
+                //lookup.lookup(IWhoHaveCollidedService.class).collisionDetected(entity, entityOnTheMap, world); //Tell someone that i have collided.
                 return true; 
             }
         }
@@ -185,6 +188,67 @@ public class CollisionControlSystem implements IGamePluginService, IStandardColl
         }
         return false;
         
+    }
+    
+    int count = 1;
+
+    @Override
+    public Entity spawnHere(Entity e, GameData gameData, World world) {
+        Random rnd = new Random();
+        PositionPart pp = e.getPart(PositionPart.class);
+        float x = e.getShapeX()[0];
+        float y = e.getShapeY()[0];
+        for (Entity map : world.getEntities()){
+            float mapX = map.getShapeX()[0];
+            float mapY = map.getShapeY()[0];
+            while (this.detectCollision(e, world)){
+                System.out.println("while");
+                x = rnd.nextInt(gameData.getDisplayWidth()*2-40);
+                y = rnd.nextInt(gameData.getDisplayHeight()*2-70);
+                float[] shapeY = {y, y + e.getHeight(), y + e.getHeight(), y};
+                float[] shapeX = {x, x, x + e.getWidth(), x + e.getWidth()};
+                pp.setPosition(x, y);
+                e.setShapeX(shapeX);
+                e.setShapeY(shapeY);
+            }
+        }
+        return e;
+        
+//        Rectangle rectangle = new Rectangle(); 
+//        rectangle.setRect(e.getShapeX()[0], e.getShapeY()[0], e.getWidth(), 80);
+////        System.out.println(rectangle.toString());
+//        System.out.println("SPAWN!!!");
+//        
+//        if (boxCollision(e, rectangle, world)) {
+//            System.out.println("dkfllds");
+//            Random rnd = new Random();
+//            PositionPart pp = e.getPart(PositionPart.class);
+//            boolean closerToTopEdgeOfMap = (gameData.getDisplayHeight() / 2) < pp.getY();
+//            boolean closerToRightEdgeOfMap = (gameData.getDisplayWidth() / 2) < pp.getX();
+////
+////            if (closerToTopEdgeOfMap) {
+////                pp.setY(pp.getY() - 40);
+////            } else {
+////                pp.setY(pp.getY() + 40);
+////            }
+////            
+////            if (closerToRightEdgeOfMap) {
+////                pp.setX(pp.getX() - 40);
+////            } else {
+////                pp.setX(pp.getX() + 40);
+////            }
+//            float newX = rnd.nextInt(gameData.getDisplayWidth()*2-40);
+//            float newY = rnd.nextInt(gameData.getDisplayHeight()*2-70);
+//            float[] shapeY = {newY, newY + e.getHeight(), newY + e.getHeight(), newY};
+//            float[] shapeX = {newX, newX, newX + e.getWidth(), newX + e.getWidth()};
+//            pp.setPosition(newX, newY);
+//            e.setShapeX(shapeX);
+//            e.setShapeY(shapeY);
+//            
+//            
+//            spawnHere(e, gameData, world);
+//        }
+//        return e;
     }
 
 
