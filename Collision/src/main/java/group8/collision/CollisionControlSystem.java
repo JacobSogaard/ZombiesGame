@@ -105,8 +105,8 @@ public class CollisionControlSystem implements IGamePluginService, IStandardColl
             Rectangle entity2 = getEntityRect(entityOnTheMap);
             Rectangle intersectioRectangle = rectangleIntersection(rectangle, entity2); 
             if(intersectioRectangle.height > 0 && intersectioRectangle.width > 0){
+                lookup.lookup(IWhoHaveCollidedService.class).collisionDetected(entity, entityOnTheMap, world); //Tell someone that i have collided.
                 return true; 
-//                lookup.lookup(IWhoHaveCollidedService.class).collisionDetected(entity, entityOnTheMap); //Tell someone that i have collided.
             }
         }
         return false;

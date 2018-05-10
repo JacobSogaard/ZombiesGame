@@ -19,6 +19,10 @@ public class DamagePart implements EntityPart {
     @Override
     public void process(GameData gameData, Entity entity) {
     }
+    
+    public DamagePart(int damage){
+        this.damage = damage;
+    }
 
     /**
      * @return the damage

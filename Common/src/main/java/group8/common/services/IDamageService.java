@@ -6,11 +6,12 @@
 package group8.common.services;
 
 import group8.common.data.Entity;
+import group8.common.data.World;
 
 /**
  *
  * @author jacob
  */
 public interface IDamageService {
-    void dealDamage(Entity deal, Entity recieve);
+    void dealDamage(Entity deal, Entity recieve, World world);
 }
