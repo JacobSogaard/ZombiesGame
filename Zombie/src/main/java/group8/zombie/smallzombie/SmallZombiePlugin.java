@@ -7,6 +7,7 @@ package group8.zombie.smallzombie;
 
 import group8.common.data.GameData;
 import group8.common.data.World;
+import group8.common.data.entityparts.LifePart;
 import group8.common.data.entityparts.MovingPart;
 import group8.common.data.entityparts.PositionPart;
 import group8.commonenemy.services.IEnemyPluginService;
@@ -49,6 +50,7 @@ public class SmallZombiePlugin implements IEnemyPluginService {
 
         smallZombie.add(new MovingPart(speed));
         smallZombie.add(new PositionPart(x, y, 0));
+        smallZombie.add(new LifePart(2));
 
         smallZombie.setImagePath(SmallZombieSpritePath.UP);
 

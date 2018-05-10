@@ -33,7 +33,6 @@ public class DamageSystem implements IWhoHaveCollidedService {
      */
     @Override
     public void collisionDetected(Entity entity1, Entity entity2, World world) {
-        System.out.println("col");
         DamagePart entity1Damage = entity1.getPart(DamagePart.class);
         LifePart entity1Life = entity1.getPart(LifePart.class);
         DamagePart entity2Damage = entity2.getPart(DamagePart.class);
@@ -50,16 +49,15 @@ public class DamageSystem implements IWhoHaveCollidedService {
     private void checkRemoveEntities(LifePart entityLife, Entity entity, World world) {
         if (entityLife != null) {
             if (entityLife.getLife() <= 0) {
-                System.out.println("remove");
                 world.removeEntity(entity);
             }
         }
     }
 
     private void entityCheck(DamagePart damagePart, LifePart lifePart) {
-        if (damagePart != null) {
+        if (damagePart != null && lifePart != null) {
+            System.out.println("Lifepart: " + lifePart.getLife());
             lifePart.setLife(lifePart.getLife() - damagePart.getDamage());
-            System.out.println("Life part after hit: " + lifePart.getLife());
         }
     }
 
