@@ -35,6 +35,7 @@ public class PlayerControlSystem implements IEntityProcessingService {
     private boolean canMoveLeft = true;
     private boolean canMoveRight = true;
     private Lookup lookup = Lookup.getDefault();
+    private int direction;
 
 
     @Override
@@ -47,10 +48,11 @@ public class PlayerControlSystem implements IEntityProcessingService {
             TimerPart timerPart = player.getPart(TimerPart.class);
 
             boolean andUp = false, andDown = false;
-
+            
             if (gameData.getKeys().isDown(GameKeys.UP)) {
                 positionPart.setRadians(0);
                 player.setImagePath(sp.UP);
+                direction = 0;
                 if (!lookup.lookup(IMoveCollisionService.class).checkUpCollision(player, world)) {
                     movingPart.setUp(true); 
                 }
@@ -60,6 +62,7 @@ public class PlayerControlSystem implements IEntityProcessingService {
 
             if (gameData.getKeys().isDown(GameKeys.DOWN)) {
                 player.setImagePath(sp.DOWN);
+                direction = 1;
                 if(!lookup.lookup(IMoveCollisionService.class).checkDownCollision(player, world)){
                     movingPart.setDown(true);  
                 }
@@ -69,37 +72,44 @@ public class PlayerControlSystem implements IEntityProcessingService {
 
             if (gameData.getKeys().isDown(GameKeys.LEFT)) {
                 player.setImagePath(sp.LEFT);
-                
+                direction = 2;
                 if(!lookup.lookup(IMoveCollisionService.class).checkLeftCollision(player, world)){
                     movingPart.setLeft(true);
                 }
                 
                 if (andUp) {
+                    direction = 3;
                     player.setImagePath(sp.UPLEFT);
                     if (!lookup.lookup(IMoveCollisionService.class).checkUpCollision(player, world)) {
                     movingPart.setUp(true); 
                 }
                    
                 } else if (andDown) {
+                    direction = 4;
                     player.setImagePath(sp.DOWNLEFT);
-                    if(!lookup.lookup(IMoveCollisionService.class).checkDownCollision(player, world)){
+                    if(!lookup.lookup(IMoveCollisionService.class).checkDownCollision(player, world)) {
                     movingPart.setDown(true);  
                 }
                 }
             }
 
             if (gameData.getKeys().isDown(GameKeys.RIGHT)) {
+                direction = 5;
                 player.setImagePath(sp.RIGHT);
                 if(!lookup.lookup(IMoveCollisionService.class).checkRightCollision(player, world)){
                     movingPart.setRight(true);
                 }
                 
                 if (andUp) {
+                    direction = 6;
                     player.setImagePath(sp.UPRIGHT);
                 } else if (andDown) {
+                    direction = 7;
                     player.setImagePath(sp.DOWNRIGHT);
                 }
             }
+            
+            movingPart.setDirection(direction);
 
             if (gameData.getKeys().isDown(GameKeys.SPACE)) {
                 

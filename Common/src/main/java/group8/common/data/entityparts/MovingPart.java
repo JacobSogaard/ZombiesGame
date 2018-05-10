@@ -16,8 +16,8 @@ public class MovingPart implements EntityPart {
 
     private float dx, dy;
     private float speed;
-    private boolean[] directions;
     private boolean left, right, up, down;
+    private boolean[] directions = new boolean[8];
 
     public MovingPart(float maxSpeed) {
         this.speed = maxSpeed;
@@ -32,24 +32,20 @@ public class MovingPart implements EntityPart {
     }
 
 
-    public boolean setLeft(boolean left) {
+    public void setLeft(boolean left) {
         this.left = left;
-        return this.left;
     }
 
-    public boolean setRight(boolean right) {
+    public void setRight(boolean right) {
         this.right = right;
-        return this.right;
     }
 
-    public boolean setUp(boolean up) {
-        this.up = up; 
-        return this.up; 
+    public void setUp(boolean up) {
+        this.up = up;
     }
 
-    public boolean setDown(boolean down) {
-        this.down = down; 
-        return this.down; 
+    public void setDown(boolean down) {
+        this.down = down;
     }
     
     public float getSpeed(){
@@ -58,6 +54,20 @@ public class MovingPart implements EntityPart {
     
     public void setSpeed(float newSpeed){
         this.speed = newSpeed;         
+    }
+    
+    public void setDirection(int direction) {
+        for(int i = 0; i < this.directions.length; i++) {
+            if (i == direction) {
+                this.directions[i] = true;
+            } else {
+                this.directions[i] = false;
+            }
+        }
+    }
+    
+    public boolean[] getDirection() {
+        return this.directions;
     }
 
     @Override
@@ -89,23 +99,22 @@ public class MovingPart implements EntityPart {
         if(isLeft()){
             x -= tempSpeed; 
         }
-        
-        
-        
          /*
         FIXTHIS!!!!!!!!!!!!!!!!!!!!!
         */
         //Backup for Collision
         //Stops the player for moving out of the map and make him stand still.
-        if (x >= gameData.getDisplayWidth()*2-40) {
+        if (x >= gameData.getDisplayWidth()*2-entity.getWidth()) {
             x -= tempSpeed;
+            System.out.println(tempSpeed);
         } else if (x < 0) {
             x += tempSpeed; 
         }
 
         y += dy * dt;
-        if (y > gameData.getDisplayHeight()*2-70) {
+        if (y > gameData.getDisplayHeight()*2-entity.getHeight()) {
             y -= tempSpeed;
+            System.out.println(tempSpeed);
         } else if (y < 0) {
             y += tempSpeed;
         }
