@@ -77,7 +77,6 @@ public class WeaponPlugin implements IGamePluginService, IWeaponService {
             this.weapon.setImagePath(this.weaponMap.get(key)[1]);
         }
         
-        weapon.add(new DamagePart(2));
         this.setDirection(part);
 
         return weapon;

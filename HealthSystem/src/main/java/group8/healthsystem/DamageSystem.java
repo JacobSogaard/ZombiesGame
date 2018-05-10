@@ -55,7 +55,8 @@ public class DamageSystem implements IWhoHaveCollidedService {
     }
 
     private void entityCheck(DamagePart damagePart, LifePart lifePart) {
-        if (damagePart != null) {
+        if (damagePart != null && lifePart != null) {
+            System.out.println("Lifepart: " + lifePart.getLife());
             lifePart.setLife(lifePart.getLife() - damagePart.getDamage());
         }
     }
