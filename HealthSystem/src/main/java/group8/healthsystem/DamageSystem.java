@@ -6,9 +6,10 @@
 package group8.healthsystem;
 
 import group8.common.data.Entity;
+import group8.common.data.World;
 import group8.common.data.entityparts.DamagePart;
 import group8.common.data.entityparts.LifePart;
-import group8.common.services.IDamageService;
+import group8.common.services.IWhoHaveCollidedService;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
 
@@ -17,27 +18,49 @@ import org.openide.util.lookup.ServiceProviders;
  * @author jacob
  */
 @ServiceProviders(value = {
-    @ServiceProvider(service = IDamageService.class)})
-public class DamageSystem implements IDamageService {
-    public DamageSystem(){
+    @ServiceProvider(service = IWhoHaveCollidedService.class)})
+public class DamageSystem implements IWhoHaveCollidedService {
+
+    public DamageSystem() {
     }
 
+    /**
+     * Takes two entities and takes the damage from both entities if they have
+     * one and subtracts it from the other entitys lifepart.
+     *
+     * @param entity1
+     * @param entity2
+     */
     @Override
-    public void dealDamage(Entity entity1, Entity entity2) {
+    public void collisionDetected(Entity entity1, Entity entity2, World world) {
+        System.out.println("col");
         DamagePart entity1Damage = entity1.getPart(DamagePart.class);
         LifePart entity1Life = entity1.getPart(LifePart.class);
         DamagePart entity2Damage = entity2.getPart(DamagePart.class);
         LifePart entity2Life = entity2.getPart(LifePart.class);
-        
+
         this.entityCheck(entity1Damage, entity2Life);
         this.entityCheck(entity2Damage, entity1Life);
+
+        this.checkRemoveEntities(entity1Life, entity1, world);
+        this.checkRemoveEntities(entity2Life, entity2, world);
+
     }
-    
-    private void entityCheck(DamagePart damagePart, LifePart lifePart){
-        if (damagePart != null){
-            lifePart.setLife(lifePart.getLife() - damagePart.getDamage());
+
+    private void checkRemoveEntities(LifePart entityLife, Entity entity, World world) {
+        if (entityLife != null) {
+            if (entityLife.getLife() <= 0) {
+                System.out.println("remove");
+                world.removeEntity(entity);
+            }
         }
     }
-    
-    
+
+    private void entityCheck(DamagePart damagePart, LifePart lifePart) {
+        if (damagePart != null) {
+            lifePart.setLife(lifePart.getLife() - damagePart.getDamage());
+            System.out.println("Life part after hit: " + lifePart.getLife());
+        }
+    }
+
 }

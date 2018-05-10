@@ -8,6 +8,7 @@ package group8.weapon;
 import group8.common.data.Entity;
 import group8.common.data.GameData;
 import group8.common.data.World;
+import group8.common.data.entityparts.DamagePart;
 import group8.common.data.entityparts.MovingPart;
 import group8.common.data.entityparts.PositionPart;
 import group8.common.services.IGamePluginService;
@@ -63,6 +64,7 @@ public class WeaponPlugin implements IGamePluginService, IWeaponService {
     private Entity createWeapon(Entity player) {
         PositionPart playerPosition = player.getPart(PositionPart.class);
         MovingPart part = player.getPart(MovingPart.class);
+     
         float x = playerPosition.getX();
         float y = playerPosition.getY();
         float radians = 3.1415f / 2;
@@ -74,7 +76,8 @@ public class WeaponPlugin implements IGamePluginService, IWeaponService {
         if (this.weapon.getImagePath() == null) {
             this.weapon.setImagePath(this.weaponMap.get(key)[1]);
         }
-
+        
+        weapon.add(new DamagePart(2));
         this.setDirection(part);
 
         return weapon;

@@ -6,6 +6,7 @@
 package group8.common.services;
 
 import group8.common.data.Entity;
+import group8.common.data.World;
 
 /**
  *
@@ -17,7 +18,7 @@ public interface IWhoHaveCollidedService  {
      * @param e1 entity 1 
      * @param e2 entity 2
      */
-    public void collisionDetected(Entity e1, Entity e2); 
+    public void collisionDetected(Entity e1, Entity e2, World world); 
     
 }
     
