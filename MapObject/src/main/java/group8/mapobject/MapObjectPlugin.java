@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import group8.common.data.Entity;
 import group8.common.data.GameData;
 import group8.common.data.World;
+import group8.common.data.entityparts.MovingPart;
 import group8.common.data.entityparts.PositionPart;
 import group8.common.mapcommon.IMapCollision;
 import group8.common.services.IGamePluginService;
@@ -62,15 +63,14 @@ public class MapObjectPlugin implements IGamePluginService, IMapCollision {
         for (int i = 0; i < 20; i++) {
             MapObject map = new MapObject();
             map.add(new PositionPart(map.getXCoor(), map.getYCoor(), 0));
+            map.add(new MovingPart(0));
             map = this.initMap(map);
             
             PositionPart pp = map.getPart(PositionPart.class);
-            System.out.println("1PP x: " + pp.getX() + " og y: " + pp.getY());
             
             map = (MapObject) lookup.lookup(ISpawnService.class).spawnHere(map, gameData, world);
             
             pp = map.getPart(PositionPart.class);
-            System.out.println("2PP x: " + pp.getX() + " og y: " + pp.getY());
            
             map.setImagePath(map.getMapType().toString());
             this.mapObjects.add(map);
@@ -127,7 +127,6 @@ public class MapObjectPlugin implements IGamePluginService, IMapCollision {
 
     @Override
     public ArrayList<Entity> getMapObjects() {
-        System.out.println("In map: " + this.mapObjects.size());
         return this.mapObjects;
     }
 

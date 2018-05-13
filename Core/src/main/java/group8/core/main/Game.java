@@ -67,7 +67,7 @@ public class Game implements ApplicationListener {
         texture1 = new Texture(Gdx.files.internal(MAP_IMG));
 
         sprite = new Sprite(texture1);
-
+        
         for (IGamePluginService plugin : result.allInstances()) {
                 plugin.start(gameData, world);
                 gamePlugins.add(plugin);

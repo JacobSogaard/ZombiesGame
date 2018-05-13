@@ -58,7 +58,8 @@ public class BigZombiePlugin implements IEnemyPluginService {
         bigZombie.add(new PositionPart(x, y, 0));
         bigZombie.add(new LifePart(8));
         bigZombie.setImagePath(BigZombieSpritePath.UP);
-        bigZombie = (Zombie) lookup.lookup(ISpawnService.class).spawnHere(bigZombie, gameData, world);
+        ISpawnService spawnService = lookup.lookup(ISpawnService.class);
+        bigZombie = (Zombie) spawnService.spawnHere(bigZombie, gameData, world);
         
         return bigZombie; 
     }
