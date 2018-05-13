@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><module codename="Group8.AI">
-    <module_version install_time="1525942025849" last="true" origin="installer" specification_version="1.0">
+    <module_version install_time="1526208388297" last="true" origin="installer" specification_version="1.0">
         <file crc="856835378" name="config/Modules/Group8-AI.xml"/>
-        <file crc="3916914098" name="modules/Group8-AI.jar"/>
+        <file crc="1731437996" name="modules/Group8-AI.jar"/>
     </module_version>
 </module>

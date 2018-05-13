@@ -57,7 +57,7 @@ public class EnemyWave {
         for (IEnemyPluginService ie : result.allInstances()) {
             if (!nomore) {
             int max = (int) howManyEnemies(ie);
-            for (int i = 0; i < 1; i++) {
+            for (int i = 0; i < 10; i++) {
                 ie.start(gameData, world);
             }
             nomore = true;

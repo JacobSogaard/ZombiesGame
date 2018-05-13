@@ -11,10 +11,12 @@ import group8.common.data.World;
 import group8.common.data.entityparts.LifePart;
 import group8.common.data.entityparts.MovingPart;
 import group8.common.data.entityparts.PositionPart;
+import group8.common.services.ISpawnService;
 import group8.commonenemy.services.IEnemyPluginService;
 import group8.commonenemy.enemy.Enemy;
 import group8.commonenemy.enemy.Rating;
 import group8.zombie.Zombie;
+import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
 
@@ -27,11 +29,12 @@ import org.openide.util.lookup.ServiceProviders;
 
 public class BigZombiePlugin implements IEnemyPluginService {
     private Enemy zombie;
+    private Lookup lookup = Lookup.getDefault();
     
     @Override
     public void start(GameData gameData, World world) {
         //Add entitites to world
-        zombie = createZombie(gameData);
+        zombie = createZombie(gameData, world);
         world.addEntity(zombie); 
         
     }
@@ -42,7 +45,7 @@ public class BigZombiePlugin implements IEnemyPluginService {
         
     }
     
-    public Enemy createZombie(GameData gameData) {
+    public Enemy createZombie(GameData gameData, World world) {
         
         float speed = (float)0.5;
         
@@ -55,6 +58,8 @@ public class BigZombiePlugin implements IEnemyPluginService {
         bigZombie.add(new PositionPart(x, y, 0));
         bigZombie.add(new LifePart(8));
         bigZombie.setImagePath(BigZombieSpritePath.UP);
+        ISpawnService spawnService = lookup.lookup(ISpawnService.class);
+        bigZombie = (Zombie) spawnService.spawnHere(bigZombie, gameData, world);
         
         return bigZombie; 
     }

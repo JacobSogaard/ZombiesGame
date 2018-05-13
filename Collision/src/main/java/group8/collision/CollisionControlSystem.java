@@ -7,8 +7,10 @@ import group8.common.data.Entity;
 import group8.common.data.GameData;
 import group8.common.data.World;
 import group8.common.data.entityparts.MovingPart;
+import group8.common.data.entityparts.PositionPart;
 import group8.common.services.IGamePluginService;
 import group8.common.services.IMoveCollisionService;
+import group8.common.services.ISpawnService;
 import group8.common.services.IStandardCollisionService;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
@@ -17,39 +19,44 @@ import java.util.List;
 import org.openide.util.Lookup;
 import group8.common.services.IWhoHaveCollidedService;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * @author group8
  */
-
 @ServiceProviders(value = {
     @ServiceProvider(service = IGamePluginService.class)
     ,
     @ServiceProvider(service = IStandardCollisionService.class)
+    ,
+    @ServiceProvider(service = ISpawnService.class)
 })
 
-public class CollisionControlSystem implements IGamePluginService, IStandardCollisionService, IMoveCollisionService{
-    private int moveAwayFactor = 1; 
+public class CollisionControlSystem implements IGamePluginService, IStandardCollisionService, IMoveCollisionService, ISpawnService {
+
+    private int moveAwayFactor = 1;
     private Lookup lookup = Lookup.getDefault();
 
     /**
-     * This method calculates a rectangle based on a entity and returns it. 
+     * This method calculates a rectangle based on a entity and returns it.
+     *
      * @param entity
-     * @return entityRectangle  
+     * @return entityRectangle
      */
     private Rectangle getEntityRect(Entity entity) {
-        int x =(int)  (entity.getShapeX()[1]); //x
-        int y =(int)  (entity.getShapeY()[1]);//y
+        int x = (int) (entity.getShapeX()[1]); //x
+        int y = (int) (entity.getShapeY()[1]);//y
         int width = (int) entity.getWidth(); //Width
-        int high= (int)  entity.getHeight();
-        Rectangle rectangle = new Rectangle(x, y, width, high); 
+        int high = (int) entity.getHeight();
+        Rectangle rectangle = new Rectangle(x, y, width, high);
 
-        return rectangle; 
+        return rectangle;
     }
-    
+
     /**
-     * Checks if two entity are of the same class. 
-     * @param entity1 
+     * Checks if two entity are of the same class.
+     *
+     * @param entity1
      * @param entity2
      * @return true if entity is the same / false if entity is not the same
      */
@@ -57,85 +64,83 @@ public class CollisionControlSystem implements IGamePluginService, IStandardColl
         return entity1.getID().equals(entity2.getID());
         //Perhaps redundant. 
     }
-    
+
     /**
-     * This method checks for collision between a entity and all other entity on the map
+     * This method checks for collision between a entity and all other entity on
+     * the map
+     *
      * @param entity a entity asking to see if they have made a collison
-     * @param world holds all entity in the world. 
-     * @return true if there is a collision / false if same type or no collision. 
+     * @param world holds all entity in the world.
+     * @return true if there is a collision / false if same type or no
+     * collision.
      */
     @Override
-    public  boolean detectCollision(Entity entity, World world) {
+    public boolean detectCollision(Entity entity, World world) {
         List<Entity> objectsList = new ArrayList();
         objectsList.addAll(world.getEntities());
         objectsList.remove(entity);
-        MovingPart movingPart = entity.getPart(MovingPart.class); 
-        Rectangle entityA = getEntityRect(entity); 
-        entityA.x += movingPart.getSpeed(); 
-        
-        
+        MovingPart movingPart = entity.getPart(MovingPart.class);
+        Rectangle entityA = getEntityRect(entity);
+        entityA.x += movingPart.getSpeed();
         //entity1 is an entity calling to see if they have made a collision. 
-        
-      
-        
-        for(Entity entityOnTheMap : objectsList){
+        for (Entity entityOnTheMap : objectsList) {
             Rectangle entity2 = getEntityRect(entityOnTheMap);
-            Rectangle intersectioRectangle = rectangleIntersection(entityA, entity2); 
-            
+            Rectangle intersectioRectangle = rectangleIntersection(entityA, entity2);
+
             //Should the next section be its own method
-            if(intersectioRectangle.height > 0 && intersectioRectangle.width > 0){
-                return true; 
+            if (intersectioRectangle.height > 0 && intersectioRectangle.width > 0) {
+                return true;
 //                lookup.lookup(IWhoHaveCollidedService.class).collisionDetected(entity, entityOnTheMap); //Tell someone that i have collided.
             }
         }
+        System.out.println("----------------------------");
         return false;
     }
-    
-    private boolean boxCollision(Entity entity,Rectangle rectangle, World world){
+
+    private boolean boxCollision(Entity entity, Rectangle rectangle, World world) {
         //Create list to run collision checks on
         List<Entity> objectsList = new ArrayList();
         objectsList.addAll(world.getEntities());
         //Remove the entity to check on from the list
         objectsList.remove(entity);
-        
+
         //entity1 is an entity calling to see if they have made a collision. 
-      
-        
-        for(Entity entityOnTheMap : objectsList){
+        for (Entity entityOnTheMap : objectsList) {
             Rectangle entity2 = getEntityRect(entityOnTheMap);
-            Rectangle intersectioRectangle = rectangleIntersection(rectangle, entity2); 
-            if(intersectioRectangle.height > 0 && intersectioRectangle.width > 0){
-                lookup.lookup(IWhoHaveCollidedService.class).collisionDetected(entity, entityOnTheMap, world); //Tell someone that i have collided.
-                return true; 
+            Rectangle intersectioRectangle = rectangleIntersection(rectangle, entity2);
+            //System.out.println(intersectioRectangle.toString());
+            if (intersectioRectangle.height > 0 && intersectioRectangle.width > 0) {
+                //lookup.lookup(IWhoHaveCollidedService.class).collisionDetected(entity, entityOnTheMap, world); //Tell someone that i have collided.
+                return true;
             }
         }
         return false;
     }
 
-    
     /**
-     * Returns a new rectangle equal to a rectangle between two collided rectangles
-     * if they do not intersect, the rectangle returned will be null
+     * Returns a new rectangle equal to a rectangle between two collided
+     * rectangles if they do not intersect, the rectangle returned will be null
+     *
      * @param rectangle1
      * @param rectangle2
-     * @return rectangle    
+     * @return rectangle
      */
-    public Rectangle rectangleIntersection(Rectangle rectangle1, Rectangle rectangle2){
+    public Rectangle rectangleIntersection(Rectangle rectangle1, Rectangle rectangle2) {
         return rectangle1.intersection(rectangle2);
     }
-    
+
     @Override
-    public boolean checkRightCollision(Entity entity, World world){
+    public boolean checkRightCollision(Entity entity, World world) {
         MovingPart movingPart = entity.getPart(MovingPart.class);
         float speed = movingPart.getSpeed();
-        Rectangle futureRectangle = new Rectangle(); 
+        Rectangle futureRectangle = new Rectangle();
         futureRectangle.setRect(entity.getShapeX()[1] + speed, entity.getShapeY()[1], entity.getWidth(), entity.getHeight());
-        if(boxCollision(entity,futureRectangle, world)){
-            return true; 
+        if (boxCollision(entity, futureRectangle, world)) {
+            return true;
         }
         return false;
     }
-    
+
     @Override
     public void start(GameData gameData, World world) {
     }
@@ -144,15 +149,14 @@ public class CollisionControlSystem implements IGamePluginService, IStandardColl
     public void stop(GameData gameData, World world) {
     }
 
-
     @Override
     public boolean checkLeftCollision(Entity entity, World world) {
         MovingPart movingPart = entity.getPart(MovingPart.class);
         float speed = movingPart.getSpeed();
-        Rectangle futureRectangle = new Rectangle(); 
+        Rectangle futureRectangle = new Rectangle();
         futureRectangle.setRect(entity.getShapeX()[1] - speed, entity.getShapeY()[1], entity.getWidth(), entity.getHeight());
-        if(boxCollision(entity,futureRectangle, world)){
-            return true; 
+        if (boxCollision(entity, futureRectangle, world)) {
+            return true;
         }
         return false;
     }
@@ -160,15 +164,15 @@ public class CollisionControlSystem implements IGamePluginService, IStandardColl
     @Override
     public boolean checkUpCollision(Entity entity, World world) {
         MovingPart movingPart = entity.getPart(MovingPart.class);
-        float speed = movingPart.getSpeed();   
-        Rectangle futureRectangle = new Rectangle(); 
+        float speed = movingPart.getSpeed();
+        Rectangle futureRectangle = new Rectangle();
         futureRectangle.setRect(entity.getShapeX()[1], entity.getShapeY()[1] + speed, entity.getWidth(), entity.getHeight());
 
-        if(boxCollision(entity,futureRectangle, world)){
-            return true; 
+        if (boxCollision(entity, futureRectangle, world)) {
+            return true;
         }
         return false;
-        
+
     }
 
     @Override
@@ -176,18 +180,72 @@ public class CollisionControlSystem implements IGamePluginService, IStandardColl
         MovingPart movingPart = entity.getPart(MovingPart.class);
 
         float speed = movingPart.getSpeed();
-        
-        
-        Rectangle futureRectangle = new Rectangle(); 
+
+        Rectangle futureRectangle = new Rectangle();
         futureRectangle.setRect(entity.getShapeX()[1], entity.getShapeY()[1] - speed, entity.getWidth(), entity.getHeight());
-        if(boxCollision(entity,futureRectangle, world)){
-            return true; 
+        if (boxCollision(entity, futureRectangle, world)) {
+            return true;
         }
         return false;
-        
+
     }
 
+    int count = 1;
 
+    @Override
+    public Entity spawnHere(Entity entity, GameData gameData, World world) {
+        Random rnd = new Random();
+        PositionPart pp = entity.getPart(PositionPart.class);
+        Rectangle rect = new Rectangle();
+        rect.setRect(entity.getShapeX()[1], entity.getShapeY()[1], entity.getWidth(), entity.getHeight());
+        while (this.checkDownCollision(entity, world) || this.checkLeftCollision(entity, world) 
+                || this.checkRightCollision(entity, world) || this.checkUpCollision(entity, world)) {
+            float x = rnd.nextInt(gameData.getDisplayWidth() * 2 - 40);
+            float y = rnd.nextInt(gameData.getDisplayHeight() * 2 - 70);
+            float[] shapeY = {y, y + entity.getHeight(), y + entity.getHeight(), y};
+            float[] shapeX = {x, x, x + entity.getWidth(), x + entity.getWidth()};
+            pp.setPosition(x, y);
+            entity.setShapeX(shapeX);
+            entity.setShapeY(shapeY);
+        }
 
+        return entity;
+
+//        Rectangle rectangle = new Rectangle(); 
+//        rectangle.setRect(e.getShapeX()[0], e.getShapeY()[0], e.getWidth(), 80);
+////        System.out.println(rectangle.toString());
+//        System.out.println("SPAWN!!!");
+//        
+//        if (boxCollision(e, rectangle, world)) {
+//            System.out.println("dkfllds");
+//            Random rnd = new Random();
+//            PositionPart pp = e.getPart(PositionPart.class);
+//            boolean closerToTopEdgeOfMap = (gameData.getDisplayHeight() / 2) < pp.getY();
+//            boolean closerToRightEdgeOfMap = (gameData.getDisplayWidth() / 2) < pp.getX();
+////
+////            if (closerToTopEdgeOfMap) {
+////                pp.setY(pp.getY() - 40);
+////            } else {
+////                pp.setY(pp.getY() + 40);
+////            }
+////            
+////            if (closerToRightEdgeOfMap) {
+////                pp.setX(pp.getX() - 40);
+////            } else {
+////                pp.setX(pp.getX() + 40);
+////            }
+//            float newX = rnd.nextInt(gameData.getDisplayWidth()*2-40);
+//            float newY = rnd.nextInt(gameData.getDisplayHeight()*2-70);
+//            float[] shapeY = {newY, newY + e.getHeight(), newY + e.getHeight(), newY};
+//            float[] shapeX = {newX, newX, newX + e.getWidth(), newX + e.getWidth()};
+//            pp.setPosition(newX, newY);
+//            e.setShapeX(shapeX);
+//            e.setShapeY(shapeY);
+//            
+//            
+//            spawnHere(e, gameData, world);
+//        }
+//        return e;
+    }
 
 }
