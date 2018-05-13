@@ -53,6 +53,25 @@ public class PlayerPlugin implements IGamePluginService, IPlayerService {
         playerRectangle.add(new TimerPart(0));
         playerRectangle.setImagePath(sp.UP);
         
+        float[] shapex = new float[4];
+        float[] shapey = new float[4];
+
+        //here we draw a rectangle for the zombie
+        shapex[0] = (float) (x);
+        shapey[0] = (float) (y);
+
+        shapex[1] = (float) (x);
+        shapey[1] = (float) (y + 70);
+
+        shapex[2] = (float) (x + 40);
+        shapey[2] = (float) (y + 70);
+
+        shapex[3] = (float) (x + 40);
+        shapey[3] = (float) (y);
+
+        playerRectangle.setShapeX(shapex);
+        playerRectangle.setShapeY(shapey);
+        
         return playerRectangle; 
     }
 
