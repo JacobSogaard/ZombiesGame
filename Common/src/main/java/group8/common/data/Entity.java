@@ -52,8 +52,7 @@ public class Entity implements Serializable {
 
     public void setShapeX(float[] shapeX) {
         this.shapeX = shapeX;
-        if (this.height == 0) {
-            this.setHeight();
+        if (this.width == 0) {
             this.setWidth();
         }
     }
@@ -64,6 +63,9 @@ public class Entity implements Serializable {
 
     public void setShapeY(float[] shapeY) {
         this.shapeY = shapeY;
+        if (this.height == 0){
+            this.setHeight();
+        }
     }
     
     private void setHeight() {

@@ -49,7 +49,6 @@ public class BigZombiePlugin implements IEnemyPluginService {
         
         float speed = (float)0.5;
         
-        
         Zombie bigZombie =  new BigZombie(Rating.ONE);
         float x = bigZombie.setX(gameData, 200);
         float y = bigZombie.setY(gameData, 200);
@@ -58,6 +57,26 @@ public class BigZombiePlugin implements IEnemyPluginService {
         bigZombie.add(new PositionPart(x, y, 0));
         bigZombie.add(new LifePart(8));
         bigZombie.setImagePath(BigZombieSpritePath.UP);
+        
+        float[] shapex = new float[4];
+        float[] shapey = new float[4];
+
+        //here we draw a rectangle for the zombie
+        shapex[0] = (float) (x);
+        shapey[0] = (float) (y);
+
+        shapex[1] = (float) (x);
+        shapey[1] = (float) (y + 100);
+
+        shapex[2] = (float) (x + 58);
+        shapey[2] = (float) (y + 100);
+
+        shapex[3] = (float) (x + 58);
+        shapey[3] = (float) (y);
+
+        bigZombie.setShapeX(shapex);
+        bigZombie.setShapeY(shapey);
+        
         ISpawnService spawnService = lookup.lookup(ISpawnService.class);
         bigZombie = (Zombie) spawnService.spawnHere(bigZombie, gameData, world);
         

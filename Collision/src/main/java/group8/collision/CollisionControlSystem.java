@@ -44,11 +44,12 @@ public class CollisionControlSystem implements IGamePluginService, IStandardColl
      * @return entityRectangle
      */
     private Rectangle getEntityRect(Entity entity) {
+        
         int x = (int) (entity.getShapeX()[1]); //x
         int y = (int) (entity.getShapeY()[1]);//y
         int width = (int) entity.getWidth(); //Width
-        int high = (int) entity.getHeight();
-        Rectangle rectangle = new Rectangle(x, y, width, high);
+        int height = (int) entity.getHeight();
+        Rectangle rectangle = new Rectangle(x, y, width, height);
 
         return rectangle;
     }
@@ -93,7 +94,6 @@ public class CollisionControlSystem implements IGamePluginService, IStandardColl
 //                lookup.lookup(IWhoHaveCollidedService.class).collisionDetected(entity, entityOnTheMap); //Tell someone that i have collided.
             }
         }
-        System.out.println("----------------------------");
         return false;
     }
 
@@ -191,15 +191,16 @@ public class CollisionControlSystem implements IGamePluginService, IStandardColl
     }
 
     int count = 1;
-
+    
+    
     @Override
     public Entity spawnHere(Entity entity, GameData gameData, World world) {
         Random rnd = new Random();
         PositionPart pp = entity.getPart(PositionPart.class);
         Rectangle rect = new Rectangle();
         rect.setRect(entity.getShapeX()[1], entity.getShapeY()[1], entity.getWidth(), entity.getHeight());
-        while (this.checkDownCollision(entity, world) || this.checkLeftCollision(entity, world) 
-                || this.checkRightCollision(entity, world) || this.checkUpCollision(entity, world)) {
+        while (this.detectCollision(entity, world)) {
+            System.out.println("while");
             float x = rnd.nextInt(gameData.getDisplayWidth() * 2 - 40);
             float y = rnd.nextInt(gameData.getDisplayHeight() * 2 - 70);
             float[] shapeY = {y, y + entity.getHeight(), y + entity.getHeight(), y};
