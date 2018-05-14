@@ -18,6 +18,7 @@ import group8.common.data.entityparts.TimerPart;
 import group8.common.services.IEntityProcessingService;
 import group8.common.services.IGamePluginService;
 import group8.common.services.IShootService;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import org.openide.util.lookup.ServiceProvider;
@@ -59,11 +60,11 @@ public class BulletPlugin implements IGamePluginService, IShootService, ILoadBul
         world.removeEntity(bullet);
     }
 
-    private Entity createBullet(Entity entity) {
-        PositionPart p = entity.getPart(PositionPart.class);
-        MovingPart part = entity.getPart(MovingPart.class);
-        float x = p.getX();
-        float y = p.getY();
+    private Entity createBullet(Entity shooter) {
+        PositionPart positionPart = shooter.getPart(PositionPart.class);
+        MovingPart movingPart = shooter.getPart(MovingPart.class);
+        float x = positionPart.getX();
+        float y = positionPart.getY();
         float radians = 3.1415f / 2;
 
         this.bullet = new Bullet();
@@ -77,7 +78,8 @@ public class BulletPlugin implements IGamePluginService, IShootService, ILoadBul
         if (this.bullet.getImagePath() == null) {
             this.bullet.setImagePath(SpritePath.UP.toString());
         }
-        this.setDirection(part);
+        this.setDirection(movingPart, positionPart);
+        
 
         return bullet;
     }
@@ -90,38 +92,66 @@ public class BulletPlugin implements IGamePluginService, IShootService, ILoadBul
     }
     
     
-    private void setDirection(MovingPart part) {
+    private void setDirection(MovingPart movingPart, PositionPart positionPart) {
 
         MovingPart bulletPart = this.bullet.getPart(MovingPart.class);
-
-        if (part.isDown()) {
-            bulletPart.setDown(true);
-            this.bullet.setImagePath(this.bulletMap.get(key)[0]);
-        }
-
-        if (part.isUp()) {
-            bulletPart.setUp(true);
-            this.bullet.setImagePath(this.bulletMap.get(key)[1]);
-        }
-
-        if (part.isLeft()) {
-            bulletPart.setLeft(true);
-            this.bullet.setImagePath(this.bulletMap.get(key)[2]);
-            if (part.isUp()) {
-                bulletPart.setUp(true);
-            } else if (part.isDown()) {
-                bulletPart.setDown(true);
+        PositionPart bPositionPart = this.bullet.getPart(PositionPart.class);
+        
+        int direction = 0;
+        for (int i = 0; i < movingPart.getDirection().length; i++) {
+            if (movingPart.getDirection()[i] == true) {
+                direction = i;
             }
         }
-
-        if (part.isRight()) {
-            bulletPart.setRight(true);
-            this.bullet.setImagePath(this.bulletMap.get(key)[3]);
-            if (part.isUp()) {
-                bulletPart.setUp(true);
-            } else if (part.isDown()) {
-                bulletPart.setDown(true);
-            }
+        
+        switch(direction) {
+            case 0: bulletPart.setUp(true);
+                    bPositionPart.setY(positionPart.getY() + 70);
+                    this.bullet.setImagePath(this.bulletMap.get(key)[1]);
+                    break;
+                    
+            case 1: bulletPart.setDown(true);
+                    bPositionPart.setY(positionPart.getY() - 40);
+                    this.bullet.setImagePath(this.bulletMap.get(key)[0]);
+                    break;
+                    
+            case 2: bulletPart.setLeft(true);
+                    bPositionPart.setX(positionPart.getX() - 40);
+                    this.bullet.setImagePath(this.bulletMap.get(key)[2]);
+                    break;
+            
+            case 3: bulletPart.setUp(true);
+                    bulletPart.setLeft(true);
+                    bPositionPart.setY(positionPart.getY() + 70);
+                    bPositionPart.setX(positionPart.getX() - 40);
+                    this.bullet.setImagePath(this.bulletMap.get(key)[2]);
+                    break;
+                    
+            case 4: bulletPart.setDown(true);
+                    bulletPart.setLeft(true);
+                    bPositionPart.setX(positionPart.getX() - 40);
+                    bPositionPart.setY(positionPart.getY() - 40);
+                    this.bullet.setImagePath(this.bulletMap.get(key)[2]);
+                    break;
+                    
+            case 5: bulletPart.setRight(true);
+                    bPositionPart.setX(positionPart.getX() + 40);
+                    this.bullet.setImagePath(this.bulletMap.get(key)[3]);
+                    break;
+            
+            case 6: bulletPart.setUp(true);
+                    bulletPart.setRight(true);
+                    bPositionPart.setY(positionPart.getY() + 70);
+                    bPositionPart.setX(positionPart.getX() + 40);
+                    this.bullet.setImagePath(this.bulletMap.get(key)[3]);
+                    break;
+                
+            case 7: bulletPart.setDown(true);
+                    bulletPart.setRight(true);
+                    bPositionPart.setX(positionPart.getX() + 40);
+                    bPositionPart.setY(positionPart.getY() - 40);
+                    this.bullet.setImagePath(this.bulletMap.get(key)[3]);
+                    break;
         }
     }
 

@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?><module codename="Group8.Zombie">
+<<<<<<< HEAD
     <module_version install_time="1526226732319" last="true" origin="installer" specification_version="1.0">
         <file crc="1337215217" name="config/Modules/Group8-Zombie.xml"/>
         <file crc="3426339704" name="modules/Group8-Zombie.jar"/>
+=======
+    <module_version install_time="1525953368130" last="true" origin="installer" specification_version="1.0">
+        <file crc="1337215217" name="config/Modules/Group8-Zombie.xml"/>
+        <file crc="3884596644" name="modules/Group8-Zombie.jar"/>
+>>>>>>> Weapon
     </module_version>
 </module>

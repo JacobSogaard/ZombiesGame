@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?><module codename="Group8.AI">
+<<<<<<< HEAD
     <module_version install_time="1526226732805" last="true" origin="installer" specification_version="1.0">
         <file crc="856835378" name="config/Modules/Group8-AI.xml"/>
         <file crc="2467487368" name="modules/Group8-AI.jar"/>
+=======
+    <module_version install_time="1525953368709" last="true" origin="installer" specification_version="1.0">
+        <file crc="856835378" name="config/Modules/Group8-AI.xml"/>
+        <file crc="431948941" name="modules/Group8-AI.jar"/>
+>>>>>>> Weapon
     </module_version>
 </module>
