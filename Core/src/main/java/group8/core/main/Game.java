@@ -41,6 +41,7 @@ public class Game implements ApplicationListener {
     public static Texture texture;
     private static Texture texture1;
     public static Sprite sprite;
+    private static boolean hasPlayer = false;
     private SpriteBatch spriteBatch;
 
     private HashMap<String,Texture> textureMap;
@@ -100,8 +101,18 @@ public class Game implements ApplicationListener {
             if (e.getImagePath() != null) {
                 this.drawImg(e, part);
             }
+            
+            
             if (e.getType() == EntityType.PLAYER) {
+                hasPlayer = true;
                 this.setCamFollowPlayer(part);
+                
+            } 
+
+            //If player module is onloaded, sets camera in the middle of screen
+            if(!hasPlayer) {
+                System.out.println("found player");
+                this.setCamCenter();
             }
             
             //TEST FOR ENEMY WAVE
@@ -163,6 +174,12 @@ public class Game implements ApplicationListener {
     
     private void setCamFollowPlayer(PositionPart part) {
         cam.position.set(part.getX(), part.getY(),0);
+        cam.update();
+    }
+    
+    //Sets camera to the center of the display
+    private void setCamCenter(){
+        cam.position.set(gameData.getDisplayWidth(), gameData.getDisplayHeight(), 0);
         cam.update();
     }
 

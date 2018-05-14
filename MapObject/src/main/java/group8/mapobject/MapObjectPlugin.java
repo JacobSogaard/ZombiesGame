@@ -60,7 +60,7 @@ public class MapObjectPlugin implements IGamePluginService, IMapCollision {
     }
     
     private void createMapObject(GameData gameData, World world) {
-        for (int i = 0; i <= 0; i++) {
+        for (int i = 0; i <= 10; i++) {
             MapObject map = new MapObject();
             map.add(new PositionPart(map.getXCoor(), map.getYCoor(), 0));
             map.add(new MovingPart(0));
@@ -68,7 +68,13 @@ public class MapObjectPlugin implements IGamePluginService, IMapCollision {
             
             PositionPart pp = map.getPart(PositionPart.class);
             
-            map = (MapObject) lookup.lookup(ISpawnService.class).spawnHere(map, gameData, world);
+            
+            try {
+                ISpawnService spawn = lookup.lookup(ISpawnService.class);
+                map = (MapObject) spawn.spawnHere(map, gameData, world);
+            } catch (NullPointerException ex) {
+                System.out.println("Create map \n" + ex);
+            }
             
             pp = map.getPart(PositionPart.class);
            

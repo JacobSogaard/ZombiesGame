@@ -13,15 +13,16 @@ import group8.common.data.entityparts.MovingPart;
 import group8.common.data.entityparts.PositionPart;
 import group8.common.services.IEntityProcessingService;
 import group8.common.services.IGamePluginService;
-import group8.common.services.IMoveCollisionService; 
+import group8.common.services.IMoveCollisionService;
 import group8.commonenemy.services.IPathFinderService;
 import group8.zombie.smallzombie.SmallZombieSpritePath;
 import group8.zombie.Zombie;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
-
 
 /**
  *
@@ -33,22 +34,48 @@ public class BigZombieControlSystem implements IEntityProcessingService {
 
     private Lookup lookup = Lookup.getDefault();
     protected IPathFinderService path = lookup.lookup(IPathFinderService.class);
-    
+    private Random r;
+    private Map<Integer, Boolean> directions = new HashMap<>();
+
     @Override
     public void process(GameData gameData, World world) {
-        
-        
+
         for (Entity zombie : world.getEntities(BigZombie.class)) {
-            Map<Integer, Boolean> directions = path.getDirections(zombie);
+            try {
+                this.directions = path.getDirections(zombie);
+            } catch (NullPointerException ex) {
+                this.directions.put(0, false);
+                this.directions.put(1, false);
+                this.directions.put(2, false);
+                this.directions.put(3, false);
+                this.r = new Random();
+                int dirIndex = r.nextInt(4);
+                this.directions.put(dirIndex, true);
+            }
+
             PositionPart positionPart = zombie.getPart(PositionPart.class);
             MovingPart movingPart = zombie.getPart(MovingPart.class);
 
             boolean andUp = false, andDown = false;
-            
+            boolean upCol, downCol, leftCol, rightCol;
+
+            try {
+                IMoveCollisionService colService = lookup.lookup(IMoveCollisionService.class);
+                upCol = colService.checkUpCollision(zombie, world);
+                downCol = colService.checkDownCollision(zombie, world);
+                leftCol = colService.checkLeftCollision(zombie, world);
+                rightCol = colService.checkRightCollision(zombie, world);
+            } catch (NullPointerException ex) {
+                upCol = false;
+                downCol = false;
+                leftCol = false;
+                rightCol = false;
+            }
+
             //UP
             if (directions.get(GameKeys.UP)) {
                 zombie.setImagePath(BigZombieSpritePath.UP);
-                if(!lookup.lookup(IMoveCollisionService.class).checkUpCollision(zombie, world)){
+                if (!upCol) {
                     movingPart.setUp(true);
                 }
                 andUp = true;
@@ -56,8 +83,8 @@ public class BigZombieControlSystem implements IEntityProcessingService {
             //DOWN
             if (directions.get(GameKeys.DOWN)) {
                 zombie.setImagePath(BigZombieSpritePath.DOWN);
-                
-                if(!lookup.lookup(IMoveCollisionService.class).checkDownCollision(zombie, world)){
+
+                if (!downCol) {
                     movingPart.setDown(true);
                 }
                 andDown = true;
@@ -70,8 +97,8 @@ public class BigZombieControlSystem implements IEntityProcessingService {
                 } else if (andDown) {
                     zombie.setImagePath(BigZombieSpritePath.DOWNLEFT);
                 }
-                if(!lookup.lookup(IMoveCollisionService.class).checkLeftCollision(zombie, world)){
-                movingPart.setLeft(true);
+                if (!leftCol) {
+                    movingPart.setLeft(true);
                 }
             }
 
@@ -83,9 +110,9 @@ public class BigZombieControlSystem implements IEntityProcessingService {
                 } else if (andDown) {
                     zombie.setImagePath(BigZombieSpritePath.DOWNRIGHT);
                 }
-                 if(!lookup.lookup(IMoveCollisionService.class).checkRightCollision(zombie, world)){
-                movingPart.setRight(true);
-                 }
+                if (!rightCol) {
+                    movingPart.setRight(true);
+                }
             }
             movingPart.process(gameData, zombie);
             positionPart.process(gameData, zombie);
@@ -98,7 +125,7 @@ public class BigZombieControlSystem implements IEntityProcessingService {
             movingPart.setRight(false);
         }
     }
-    
+
     private void updateShape(Entity entity) {
         float[] shapex = entity.getShapeX();
         float[] shapey = entity.getShapeY();
@@ -124,5 +151,5 @@ public class BigZombieControlSystem implements IEntityProcessingService {
         entity.setShapeX(shapex);
         entity.setShapeY(shapey);
     }
-    
+
 }

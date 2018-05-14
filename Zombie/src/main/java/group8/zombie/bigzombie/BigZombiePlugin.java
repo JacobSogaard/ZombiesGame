@@ -5,7 +5,6 @@
  */
 package group8.zombie.bigzombie;
 
-
 import group8.common.data.GameData;
 import group8.common.data.World;
 import group8.common.data.entityparts.LifePart;
@@ -28,36 +27,37 @@ import org.openide.util.lookup.ServiceProviders;
     @ServiceProvider(service = IEnemyPluginService.class)})
 
 public class BigZombiePlugin implements IEnemyPluginService {
+
     private Enemy zombie;
     private Lookup lookup = Lookup.getDefault();
-    
+
     @Override
     public void start(GameData gameData, World world) {
         //Add entitites to world
         zombie = createZombie(gameData, world);
-        world.addEntity(zombie); 
-        
+        world.addEntity(zombie);
+
     }
 
     @Override
     public void stop(GameData gameData, World world) {
         world.removeEntity(zombie);
-        
+
     }
-    
+
     public Enemy createZombie(GameData gameData, World world) {
-        
-        float speed = (float)0.5;
-        
-        Zombie bigZombie =  new BigZombie(Rating.ONE);
+
+        float speed = (float) 0.5;
+
+        Zombie bigZombie = new BigZombie(Rating.ONE);
         float x = bigZombie.setX(gameData, 200);
         float y = bigZombie.setY(gameData, 200);
-        
+
         bigZombie.add(new MovingPart(speed));
         bigZombie.add(new PositionPart(x, y, 0));
         bigZombie.add(new LifePart(8));
         bigZombie.setImagePath(BigZombieSpritePath.UP);
-        
+
         float[] shapex = new float[4];
         float[] shapey = new float[4];
 
@@ -76,13 +76,16 @@ public class BigZombiePlugin implements IEnemyPluginService {
 
         bigZombie.setShapeX(shapex);
         bigZombie.setShapeY(shapey);
-        
-        ISpawnService spawnService = lookup.lookup(ISpawnService.class);
-        bigZombie = (Zombie) spawnService.spawnHere(bigZombie, gameData, world);
-        
-        return bigZombie; 
+
+        try {
+            ISpawnService spawnService = lookup.lookup(ISpawnService.class);
+            bigZombie = (Zombie) spawnService.spawnHere(bigZombie, gameData, world);
+        } catch (NullPointerException ex) {
+
+        }
+
+        return bigZombie;
     }
-    
 
     @Override
     public Rating getRating() {

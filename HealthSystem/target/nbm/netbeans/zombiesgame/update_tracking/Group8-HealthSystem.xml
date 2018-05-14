@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><module codename="Group8.HealthSystem">
-    <module_version install_time="1526301889481" last="true" origin="installer" specification_version="1.0">
+    <module_version install_time="1526310222324" last="true" origin="installer" specification_version="1.0">
         <file crc="2035862442" name="config/Modules/Group8-HealthSystem.xml"/>
-        <file crc="212206398" name="modules/Group8-HealthSystem.jar"/>
+        <file crc="1376562476" name="modules/Group8-HealthSystem.jar"/>
     </module_version>
 </module>

@@ -57,6 +57,13 @@ public class SmallZombiePlugin implements IEnemyPluginService {
         smallZombie = (Zombie) lookup.lookup(ISpawnService.class).spawnHere(smallZombie, gameData, world);
 
         smallZombie.setImagePath(SmallZombieSpritePath.UP);
+        
+        try {
+            ISpawnService spawnService = lookup.lookup(ISpawnService.class);
+            smallZombie = (Zombie) spawnService.spawnHere(smallZombie, gameData, world);
+        } catch (NullPointerException ex) {
+
+        }
 
         return smallZombie;
     }

@@ -63,6 +63,13 @@ public class RegularZombiePlugin implements IEnemyPluginService {
 
         regularZombie.setImagePath(RegularZombieSpritePath.UP);
         
+        try {
+            ISpawnService spawnService = lookup.lookup(ISpawnService.class);
+            regularZombie = (Zombie) spawnService.spawnHere(regularZombie, gameData, world);
+        } catch (NullPointerException ex) {
+
+        }
+        
         return regularZombie; 
     }
 
