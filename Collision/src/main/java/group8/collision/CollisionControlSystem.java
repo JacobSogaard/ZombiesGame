@@ -90,8 +90,9 @@ public class CollisionControlSystem implements IGamePluginService, IStandardColl
 
             //Should the next section be its own method
             if (intersectioRectangle.height > 0 && intersectioRectangle.width > 0) {
+                lookup.lookup(IWhoHaveCollidedService.class).collisionDetected(entity, entityOnTheMap); //Tell someone that i have collided.
                 return true;
-//                lookup.lookup(IWhoHaveCollidedService.class).collisionDetected(entity, entityOnTheMap); //Tell someone that i have collided.
+
             }
         }
         return false;
