@@ -38,6 +38,11 @@ public class DamageSystem implements IWhoHaveCollidedService {
         DamagePart entity2Damage = entity2.getPart(DamagePart.class);
         LifePart entity2Life = entity2.getPart(LifePart.class);
 
+//        System.out.println("1: " + entity1Damage.getDamage());
+//        System.out.println("1: " + entity1Life.getLife());
+//        System.out.println("2: " + entity2Damage.getDamage());
+//        System.out.println("2: " + entity2Life.getLife());
+        
         this.entityCheck(entity1Damage, entity2Life);
         this.entityCheck(entity2Damage, entity1Life);
 

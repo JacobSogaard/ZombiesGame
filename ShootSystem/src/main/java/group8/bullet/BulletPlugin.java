@@ -106,7 +106,7 @@ public class BulletPlugin implements IGamePluginService, IShootService, ILoadBul
         
         switch(direction) {
             case 0: bulletPart.setUp(true);
-                    bPositionPart.setY(positionPart.getY() + 70);
+                    bPositionPart.setY(positionPart.getY() + 71);
                     this.bullet.setImagePath(this.bulletMap.get(key)[1]);
                     break;
                     
@@ -122,7 +122,7 @@ public class BulletPlugin implements IGamePluginService, IShootService, ILoadBul
             
             case 3: bulletPart.setUp(true);
                     bulletPart.setLeft(true);
-                    bPositionPart.setY(positionPart.getY() + 70);
+                    bPositionPart.setY(positionPart.getY() + 71);
                     bPositionPart.setX(positionPart.getX() - 40);
                     this.bullet.setImagePath(this.bulletMap.get(key)[2]);
                     break;

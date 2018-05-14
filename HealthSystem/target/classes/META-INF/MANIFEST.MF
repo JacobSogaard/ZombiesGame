@@ -3,7 +3,7 @@ OpenIDE-Module-Localizing-Bundle: group8/healthsystem/Bundle.propertie
  s
 OpenIDE-Module-Specification-Version: 1.0
 OpenIDE-Module-Implementation-Version: 1.0-20180514
-OpenIDE-Module-Build-Version: 201805141127
+OpenIDE-Module-Build-Version: 201805141244
 OpenIDE-Module: Group8.HealthSystem
 OpenIDE-Module-Public-Packages: -
 OpenIDE-Module-Requires: org.openide.modules.ModuleFormat1
