@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?><module codename="Group8.CommonCollision">
+    <module_version install_time="1525255691277" last="true" origin="installer" specification_version="1.0">
+        <file crc="1131909254" name="config/Modules/Group8-CommonCollision.xml"/>
+        <file crc="3720072992" name="modules/Group8-CommonCollision.jar"/>
+    </module_version>
+</module>

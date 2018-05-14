@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * 
  */
 package group8.common.services;
 
@@ -14,13 +12,11 @@ import group8.common.data.World;
  */
 public interface IMoveCollisionService {
     
-    boolean checkRightCollision(Entity entity, World world);
+      public boolean checkRightCollision(Entity entity, World world);
+      public boolean  checkLeftCollision(Entity entity, World world);
+      public boolean  checkUpCollision(Entity entity, World world);
+      public boolean  checkDownCollision(Entity entity, World world);
+      
+      
     
-    boolean checkLeftCollision(Entity entity, World world);
-    
-    boolean checkUpCollision(Entity entity, World world);
-    
-    boolean checkDownCollision(Entity entity, World world);
-
-  
 }
