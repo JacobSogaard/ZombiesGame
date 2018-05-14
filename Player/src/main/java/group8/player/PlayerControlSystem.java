@@ -35,7 +35,7 @@ public class PlayerControlSystem implements IEntityProcessingService {
     private boolean canMoveLeft = true;
     private boolean canMoveRight = true;
     private Lookup lookup = Lookup.getDefault();
-
+    private int direction;
 
     @Override
     public void process(GameData gameData, World world) {
@@ -47,63 +47,89 @@ public class PlayerControlSystem implements IEntityProcessingService {
             TimerPart timerPart = player.getPart(TimerPart.class);
 
             boolean andUp = false, andDown = false;
+            boolean upCol = false;
+            boolean downCol = false;
+            boolean leftCol = false;
+            boolean rightCol = false;
+
+            IMoveCollisionService colService = lookup.lookup(IMoveCollisionService.class);
+
+            if (colService != null) {
+                upCol = colService.checkUpCollision(player, world);
+                downCol = colService.checkDownCollision(player, world);
+                leftCol = colService.checkLeftCollision(player, world);
+                rightCol = colService.checkRightCollision(player, world);
+            }
 
             if (gameData.getKeys().isDown(GameKeys.UP)) {
                 positionPart.setRadians(0);
                 player.setImagePath(sp.UP);
-                if (!lookup.lookup(IMoveCollisionService.class).checkUpCollision(player, world)) {
-                    movingPart.setUp(true); 
+                direction = 0;
+                if (!upCol) {
+                    movingPart.setUp(true);
                 }
-                
+
                 andUp = true;
             }
 
             if (gameData.getKeys().isDown(GameKeys.DOWN)) {
                 player.setImagePath(sp.DOWN);
-                if(!lookup.lookup(IMoveCollisionService.class).checkDownCollision(player, world)){
-                    movingPart.setDown(true);  
+                direction = 1;
+                if (!downCol) {
+                    movingPart.setDown(true);
                 }
-                
+
                 andDown = true;
             }
 
             if (gameData.getKeys().isDown(GameKeys.LEFT)) {
                 player.setImagePath(sp.LEFT);
-                
-                if(!lookup.lookup(IMoveCollisionService.class).checkLeftCollision(player, world)){
+                direction = 2;
+                if (!leftCol) {
                     movingPart.setLeft(true);
                 }
-                
+
                 if (andUp) {
+                    direction = 3;
                     player.setImagePath(sp.UPLEFT);
-                    if (!lookup.lookup(IMoveCollisionService.class).checkUpCollision(player, world)) {
-                    movingPart.setUp(true); 
-                }
-                   
+                    if (!upCol) {
+                        movingPart.setUp(true);
+                    }
+
                 } else if (andDown) {
+                    direction = 4;
                     player.setImagePath(sp.DOWNLEFT);
-                    if(!lookup.lookup(IMoveCollisionService.class).checkDownCollision(player, world)){
-                    movingPart.setDown(true);  
-                }
+                    if (!downCol) {
+                        movingPart.setDown(true);
+                    }
                 }
             }
 
             if (gameData.getKeys().isDown(GameKeys.RIGHT)) {
+                direction = 5;
                 player.setImagePath(sp.RIGHT);
-                if(!lookup.lookup(IMoveCollisionService.class).checkRightCollision(player, world)){
+                if (!rightCol) {
                     movingPart.setRight(true);
                 }
-                
+
                 if (andUp) {
+                    direction = 6;
                     player.setImagePath(sp.UPRIGHT);
                 } else if (andDown) {
+                    direction = 7;
                     player.setImagePath(sp.DOWNRIGHT);
                 }
             }
 
+            movingPart.setDirection(direction);
+
             if (gameData.getKeys().isDown(GameKeys.SPACE)) {
-                
-                lookup.lookup(IShootService.class).shoot(player, world);
+                try {
+                    lookup.lookup(IShootService.class).shoot(player, world);
+                } catch (NullPointerException e) {
+                    System.out.println("Shoot");
+                }
+
             }
 //
 //            if (gameData.getKeys().isDown(GameKeys.SHIFT)) {
@@ -115,9 +141,6 @@ public class PlayerControlSystem implements IEntityProcessingService {
             positionPart.process(gameData, player);
             timerPart.process(gameData, player);
             //Detect collision when player walks into an entity. 
-             
-            
-            
 
             updateShape(player);
 
@@ -127,7 +150,6 @@ public class PlayerControlSystem implements IEntityProcessingService {
             movingPart.setRight(false);
         }
     }
-
 
     private void updateShape(Entity entity) {
         float[] shapex = entity.getShapeX();

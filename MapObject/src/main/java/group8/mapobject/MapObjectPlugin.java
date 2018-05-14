@@ -60,7 +60,7 @@ public class MapObjectPlugin implements IGamePluginService, IMapCollision {
     }
     
     private void createMapObject(GameData gameData, World world) {
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i <= 0; i++) {
             MapObject map = new MapObject();
             map.add(new PositionPart(map.getXCoor(), map.getYCoor(), 0));
             map.add(new MovingPart(0));

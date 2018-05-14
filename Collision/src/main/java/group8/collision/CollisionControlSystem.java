@@ -25,17 +25,16 @@ import java.util.Random;
  * @author group8
  */
 @ServiceProviders(value = {
-    @ServiceProvider(service = IGamePluginService.class)
-    ,
     @ServiceProvider(service = IStandardCollisionService.class)
     ,
     @ServiceProvider(service = ISpawnService.class)
 })
 
-public class CollisionControlSystem implements IGamePluginService, IStandardCollisionService, IMoveCollisionService, ISpawnService {
+public class CollisionControlSystem implements IStandardCollisionService, IMoveCollisionService, ISpawnService {
 
     private int moveAwayFactor = 1;
     private Lookup lookup = Lookup.getDefault();
+    
 
     /**
      * This method calculates a rectangle based on a entity and returns it.
@@ -90,7 +89,7 @@ public class CollisionControlSystem implements IGamePluginService, IStandardColl
 
             //Should the next section be its own method
             if (intersectioRectangle.height > 0 && intersectioRectangle.width > 0) {
-                lookup.lookup(IWhoHaveCollidedService.class).collisionDetected(entity, entityOnTheMap); //Tell someone that i have collided.
+                lookup.lookup(IWhoHaveCollidedService.class).collisionDetected(entity, entityOnTheMap, world); //Tell someone that i have collided.
                 return true;
 
             }
@@ -111,7 +110,7 @@ public class CollisionControlSystem implements IGamePluginService, IStandardColl
             Rectangle intersectioRectangle = rectangleIntersection(rectangle, entity2);
             //System.out.println(intersectioRectangle.toString());
             if (intersectioRectangle.height > 0 && intersectioRectangle.width > 0) {
-                //lookup.lookup(IWhoHaveCollidedService.class).collisionDetected(entity, entityOnTheMap, world); //Tell someone that i have collided.
+                lookup.lookup(IWhoHaveCollidedService.class).collisionDetected(entity, entityOnTheMap, world); //Tell someone that i have collided.
                 return true;
             }
         }
@@ -140,14 +139,6 @@ public class CollisionControlSystem implements IGamePluginService, IStandardColl
             return true;
         }
         return false;
-    }
-
-    @Override
-    public void start(GameData gameData, World world) {
-    }
-
-    @Override
-    public void stop(GameData gameData, World world) {
     }
 
     @Override

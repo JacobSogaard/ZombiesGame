@@ -40,34 +40,34 @@ public class EnemyMovementTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of getDirections method, of class EnemyMovement.
-     */
-    @org.junit.Test
-    public void testGetDirections() {
-        System.out.println("getDirections");
-        Entity enemy = null;
-        EnemyMovement instance = new EnemyMovement();
-        Map<Integer, Boolean> expResult = null;
-        Map<Integer, Boolean> result = instance.getDirections(enemy);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of AStarDirections method, of class EnemyMovement.
-     */
-    @org.junit.Test
-    public void testAStarDirections() {
-        System.out.println("AStarDirections");
-        Entity enemy = null;
-        EnemyMovement instance = new EnemyMovement();
-        List<Integer> expResult = null;
-        List<Integer> result = instance.AStarDirections(enemy);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+//    /**
+//     * Test of getDirections method, of class EnemyMovement.
+//     */
+//    @org.junit.Test
+//    public void testGetDirections() {
+//        System.out.println("getDirections");
+//        Entity enemy = null;
+//        EnemyMovement instance = new EnemyMovement();
+//        Map<Integer, Boolean> expResult = null;
+//        Map<Integer, Boolean> result = instance.getDirections(enemy);
+//        assertEquals(expResult, result);
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
+//
+//    /**
+//     * Test of AStarDirections method, of class EnemyMovement.
+//     */
+//    @org.junit.Test
+//    public void testAStarDirections() {
+//        System.out.println("AStarDirections");
+//        Entity enemy = null;
+//        EnemyMovement instance = new EnemyMovement();
+//        List<Integer> expResult = null;
+//        List<Integer> result = instance.AStarDirections(enemy);
+//        assertEquals(expResult, result);
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
     
 }

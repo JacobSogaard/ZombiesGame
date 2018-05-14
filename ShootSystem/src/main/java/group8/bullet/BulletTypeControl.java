@@ -32,7 +32,7 @@ public class BulletTypeControl implements IEntityProcessingService {
             PositionPart part1 = entity.getPart(PositionPart.class);
             MovingPart moving = entity.getPart(MovingPart.class);
             TimerPart timer = entity.getPart(TimerPart.class);
-
+            
             part1.process(gameData, entity);
             moving.process(gameData, entity);
             timer.process(gameData, entity);
