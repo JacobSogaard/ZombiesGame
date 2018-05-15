@@ -46,20 +46,6 @@ public class WeaponPlugin implements IGamePluginService, IWeaponService {
         world.removeEntity(weapon);
     }
 
-//    private void loadJsonWeapons() {
-//        ObjectMapper mapper = new ObjectMapper();
-//        int i = 0;
-//        File jsonFile = new File("Images/weapon/object"+i);
-//        while(jsonFile != null) {
-//            jsonFile = new File("Images/weapon/object"+i);
-//            Weapon w;
-//            try {
-//                w = mapper.readValue(jsonFile, Weapon.class);
-//            } catch (IOException ex) {
-//                Logger.getLogger(WeaponPlugin.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
-//    }
     
     private Entity createWeapon(Entity player) {
         PositionPart playerPosition = player.getPart(PositionPart.class);
@@ -76,8 +62,13 @@ public class WeaponPlugin implements IGamePluginService, IWeaponService {
         if (this.weapon.getImagePath() == null) {
             this.weapon.setImagePath(this.weaponMap.get(key)[1]);
         }
+<<<<<<< HEAD
         
         this.setDirection(part);
+=======
+
+        this.setDirections(part, playerPosition);
+>>>>>>> Weapon
 
         return weapon;
     }
@@ -88,38 +79,101 @@ public class WeaponPlugin implements IGamePluginService, IWeaponService {
 
     }
 
-    private void setDirection(MovingPart playerPart) {
-
+//    private void setDirection(MovingPart playerPart) {
+//
+//        MovingPart weaponPart = this.weapon.getPart(MovingPart.class);
+//
+//        if (playerPart.isDown()) {
+//            weaponPart.setDown(true);
+//            this.weapon.setImagePath(this.weaponMap.get(key)[0]);
+//        }
+//
+//        if (playerPart.isUp()) {
+//            weaponPart.setUp(true);
+//            this.weapon.setImagePath(this.weaponMap.get(key)[1]);
+//        }
+//
+//        if (playerPart.isLeft()) {
+//            weaponPart.setLeft(true);
+//            this.weapon.setImagePath(this.weaponMap.get(key)[2]);
+//            if (playerPart.isUp()) {
+//                weaponPart.setUp(true);
+//            } else if (playerPart.isDown()) {
+//                weaponPart.setDown(true);
+//            }
+//        }
+//
+//        if (playerPart.isRight()) {
+//            weaponPart.setRight(true);
+//            this.weapon.setImagePath(this.weaponMap.get(key)[3]);
+//            if (playerPart.isUp()) {
+//                weaponPart.setUp(true);
+//            } else if (playerPart.isDown()) {
+//                weaponPart.setDown(true);
+//            }
+//        }
+//    }
+    private void setDirections(MovingPart movingPart, PositionPart positionPart) {
+        
         MovingPart weaponPart = this.weapon.getPart(MovingPart.class);
 
-        if (playerPart.isDown()) {
-            weaponPart.setDown(true);
-            this.weapon.setImagePath(this.weaponMap.get(key)[0]);
-        }
-
-        if (playerPart.isUp()) {
-            weaponPart.setUp(true);
-            this.weapon.setImagePath(this.weaponMap.get(key)[1]);
-        }
-
-        if (playerPart.isLeft()) {
-            weaponPart.setLeft(true);
-            this.weapon.setImagePath(this.weaponMap.get(key)[2]);
-            if (playerPart.isUp()) {
-                weaponPart.setUp(true);
-            } else if (playerPart.isDown()) {
-                weaponPart.setDown(true);
+        PositionPart wPositionPart = this.weapon.getPart(PositionPart.class);
+        
+        int direction = 0;
+        for (int i = 0; i < movingPart.getDirection().length; i++) {
+            if (movingPart.getDirection()[i] == true) {
+                direction = i;
             }
         }
-
-        if (playerPart.isRight()) {
-            weaponPart.setRight(true);
-            this.weapon.setImagePath(this.weaponMap.get(key)[3]);
-            if (playerPart.isUp()) {
-                weaponPart.setUp(true);
-            } else if (playerPart.isDown()) {
-                weaponPart.setDown(true);
-            }
+        
+        switch(direction) {
+            case 0: weaponPart.setUp(true);
+                    wPositionPart.setY(positionPart.getY() + 80);
+                    this.weapon.setImagePath(this.weaponMap.get(key)[1]);
+                    break;
+                    
+            case 1: weaponPart.setDown(true);
+                    wPositionPart.setY(positionPart.getY() - 60);
+                    this.weapon.setImagePath(this.weaponMap.get(key)[0]);
+                    break;
+                    
+            case 2: weaponPart.setLeft(true);
+                    wPositionPart.setX(positionPart.getX() - 60);
+                    this.weapon.setImagePath(this.weaponMap.get(key)[2]);
+                    break;
+            
+            case 3: weaponPart.setUp(true);
+                    weaponPart.setLeft(true);
+                    wPositionPart.setY(positionPart.getY() + 60);
+                    wPositionPart.setX(positionPart.getX() - 55);
+                    this.weapon.setImagePath(this.weaponMap.get(key)[1]);
+                    break;
+                    
+            case 4: weaponPart.setDown(true);
+                    weaponPart.setLeft(true);
+                    wPositionPart.setY(positionPart.getY() - 40);
+                    wPositionPart.setX(positionPart.getX() - 55);
+                    this.weapon.setImagePath(this.weaponMap.get(key)[0]);
+                    break;
+                    
+            case 5: weaponPart.setRight(true);
+                    wPositionPart.setX(positionPart.getX() + 50);
+                    this.weapon.setImagePath(this.weaponMap.get(key)[3]);
+                    break;
+            
+            case 6: weaponPart.setUp(true);
+                    weaponPart.setRight(true);
+                    wPositionPart.setY(positionPart.getY() + 60);
+                    wPositionPart.setX(positionPart.getX() + 45);
+                    this.weapon.setImagePath(this.weaponMap.get(key)[1]);
+                    break;
+                
+            case 7: weaponPart.setDown(true);
+                    weaponPart.setRight(true);
+                    wPositionPart.setY(positionPart.getY() - 40);
+                    wPositionPart.setX(positionPart.getX() + 45);
+                    this.weapon.setImagePath(this.weaponMap.get(key)[0]);
+                    break;
         }
     }
 

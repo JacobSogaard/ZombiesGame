@@ -1,8 +1,13 @@
 Manifest-Version: 1.0
 OpenIDE-Module-Localizing-Bundle: group8/enemywave/Bundle.properties
 OpenIDE-Module-Specification-Version: 1.0
+<<<<<<< HEAD
 OpenIDE-Module-Implementation-Version: 1.0-20180514
 OpenIDE-Module-Build-Version: 201805141503
+=======
+OpenIDE-Module-Implementation-Version: 1.0-20180515
+OpenIDE-Module-Build-Version: 201805150756
+>>>>>>> Weapon
 OpenIDE-Module: Group8.EnemyWave
 OpenIDE-Module-Public-Packages: -
 OpenIDE-Module-Requires: org.openide.modules.ModuleFormat1

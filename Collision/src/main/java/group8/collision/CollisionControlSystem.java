@@ -43,12 +43,14 @@ public class CollisionControlSystem implements IStandardCollisionService, IMoveC
      * @return entityRectangle
      */
     private Rectangle getEntityRect(Entity entity) {
+        PositionPart positionPart = entity.getPart(PositionPart.class);
         
-        int x = (int) (entity.getShapeX()[1]); //x
-        int y = (int) (entity.getShapeY()[1]);//y
+        int x =(int)  positionPart.getX(); //x
+        int y =(int)  positionPart.getY();//y
+
         int width = (int) entity.getWidth(); //Width
-        int height = (int) entity.getHeight();
-        Rectangle rectangle = new Rectangle(x, y, width, height);
+        int height= (int)  entity.getHeight();
+        Rectangle rectangle = new Rectangle(x, y, width, height); 
 
         return rectangle;
     }
@@ -85,17 +87,11 @@ public class CollisionControlSystem implements IStandardCollisionService, IMoveC
         //entity1 is an entity calling to see if they have made a collision. 
         for (Entity entityOnTheMap : objectsList) {
             Rectangle entity2 = getEntityRect(entityOnTheMap);
-            Rectangle intersectioRectangle = rectangleIntersection(entityA, entity2);
-
-            //Should the next section be its own method
-            if (intersectioRectangle.height > 0 && intersectioRectangle.width > 0) {
-                try {
-                lookup.lookup(IWhoHaveCollidedService.class).collisionDetected(entity, entityOnTheMap, world); //Tell someone that i have collided.
-                } catch (NullPointerException ex) {
-                    
-                }
-                return true;
-
+         
+            //Rectangle intersectioRectangle = rectangleIntersection(rectangle, entity2); 
+            if(rectangleIntersection(entityA, entity2)){
+                return true; 
+//                lookup.lookup(IWhoHaveCollidedService.class).collisionDetected(entity, entityOnTheMap); //Tell someone that i have collided.
             }
         }
         return false;
@@ -111,15 +107,11 @@ public class CollisionControlSystem implements IStandardCollisionService, IMoveC
         //entity1 is an entity calling to see if they have made a collision. 
         for (Entity entityOnTheMap : objectsList) {
             Rectangle entity2 = getEntityRect(entityOnTheMap);
-            Rectangle intersectioRectangle = rectangleIntersection(rectangle, entity2);
-            //System.out.println(intersectioRectangle.toString());
-            if (intersectioRectangle.height > 0 && intersectioRectangle.width > 0) {
-                try {
-                lookup.lookup(IWhoHaveCollidedService.class).collisionDetected(entity, entityOnTheMap, world); //Tell someone that i have collided.
-                } catch (NullPointerException ex) {
-                    
-                }
-                return true;
+           
+            //Rectangle intersectioRectangle = rectangleIntersection(rectangle, entity2); 
+            if(rectangleIntersection(rectangle, entity2)){
+                return true; 
+//                lookup.lookup(IWhoHaveCollidedService.class).collisionDetected(entity, entityOnTheMap); //Tell someone that i have collided.
             }
         }
         return false;
@@ -133,18 +125,24 @@ public class CollisionControlSystem implements IStandardCollisionService, IMoveC
      * @param rectangle2
      * @return rectangle
      */
-    public Rectangle rectangleIntersection(Rectangle rectangle1, Rectangle rectangle2) {
-        return rectangle1.intersection(rectangle2);
+    public boolean rectangleIntersection(Rectangle rectangle1, Rectangle rectangle2){
+        return rectangle1.intersects(rectangle2);
     }
 
     @Override
     public boolean checkRightCollision(Entity entity, World world) {
         MovingPart movingPart = entity.getPart(MovingPart.class);
         float speed = movingPart.getSpeed();
-        Rectangle futureRectangle = new Rectangle();
-        futureRectangle.setRect(entity.getShapeX()[1] + speed, entity.getShapeY()[1], entity.getWidth(), entity.getHeight());
-        if (boxCollision(entity, futureRectangle, world)) {
-            return true;
+        Rectangle futureRectangle = new Rectangle(); 
+        
+        PositionPart positionPart = entity.getPart(PositionPart.class);
+        
+        int x =(int)  positionPart.getX(); //x
+        int y =(int)  positionPart.getY();
+        
+        futureRectangle.setRect(x + speed, y, entity.getWidth(), entity.getHeight());
+        if(boxCollision(entity,futureRectangle, world)){
+            return true; 
         }
         return false;
     }
@@ -153,10 +151,16 @@ public class CollisionControlSystem implements IStandardCollisionService, IMoveC
     public boolean checkLeftCollision(Entity entity, World world) {
         MovingPart movingPart = entity.getPart(MovingPart.class);
         float speed = movingPart.getSpeed();
-        Rectangle futureRectangle = new Rectangle();
-        futureRectangle.setRect(entity.getShapeX()[1] - speed, entity.getShapeY()[1], entity.getWidth(), entity.getHeight());
-        if (boxCollision(entity, futureRectangle, world)) {
-            return true;
+        Rectangle futureRectangle = new Rectangle(); 
+        
+        PositionPart positionPart = entity.getPart(PositionPart.class);
+        
+        int x =(int)  positionPart.getX(); //x
+        int y =(int)  positionPart.getY();
+        
+        futureRectangle.setRect(x - speed, y, entity.getWidth(), entity.getHeight());
+        if(boxCollision(entity,futureRectangle, world)){
+            return true; 
         }
         return false;
     }
@@ -164,9 +168,13 @@ public class CollisionControlSystem implements IStandardCollisionService, IMoveC
     @Override
     public boolean checkUpCollision(Entity entity, World world) {
         MovingPart movingPart = entity.getPart(MovingPart.class);
-        float speed = movingPart.getSpeed();
-        Rectangle futureRectangle = new Rectangle();
-        futureRectangle.setRect(entity.getShapeX()[1], entity.getShapeY()[1] + speed, entity.getWidth(), entity.getHeight());
+        float speed = movingPart.getSpeed();   
+        Rectangle futureRectangle = new Rectangle(); 
+         PositionPart positionPart = entity.getPart(PositionPart.class);
+        
+        int x =(int)  positionPart.getX(); //x
+        int y =(int)  positionPart.getY();
+        futureRectangle.setRect(x, y + speed, entity.getWidth(), entity.getHeight());
 
         if (boxCollision(entity, futureRectangle, world)) {
             return true;
@@ -180,11 +188,17 @@ public class CollisionControlSystem implements IStandardCollisionService, IMoveC
         MovingPart movingPart = entity.getPart(MovingPart.class);
 
         float speed = movingPart.getSpeed();
-
-        Rectangle futureRectangle = new Rectangle();
-        futureRectangle.setRect(entity.getShapeX()[1], entity.getShapeY()[1] - speed, entity.getWidth(), entity.getHeight());
-        if (boxCollision(entity, futureRectangle, world)) {
-            return true;
+        
+        
+        Rectangle futureRectangle = new Rectangle(); 
+        
+        PositionPart positionPart = entity.getPart(PositionPart.class);
+        
+        int x =(int)  positionPart.getX(); //x
+        int y =(int)  positionPart.getY();
+        futureRectangle.setRect(x, y - speed, entity.getWidth(), entity.getHeight());
+        if(boxCollision(entity,futureRectangle, world)){
+            return true; 
         }
         return false;
 
