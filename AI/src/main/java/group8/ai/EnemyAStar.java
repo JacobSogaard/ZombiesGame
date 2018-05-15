@@ -63,7 +63,8 @@ public class EnemyAStar {
 
             this.mapObjects = this.map.getMapObjects();
         }
-        System.out.println(this.map.getClass());
+        
+        
         while (!this.enemyInRange()) {
             this.getNextSuccessor();
         }

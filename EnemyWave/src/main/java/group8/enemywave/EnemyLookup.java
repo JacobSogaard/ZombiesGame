@@ -41,17 +41,14 @@ public class EnemyLookup {
     private final LookupListener lookupListener = new LookupListener() {
         @Override
         public void resultChanged(LookupEvent le) {
-            System.out.println("her");
 
             Collection<? extends IEnemyPluginService> updated = result.allInstances();
 
             for (IEnemyPluginService us : updated) {
-                System.out.println("hejsa");
                 // Newly installed modules
                 if (!zombies.contains(us)) {
                     //us.start(gameData, world);
                     zombies.add(us);
-                    System.out.println("hov");
                 }
             }
             // Stop and remove module

@@ -106,7 +106,6 @@ public class MovingPart implements EntityPart {
         //Stops the player for moving out of the map and make him stand still.
         if (x >= gameData.getDisplayWidth()*2-entity.getWidth()) {
             x -= tempSpeed;
-            System.out.println(tempSpeed);
         } else if (x < 0) {
             x += tempSpeed; 
         }
@@ -114,7 +113,6 @@ public class MovingPart implements EntityPart {
         y += dy * dt;
         if (y > gameData.getDisplayHeight()*2-entity.getHeight()) {
             y -= tempSpeed;
-            System.out.println(tempSpeed);
         } else if (y < 0) {
             y += tempSpeed;
         }

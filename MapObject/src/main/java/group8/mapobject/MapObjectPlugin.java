@@ -48,7 +48,6 @@ public class MapObjectPlugin implements IGamePluginService, IMapCollision {
 
     @Override
     public void stop(GameData gameData, World world) {
-        System.out.println("STOP");
         for (Entity m : mapObjects) {
             world.removeEntity(m);
         }
@@ -97,7 +96,6 @@ public class MapObjectPlugin implements IGamePluginService, IMapCollision {
                 map.add(new PositionPart(map.getXCoor(), map.getYCoor(), 0));
                 map.setImagePath("Images/MapObjects/Tree1.png");
                 world.addEntity(this.initMap(map));
-                System.out.println();
                 }
             }
         } catch (IOException ex) {
