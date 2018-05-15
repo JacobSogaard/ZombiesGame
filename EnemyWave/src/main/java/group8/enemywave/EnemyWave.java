@@ -53,15 +53,12 @@ public class EnemyWave {
     private void fillZombiesArray() {
         result = Lookup.getDefault().lookupResult(IEnemyPluginService.class);
         this.result.allItems();
-        boolean nomore = false;
         for (IEnemyPluginService ie : result.allInstances()) {
-            if (!nomore) {
             int max = (int) howManyEnemies(ie);
-            for (int i = 0; i < 2; i++) {
+            for (int i = 0; i < max; i++) {
                 ie.start(gameData, world);
             }
-            nomore = true;
-            }
+            
         }
         
         zombies = new ArrayList();

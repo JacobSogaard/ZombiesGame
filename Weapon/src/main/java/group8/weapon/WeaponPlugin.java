@@ -62,13 +62,10 @@ public class WeaponPlugin implements IGamePluginService, IWeaponService {
         if (this.weapon.getImagePath() == null) {
             this.weapon.setImagePath(this.weaponMap.get(key)[1]);
         }
-<<<<<<< HEAD
-        
-        this.setDirection(part);
-=======
+
 
         this.setDirections(part, playerPosition);
->>>>>>> Weapon
+
 
         return weapon;
     }

@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><module codename="Group8.CommonEnemy">
-<<<<<<< HEAD
-    <module_version install_time="1526310213517" last="true" origin="installer" specification_version="1.0">
+    <module_version install_time="1526374256425" last="true" origin="installer" specification_version="1.0">
         <file crc="3873278870" name="config/Modules/Group8-CommonEnemy.xml"/>
-        <file crc="519717226" name="modules/Group8-CommonEnemy.jar"/>
-=======
-    <module_version install_time="1526370974911" last="true" origin="installer" specification_version="1.0">
-        <file crc="3809279212" name="config/Modules/Group8-CommonEnemy.xml"/>
-        <file crc="2706488810" name="modules/Group8-CommonEnemy.jar"/>
->>>>>>> Weapon
+        <file crc="3762751291" name="modules/Group8-CommonEnemy.jar"/>
     </module_version>
 </module>

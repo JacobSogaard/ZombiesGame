@@ -106,50 +106,50 @@ public class BulletPlugin implements IGamePluginService, IShootService, ILoadBul
         
         switch(direction) {
             case 0: bulletPart.setUp(true);
-                    bPositionPart.setY(positionPart.getY() + 71);
+                    bPositionPart.setY(positionPart.getY() + 71 + 80);
                     this.bullet.setImagePath(this.bulletMap.get(key)[1]);
                     break;
                     
             case 1: bulletPart.setDown(true);
-                    bPositionPart.setY(positionPart.getY() - 40);
+                    bPositionPart.setY(positionPart.getY() - 40 - 60);
                     this.bullet.setImagePath(this.bulletMap.get(key)[0]);
                     break;
                     
             case 2: bulletPart.setLeft(true);
-                    bPositionPart.setX(positionPart.getX() - 40);
+                    bPositionPart.setX(positionPart.getX() - 40 - 60);
                     this.bullet.setImagePath(this.bulletMap.get(key)[2]);
                     break;
             
             case 3: bulletPart.setUp(true);
                     bulletPart.setLeft(true);
-                    bPositionPart.setY(positionPart.getY() + 71);
-                    bPositionPart.setX(positionPart.getX() - 40);
+                    bPositionPart.setY(positionPart.getY() + 71 + 60);
+                    bPositionPart.setX(positionPart.getX() - 40 - 55);
                     this.bullet.setImagePath(this.bulletMap.get(key)[2]);
                     break;
                     
             case 4: bulletPart.setDown(true);
                     bulletPart.setLeft(true);
-                    bPositionPart.setX(positionPart.getX() - 40);
-                    bPositionPart.setY(positionPart.getY() - 40);
+                    bPositionPart.setX(positionPart.getX() - 40 - 40);
+                    bPositionPart.setY(positionPart.getY() - 40 - 55);
                     this.bullet.setImagePath(this.bulletMap.get(key)[2]);
                     break;
                     
             case 5: bulletPart.setRight(true);
-                    bPositionPart.setX(positionPart.getX() + 40);
+                    bPositionPart.setX(positionPart.getX() + 40 + 50);
                     this.bullet.setImagePath(this.bulletMap.get(key)[3]);
                     break;
             
             case 6: bulletPart.setUp(true);
                     bulletPart.setRight(true);
-                    bPositionPart.setY(positionPart.getY() + 70);
-                    bPositionPart.setX(positionPart.getX() + 40);
+                    bPositionPart.setY(positionPart.getY() + 70 + 60);
+                    bPositionPart.setX(positionPart.getX() + 40 + 45);
                     this.bullet.setImagePath(this.bulletMap.get(key)[3]);
                     break;
                 
             case 7: bulletPart.setDown(true);
                     bulletPart.setRight(true);
-                    bPositionPart.setX(positionPart.getX() + 40);
-                    bPositionPart.setY(positionPart.getY() - 40);
+                    bPositionPart.setX(positionPart.getX() + 40 + 45);
+                    bPositionPart.setY(positionPart.getY() - 40 - 40);
                     this.bullet.setImagePath(this.bulletMap.get(key)[3]);
                     break;
         }

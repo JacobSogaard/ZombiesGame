@@ -13,6 +13,9 @@ import group8.common.data.entityparts.MovingPart;
 import group8.common.data.entityparts.PositionPart;
 import group8.common.data.entityparts.TimerPart;
 import group8.common.services.IEntityProcessingService;
+import group8.common.services.IMoveCollisionService;
+import group8.common.services.IStandardCollisionService;
+import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
 
@@ -24,7 +27,7 @@ import org.openide.util.lookup.ServiceProviders;
  * @author MER
  */
 public class BulletTypeControl implements IEntityProcessingService {
-
+    private Lookup lookup = Lookup.getDefault();
     
     @Override
     public void process(GameData gameData, World world) {
@@ -42,10 +45,15 @@ public class BulletTypeControl implements IEntityProcessingService {
 
             bulletTimer(timer, world, entity);
             
+            try {
+                IStandardCollisionService colService = lookup.lookup(IStandardCollisionService.class);
+                colService.detectCollision(entity, world);
+            } catch (NullPointerException ex) {
+                
+            }
+            
+            
             this.updateShape(entity);
-            
-            
-
         }
     }
 

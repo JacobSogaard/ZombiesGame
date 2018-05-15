@@ -90,8 +90,13 @@ public class CollisionControlSystem implements IStandardCollisionService, IMoveC
          
             //Rectangle intersectioRectangle = rectangleIntersection(rectangle, entity2); 
             if(rectangleIntersection(entityA, entity2)){
+                try {
+                    lookup.lookup(IWhoHaveCollidedService.class).collisionDetected(entity, entityOnTheMap, world); //Tell someone that i have collided.
+                } catch (NullPointerException ex) {
+                    
+                }
                 return true; 
-//                lookup.lookup(IWhoHaveCollidedService.class).collisionDetected(entity, entityOnTheMap); //Tell someone that i have collided.
+//                
             }
         }
         return false;
@@ -110,8 +115,13 @@ public class CollisionControlSystem implements IStandardCollisionService, IMoveC
            
             //Rectangle intersectioRectangle = rectangleIntersection(rectangle, entity2); 
             if(rectangleIntersection(rectangle, entity2)){
+                try {
+                    lookup.lookup(IWhoHaveCollidedService.class).collisionDetected(entity, entityOnTheMap, world); //Tell someone that i have collided.
+                } catch (NullPointerException ex) {
+                    
+                }
                 return true; 
-//                lookup.lookup(IWhoHaveCollidedService.class).collisionDetected(entity, entityOnTheMap); //Tell someone that i have collided.
+                
             }
         }
         return false;
@@ -214,7 +224,6 @@ public class CollisionControlSystem implements IStandardCollisionService, IMoveC
         Rectangle rect = new Rectangle();
         rect.setRect(entity.getShapeX()[1], entity.getShapeY()[1], entity.getWidth(), entity.getHeight());
         while (this.detectCollision(entity, world)) {
-            System.out.println("while");
             float x = rnd.nextInt(gameData.getDisplayWidth() * 2 - 40);
             float y = rnd.nextInt(gameData.getDisplayHeight() * 2 - 70);
             float[] shapeY = {y, y + entity.getHeight(), y + entity.getHeight(), y};

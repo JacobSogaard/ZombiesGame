@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><module codename="Group8.Player">
-<<<<<<< HEAD
-    <module_version install_time="1526310229230" last="true" origin="installer" specification_version="1.0">
+    <module_version install_time="1526374264302" last="true" origin="installer" specification_version="1.0">
         <file crc="915457993" name="config/Modules/Group8-Player.xml"/>
-        <file crc="3371066363" name="modules/Group8-Player.jar"/>
-=======
-    <module_version install_time="1526370965880" last="true" origin="installer" specification_version="1.0">
-        <file crc="387861539" name="config/Modules/Group8-Player.xml"/>
-        <file crc="2999074153" name="modules/Group8-Player.jar"/>
->>>>>>> Weapon
+        <file crc="2276059938" name="modules/Group8-Player.jar"/>
     </module_version>
 </module>
