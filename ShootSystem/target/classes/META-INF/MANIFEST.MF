@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 OpenIDE-Module-Localizing-Bundle: group8/shootsystem/Bundle.properties
 OpenIDE-Module-Specification-Version: 1.0
-OpenIDE-Module-Implementation-Version: 1.0-20180514
-OpenIDE-Module-Build-Version: 201805141503
+OpenIDE-Module-Implementation-Version: 1.0-20180515
+OpenIDE-Module-Build-Version: 201805150851
 OpenIDE-Module: Group8.ShootSystem
 OpenIDE-Module-Public-Packages: -
 OpenIDE-Module-Requires: org.openide.modules.ModuleFormat1
@@ -11,5 +11,5 @@ OpenIDE-Module-Name: ShootSystem
 OpenIDE-Module-Short-Description: <undefined>
 OpenIDE-Module-Long-Description: <undefined>
 OpenIDE-Module-Module-Dependencies: org.netbeans.api.annotations.commo
- n/1 > 1.27.1, Group8.Common > 1.0
+ n/1 > 1.27.1, Group8.Common > 1.0, org.openide.util.lookup > 8.33.1
 

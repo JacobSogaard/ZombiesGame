@@ -8,10 +8,14 @@ package group8.bullet;
 import group8.common.data.Entity;
 import group8.common.data.GameData;
 import group8.common.data.World;
+import group8.common.data.entityparts.LifePart;
 import group8.common.data.entityparts.MovingPart;
 import group8.common.data.entityparts.PositionPart;
 import group8.common.data.entityparts.TimerPart;
 import group8.common.services.IEntityProcessingService;
+import group8.common.services.IMoveCollisionService;
+import group8.common.services.IStandardCollisionService;
+import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
 
@@ -23,7 +27,7 @@ import org.openide.util.lookup.ServiceProviders;
  * @author MER
  */
 public class BulletTypeControl implements IEntityProcessingService {
-
+    private Lookup lookup = Lookup.getDefault();
     
     @Override
     public void process(GameData gameData, World world) {
@@ -32,15 +36,24 @@ public class BulletTypeControl implements IEntityProcessingService {
             PositionPart part1 = entity.getPart(PositionPart.class);
             MovingPart moving = entity.getPart(MovingPart.class);
             TimerPart timer = entity.getPart(TimerPart.class);
+            LifePart life = entity.getPart(LifePart.class);
             
             part1.process(gameData, entity);
             moving.process(gameData, entity);
             timer.process(gameData, entity);
+            life.process(gameData, entity);
 
             bulletTimer(timer, world, entity);
-
+            
+            try {
+                IStandardCollisionService colService = lookup.lookup(IStandardCollisionService.class);
+                colService.detectCollision(entity, world);
+            } catch (NullPointerException ex) {
+                
+            }
+            
+            
             this.updateShape(entity);
-
         }
     }
 

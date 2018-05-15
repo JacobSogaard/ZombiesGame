@@ -97,7 +97,7 @@ public class Game implements ApplicationListener {
 
         for (Entity e : world.getEntities()) {
             PositionPart part = e.getPart(PositionPart.class);
-            this.drawShapes(e);
+            //this.drawShapes(e);
             if (e.getImagePath() != null) {
                 this.drawImg(e, part);
             }
@@ -111,7 +111,6 @@ public class Game implements ApplicationListener {
 
             //If player module is onloaded, sets camera in the middle of screen
             if(!hasPlayer) {
-                System.out.println("found player");
                 this.setCamCenter();
             }
             
