@@ -33,7 +33,6 @@ public class DamageSystem implements IWhoHaveCollidedService {
      */
     @Override
     public void collisionDetected(Entity entity1, Entity entity2, World world) {
-        System.out.println("COL");
         DamagePart entity1Damage = entity1.getPart(DamagePart.class);
         LifePart entity1Life = entity1.getPart(LifePart.class);
         DamagePart entity2Damage = entity2.getPart(DamagePart.class);
