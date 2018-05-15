@@ -52,7 +52,7 @@ public class PlayerControlSystem implements IEntityProcessingService {
             if (gameData.getKeys().isDown(GameKeys.UP)) {
                 positionPart.setRadians(0);
                 player.setImagePath(sp.UP);
-                direction = 0;
+                direction = 0;                
                 if (!lookup.lookup(IMoveCollisionService.class).checkUpCollision(player, world)) {
                     movingPart.setUp(true); 
                 }

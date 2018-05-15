@@ -10,6 +10,7 @@ import group8.common.bulletcreationservice.ILoadBulletService;
 import group8.common.data.Entity;
 import group8.common.data.GameData;
 import group8.common.data.World;
+import group8.common.data.entityparts.LifePart;
 import group8.common.data.entityparts.MovingPart;
 import group8.common.data.entityparts.PositionPart;
 import group8.common.data.entityparts.TimerPart;
@@ -71,6 +72,7 @@ public class BulletPlugin implements IGamePluginService, IShootService, ILoadBul
         this.bullet.add(new PositionPart(x, y, radians));
         this.bullet.add(new MovingPart(10));
         this.bullet.add(new TimerPart(80));
+        this.bullet.add(new LifePart(0));
         if (this.bullet.getImagePath() == null) {
             this.bullet.setImagePath(SpritePath.UP.toString());
         }

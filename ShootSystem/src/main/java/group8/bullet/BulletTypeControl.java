@@ -8,6 +8,7 @@ package group8.bullet;
 import group8.common.data.Entity;
 import group8.common.data.GameData;
 import group8.common.data.World;
+import group8.common.data.entityparts.LifePart;
 import group8.common.data.entityparts.MovingPart;
 import group8.common.data.entityparts.PositionPart;
 import group8.common.data.entityparts.TimerPart;
@@ -32,14 +33,18 @@ public class BulletTypeControl implements IEntityProcessingService {
             PositionPart part1 = entity.getPart(PositionPart.class);
             MovingPart moving = entity.getPart(MovingPart.class);
             TimerPart timer = entity.getPart(TimerPart.class);
+            LifePart life = entity.getPart(LifePart.class);
             
             part1.process(gameData, entity);
             moving.process(gameData, entity);
             timer.process(gameData, entity);
+            life.process(gameData, entity);
 
             bulletTimer(timer, world, entity);
-
+            
             this.updateShape(entity);
+            
+            
 
         }
     }
