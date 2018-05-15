@@ -22,7 +22,7 @@ import org.openide.util.lookup.ServiceProviders;
 @ServiceProviders(value = {
     @ServiceProvider(service = IPathFinderService.class)})
 public class EnemyMovement implements IPathFinderService{
-    private final PlayerServiceImpl pimpl = PlayerServiceImpl.getInstance();
+    private final PlayerServiceImpl pimpl = PlayerServiceImpl.getInstance(); // Maybe add null check on this and if null, just set random goal coordinates
     private Map<Integer, Boolean> directions;
     
     @Override

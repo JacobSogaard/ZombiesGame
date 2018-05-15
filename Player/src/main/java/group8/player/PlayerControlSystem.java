@@ -47,18 +47,19 @@ public class PlayerControlSystem implements IEntityProcessingService {
             TimerPart timerPart = player.getPart(TimerPart.class);
 
             boolean andUp = false, andDown = false;
-            boolean upCol = false;
-            boolean downCol = false;
-            boolean leftCol = false;
-            boolean rightCol = false;
+            boolean upCol, downCol, leftCol, rightCol;
 
-            IMoveCollisionService colService = lookup.lookup(IMoveCollisionService.class);
-
-            if (colService != null) {
+            try {
+                IMoveCollisionService colService = lookup.lookup(IMoveCollisionService.class);
                 upCol = colService.checkUpCollision(player, world);
                 downCol = colService.checkDownCollision(player, world);
                 leftCol = colService.checkLeftCollision(player, world);
                 rightCol = colService.checkRightCollision(player, world);
+            } catch (NullPointerException ex) {
+                upCol = false;
+                downCol = false;
+                leftCol = false;
+                rightCol = false;
             }
 
             if (gameData.getKeys().isDown(GameKeys.UP)) {

@@ -89,7 +89,11 @@ public class CollisionControlSystem implements IStandardCollisionService, IMoveC
 
             //Should the next section be its own method
             if (intersectioRectangle.height > 0 && intersectioRectangle.width > 0) {
+                try {
                 lookup.lookup(IWhoHaveCollidedService.class).collisionDetected(entity, entityOnTheMap, world); //Tell someone that i have collided.
+                } catch (NullPointerException ex) {
+                    
+                }
                 return true;
 
             }
@@ -110,7 +114,11 @@ public class CollisionControlSystem implements IStandardCollisionService, IMoveC
             Rectangle intersectioRectangle = rectangleIntersection(rectangle, entity2);
             //System.out.println(intersectioRectangle.toString());
             if (intersectioRectangle.height > 0 && intersectioRectangle.width > 0) {
+                try {
                 lookup.lookup(IWhoHaveCollidedService.class).collisionDetected(entity, entityOnTheMap, world); //Tell someone that i have collided.
+                } catch (NullPointerException ex) {
+                    
+                }
                 return true;
             }
         }

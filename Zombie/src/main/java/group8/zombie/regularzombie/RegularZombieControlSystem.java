@@ -18,7 +18,9 @@ import group8.common.services.IMoveCollisionService;
 import group8.commonenemy.services.IPathFinderService;
 import group8.zombie.smallzombie.SmallZombieSpritePath;
 import group8.zombie.Zombie;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
@@ -34,22 +36,49 @@ public class RegularZombieControlSystem implements IEntityProcessingService {
 
     private Lookup lookup = Lookup.getDefault();
     protected IPathFinderService path = lookup.lookup(IPathFinderService.class);
+    private Random r;
+    private Map<Integer, Boolean> directions = new HashMap<>();
     
     @Override
     public void process(GameData gameData, World world) {
         
         
         for (Entity zombie : world.getEntities(RegularZombie.class)) {
-            Map<Integer, Boolean> directions = path.getDirections(zombie);
+            try {
+            this.directions = path.getDirections(zombie);
+            } catch (NullPointerException ex) {
+                this.directions.put(0, false);
+                this.directions.put(1, false);
+                this.directions.put(2, false);
+                this.directions.put(3, false);
+                this.r = new Random();
+                int dirIndex = r.nextInt(3) + 1;
+                this.directions.put(dirIndex, true);
+            }
+            
+            
             PositionPart positionPart = zombie.getPart(PositionPart.class);
             MovingPart movingPart = zombie.getPart(MovingPart.class);
 
             boolean andUp = false, andDown = false;
-            
+            boolean upCol, downCol, leftCol, rightCol;
+
+            try {
+                IMoveCollisionService colService = lookup.lookup(IMoveCollisionService.class);
+                upCol = colService.checkUpCollision(zombie, world);
+                downCol = colService.checkDownCollision(zombie, world);
+                leftCol = colService.checkLeftCollision(zombie, world);
+                rightCol = colService.checkRightCollision(zombie, world);
+            } catch (NullPointerException ex) {
+                upCol = false;
+                downCol = false;
+                leftCol = false;
+                rightCol = false;
+            }
             
             if (directions.get(GameKeys.UP)) {
                 zombie.setImagePath(RegularZombieSpritePath.UP);
-                if(!lookup.lookup(IMoveCollisionService.class).checkUpCollision(zombie, world)){
+                if(!upCol){
                     movingPart.setUp(true);
                 }
                 andUp = true;
@@ -58,7 +87,7 @@ public class RegularZombieControlSystem implements IEntityProcessingService {
 
             if (directions.get(GameKeys.DOWN)) {
                 zombie.setImagePath(RegularZombieSpritePath.DOWN);
-                if(!lookup.lookup(IMoveCollisionService.class).checkDownCollision(zombie, world)){
+                if(!downCol){
                     movingPart.setDown(true);
                 }
                 andDown = true;
@@ -72,7 +101,7 @@ public class RegularZombieControlSystem implements IEntityProcessingService {
                 } else if (andDown) {
                     zombie.setImagePath(RegularZombieSpritePath.DOWNLEFT);
                 }
-                if(!lookup.lookup(IMoveCollisionService.class).checkLeftCollision(zombie, world)){
+                if(!leftCol){
                 movingPart.setLeft(true);
                 }
             }
@@ -85,7 +114,7 @@ public class RegularZombieControlSystem implements IEntityProcessingService {
                 } else if (andDown) {
                     zombie.setImagePath(RegularZombieSpritePath.DOWNRIGHT);
                 }
-                if(!lookup.lookup(IMoveCollisionService.class).checkRightCollision(zombie, world)){
+                if(!rightCol){
                 movingPart.setRight(true);
                  }
             }
