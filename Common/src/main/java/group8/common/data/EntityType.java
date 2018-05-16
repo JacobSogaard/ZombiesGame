@@ -6,8 +6,9 @@
 package group8.common.data;
 
 /**
- *
- * @author kasper
+ * @author MER
+ * 
+ * Enum used to check what type of entity.
  */
 public enum EntityType {
     PLAYER, MAPOBJECT, ZOMBIE, BULLET, WEAPON, NONE;

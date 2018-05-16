@@ -1,5 +1,9 @@
 package group8.common.data;
 
+/**
+ * 
+ * @author group8
+ */
 public class GameKeys {
 
     private static boolean[] keys;

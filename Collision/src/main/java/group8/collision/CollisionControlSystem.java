@@ -9,7 +9,6 @@ import group8.common.data.GameData;
 import group8.common.data.World;
 import group8.common.data.entityparts.MovingPart;
 import group8.common.data.entityparts.PositionPart;
-import group8.common.services.IGamePluginService;
 import group8.common.services.IMoveCollisionService;
 import group8.common.services.ISpawnService;
 import group8.common.services.IStandardCollisionService;
@@ -33,12 +32,10 @@ import java.util.Random;
 
 public class CollisionControlSystem implements IStandardCollisionService, IMoveCollisionService, ISpawnService {
 
-    private int moveAwayFactor = 1;
     private Lookup lookup = Lookup.getDefault();
 
     /**
      * This method calculates a rectangle based on a entity and returns it.
-     *
      * @param entity
      * @return entityRectangle
      */
@@ -49,22 +46,10 @@ public class CollisionControlSystem implements IStandardCollisionService, IMoveC
         int y = (int) positionPart.getY();//y
 
         int width = (int) entity.getWidth(); //Width
-        int height = (int) entity.getHeight();
+        int height = (int) entity.getHeight(); //Height
         Rectangle rectangle = new Rectangle(x, y, width, height);
 
         return rectangle;
-    }
-
-    /**
-     * Checks if two entity are of the same class.
-     *
-     * @param entity1
-     * @param entity2
-     * @return true if entity is the same / false if entity is not the same
-     */
-    private static boolean isSameEntity(Entity entity1, Entity entity2) {
-        return entity1.getID().equals(entity2.getID());
-        //Perhaps redundant. 
     }
 
     /**
@@ -87,6 +72,7 @@ public class CollisionControlSystem implements IStandardCollisionService, IMoveC
         //entity1 is an entity calling to see if they have made a collision. 
         for (Entity entityOnTheMap : objectsList) {
             Rectangle entity2 = getEntityRect(entityOnTheMap);
+            //Makes sure a zombie can move through a players weapon.
             if (entity.getType() == EntityType.ZOMBIE && entityOnTheMap.getType() == EntityType.WEAPON) {
                 break;
             }
@@ -97,14 +83,14 @@ public class CollisionControlSystem implements IStandardCollisionService, IMoveC
                 } catch (NullPointerException ex) {
 
                 }
-                return true;
-//                
+                return true;    
             }
 
         }
         return false;
     }
-
+    
+    //Almost similar to detectCollision, but is used in some the other moving collision methods.
     private boolean boxCollision(Entity entity, Rectangle rectangle, World world) {
         //Create list to run collision checks on
         List<Entity> objectsList = new ArrayList();
@@ -143,7 +129,15 @@ public class CollisionControlSystem implements IStandardCollisionService, IMoveC
     public boolean rectangleIntersection(Rectangle rectangle1, Rectangle rectangle2) {
         return rectangle1.intersects(rectangle2);
     }
-
+    
+    /**
+     * Method for checking if it is possible for a entity to move right. Checks with all other entities.
+     * implements IMoveCollisionService
+     * 
+     * @param entity
+     * @param world
+     * @return true if it is possible to move right. Returns false if something is blocking that direction.
+     */
     @Override
     public boolean checkRightCollision(Entity entity, World world) {
         MovingPart movingPart = entity.getPart(MovingPart.class);
@@ -156,12 +150,17 @@ public class CollisionControlSystem implements IStandardCollisionService, IMoveC
         int y = (int) positionPart.getY();
 
         futureRectangle.setRect(x + speed, y, entity.getWidth(), entity.getHeight());
-        if (boxCollision(entity, futureRectangle, world)) {
-            return true;
-        }
-        return false;
+        return boxCollision(entity, futureRectangle, world);
     }
 
+    
+    /**
+     * Method for checking if it is possible for a entity to move left. 
+     * implements IMoveCollisionService
+     * @param entity
+     * @param world
+     * @return true if it is possible to move left. Returns false if something is blocking that direction.
+     */
     @Override
     public boolean checkLeftCollision(Entity entity, World world) {
         MovingPart movingPart = entity.getPart(MovingPart.class);
@@ -174,12 +173,17 @@ public class CollisionControlSystem implements IStandardCollisionService, IMoveC
         int y = (int) positionPart.getY();
 
         futureRectangle.setRect(x - speed, y, entity.getWidth(), entity.getHeight());
-        if (boxCollision(entity, futureRectangle, world)) {
-            return true;
-        }
-        return false;
+        return boxCollision(entity, futureRectangle, world);
     }
 
+    /**
+     * Method for checking if it is possible for a entity to move up.
+     * implements IMoveCollisionService
+     * 
+     * @param entity
+     * @param world
+     * @return true if it is possible to move up. Returns false if something is blocking that direction.
+     */
     @Override
     public boolean checkUpCollision(Entity entity, World world) {
         MovingPart movingPart = entity.getPart(MovingPart.class);
@@ -191,13 +195,18 @@ public class CollisionControlSystem implements IStandardCollisionService, IMoveC
         int y = (int) positionPart.getY();
         futureRectangle.setRect(x, y + speed, entity.getWidth(), entity.getHeight());
 
-        if (boxCollision(entity, futureRectangle, world)) {
-            return true;
-        }
-        return false;
+        return boxCollision(entity, futureRectangle, world);
 
     }
 
+    /**
+     * Method for checking if it is possible for a entity to move down. 
+     * implements IMoveCollisionService
+     * 
+     * @param entity
+     * @param world
+     * @return true if it is possible to move down. Returns false if something is blocking that direction.
+     */
     @Override
     public boolean checkDownCollision(Entity entity, World world) {
         MovingPart movingPart = entity.getPart(MovingPart.class);
@@ -211,15 +220,20 @@ public class CollisionControlSystem implements IStandardCollisionService, IMoveC
         int x = (int) positionPart.getX(); //x
         int y = (int) positionPart.getY();
         futureRectangle.setRect(x, y - speed, entity.getWidth(), entity.getHeight());
-        if (boxCollision(entity, futureRectangle, world)) {
-            return true;
-        }
-        return false;
+        return boxCollision(entity, futureRectangle, world);
 
     }
-
-    int count = 1;
-
+    
+    /**
+     * Method for spawning an Entity.
+     * This method use PositionPart from an entity to check if another 
+     * entity's PositionParts coordinates matches these.
+     * 
+     * @param entity
+     * @param gameData
+     * @param world
+     * @return 
+     */
     @Override
     public Entity spawnHere(Entity entity, GameData gameData, World world) {
         Random rnd = new Random();
@@ -237,42 +251,6 @@ public class CollisionControlSystem implements IStandardCollisionService, IMoveC
         }
 
         return entity;
-
-//        Rectangle rectangle = new Rectangle(); 
-//        rectangle.setRect(e.getShapeX()[0], e.getShapeY()[0], e.getWidth(), 80);
-////        System.out.println(rectangle.toString());
-//        System.out.println("SPAWN!!!");
-//        
-//        if (boxCollision(e, rectangle, world)) {
-//            System.out.println("dkfllds");
-//            Random rnd = new Random();
-//            PositionPart pp = e.getPart(PositionPart.class);
-//            boolean closerToTopEdgeOfMap = (gameData.getDisplayHeight() / 2) < pp.getY();
-//            boolean closerToRightEdgeOfMap = (gameData.getDisplayWidth() / 2) < pp.getX();
-////
-////            if (closerToTopEdgeOfMap) {
-////                pp.setY(pp.getY() - 40);
-////            } else {
-////                pp.setY(pp.getY() + 40);
-////            }
-////            
-////            if (closerToRightEdgeOfMap) {
-////                pp.setX(pp.getX() - 40);
-////            } else {
-////                pp.setX(pp.getX() + 40);
-////            }
-//            float newX = rnd.nextInt(gameData.getDisplayWidth()*2-40);
-//            float newY = rnd.nextInt(gameData.getDisplayHeight()*2-70);
-//            float[] shapeY = {newY, newY + e.getHeight(), newY + e.getHeight(), newY};
-//            float[] shapeX = {newX, newX, newX + e.getWidth(), newX + e.getWidth()};
-//            pp.setPosition(newX, newY);
-//            e.setShapeX(shapeX);
-//            e.setShapeY(shapeY);
-//            
-//            
-//            spawnHere(e, gameData, world);
-//        }
-//        return e;
     }
 
 }

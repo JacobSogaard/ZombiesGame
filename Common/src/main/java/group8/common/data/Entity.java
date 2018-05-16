@@ -29,6 +29,7 @@ public class Entity implements Serializable {
         parts.remove(partClass);
     }
     
+    
     public <E extends EntityPart> E getPart(Class partClass) {
         return (E) parts.get(partClass);
     }
@@ -67,10 +68,12 @@ public class Entity implements Serializable {
         }
     }
     
+    //Sets height based on the shapeY array from an entity.
     private void setHeight() {
         this.height = this.shapeY[1] - this.shapeY[0];
     }
     
+    //Sets width based on the shapeX array from an entity.
     private void setWidth() {
         this.width = this.shapeX[3] - this.shapeX[0];
     }

@@ -9,7 +9,7 @@ package group8.commonenemy.enemy;
  * Universal, ascending enemy rating system.
  * All enemy types must be instantiated with a rating to let the game (EnemyWave)
  * know, how difficult it is to defeat.
- * @author kasper
+ * @author group8
  */
 public enum Rating {
     ONE(1), TWO(2), THREE(3), FOUR(4), FIVE(5), SIX(6), SEVEN(7),

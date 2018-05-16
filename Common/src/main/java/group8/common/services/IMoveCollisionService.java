@@ -7,8 +7,8 @@ import group8.common.data.Entity;
 import group8.common.data.World;
 
 /**
- *
- * @author matiasmarek
+ * Interface used for checking moving collision.
+ * @author group8
  */
 public interface IMoveCollisionService {
     

@@ -8,7 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  *
- * @author jcs
+ * @author group8
  */
 public class World {
 

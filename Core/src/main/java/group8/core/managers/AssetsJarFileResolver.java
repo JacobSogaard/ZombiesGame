@@ -5,7 +5,7 @@ import com.badlogic.gdx.files.FileHandle;
 
 /**
  *
- * @author jcs
+ * @author group8
  */
 public class AssetsJarFileResolver implements FileHandleResolver {
 

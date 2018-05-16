@@ -10,7 +10,7 @@ import group8.common.data.GameData;
 
 /**
  *
- * @author Alexander
+ * @author group8
  */
 public interface EntityPart {
     void process(GameData gameData, Entity entity);

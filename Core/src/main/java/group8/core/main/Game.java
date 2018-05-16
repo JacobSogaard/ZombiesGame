@@ -27,6 +27,11 @@ import org.openide.util.Lookup;
 import org.openide.util.LookupEvent;
 import org.openide.util.LookupListener;
 
+/**
+ * Class handling the game. This class controls the entire game with create and render methods.
+ * Uses LibGdx to control plugins and processes. Handles everything that is drawed.
+ * @author group8
+ */
 public class Game implements ApplicationListener {
 
     private static final String MAP_IMG = "Images/BaseMap/GrassField.png";
@@ -46,18 +51,23 @@ public class Game implements ApplicationListener {
     private HashMap<String,Texture> textureMap;
 
     private ArrayList<SpriteBatch> mapObjects;
-
+    
+    /**
+     * Method used for creating the game. This method is kind of the games Constructor.
+     */
     @Override
     public void create() {
-
+        //Sets gamedata height and width. Is only used by other to get height and
+        //width of the game, so they don't use LibGdx to get them.
         this.gameData.setDisplayHeight(Gdx.graphics.getHeight());
         this.gameData.setDisplayWidth(Gdx.graphics.getWidth());
-
+        
+        //Sets the camera
         this.cam = new OrthographicCamera(this.gameData.getDisplayHeight() * 1.2f, this.gameData.getDisplayWidth() * 1.2f);
 
         this.sr = new ShapeRenderer();
         Gdx.input.setInputProcessor(new GameInputProcessor(this.gameData));
-
+        
         this.result = this.lookup.lookupResult(IGamePluginService.class);
         this.result.addLookupListener(lookupListener);
         this.result.allItems();
@@ -68,6 +78,7 @@ public class Game implements ApplicationListener {
 
         sprite = new Sprite(texture1);
         
+        //Starts all plugin classes with the method start.
         for (IGamePluginService plugin : result.allInstances()) {
                 plugin.start(gameData, world);
                 gamePlugins.add(plugin);
@@ -76,13 +87,19 @@ public class Game implements ApplicationListener {
         
         this.loadTextures();
     }
-
-    public void renderBackground() {
+    
+    //method used for controlling the background image.
+    private void renderBackground() {
         this.spriteBatch.begin();
         sprite.draw(spriteBatch);
         this.spriteBatch.end();
     }
-
+    
+    /**
+     * Method used for controlling the game, when it is started. 
+     * This method draws entities and use the method update, 
+     * which call process on all classes implementing IEntityProcessingService.
+     */
     @Override
     public void render() {
         // clear screen to black
@@ -93,7 +110,8 @@ public class Game implements ApplicationListener {
         this.spriteBatch.setProjectionMatrix(cam.combined);
 
         this.renderBackground();
-
+        
+        //Used to draw all entities.
         for (Entity e : world.getEntities()) {
             PositionPart part = e.getPart(PositionPart.class);
             //this.drawShapes(e);
@@ -101,7 +119,7 @@ public class Game implements ApplicationListener {
                 this.drawImg(e, part);
             }
             
-            
+            //Sets camera to follow the player
             if (e.getType() == EntityType.PLAYER) {
                 hasPlayer = true;
                 this.setCamFollowPlayer(part);
@@ -113,14 +131,6 @@ public class Game implements ApplicationListener {
                 this.setCamCenter();
             }
             
-            //TEST FOR ENEMY WAVE
-            boolean hasRemoved = false;
-            if (e.getType() == EntityType.ZOMBIE && gameData.getKeys().isDown(GameKeys.ENTER) && !hasRemoved){
-                world.removeEntity(e);
-                hasRemoved = true;
-                
-            }
-            //END ENEMY WAVE TEST!
         }
         
 
@@ -129,7 +139,8 @@ public class Game implements ApplicationListener {
 
         update();
     }
-
+    
+    //Used for calling process on all classes implementing IEntityProcessingService.
     private void update() {
         // Update
         for (IEntityProcessingService entityProcessorService : getEntityProcessingServices()) {
@@ -137,7 +148,8 @@ public class Game implements ApplicationListener {
         }
 
     }
-
+    
+    //Method used to draw shapes around entities. Not used anymore.
     private void drawShapes(Entity entity) {
         sr.setColor(1, 1, 1, 1);
         sr.begin(ShapeRenderer.ShapeType.Line);
@@ -151,7 +163,8 @@ public class Game implements ApplicationListener {
             }
             sr.end();
     }
-
+    
+    //Method used for drawing entities. A map was created to hold all the different textures, this handles memory.
     private void drawImg(Entity entity, PositionPart part) {
         this.spriteBatch.begin();
         if (!this.textureMap.containsKey(entity.getImagePath()) && entity.getImagePath() != null) {
@@ -162,7 +175,7 @@ public class Game implements ApplicationListener {
         this.spriteBatch.end();
     }
     
-    
+    //Loads all textures that has a static imagepath.
     private void loadTextures() {
         for (Entity entity : world.getEntities()) {
             this.texture = new Texture(Gdx.files.internal(entity.getImagePath()));
@@ -170,6 +183,7 @@ public class Game implements ApplicationListener {
         }
     }
     
+    //Method for setting the camera to follow player.
     private void setCamFollowPlayer(PositionPart part) {
         cam.position.set(part.getX(), part.getY(),0);
         cam.update();
@@ -202,6 +216,7 @@ public class Game implements ApplicationListener {
         return lookup.lookupAll(IEntityProcessingService.class);
     }
 
+    //Method used to update lookup, if a module is removed or added.
     private final LookupListener lookupListener = new LookupListener() {
         @Override
         public void resultChanged(LookupEvent le) {

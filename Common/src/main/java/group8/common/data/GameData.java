@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+/**
+ * 
+ * @author group8
+ */
 public class GameData {
 
     private float delta;

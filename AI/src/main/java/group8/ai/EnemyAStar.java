@@ -13,7 +13,7 @@ import org.openide.util.Lookup;
  * optimal path. Sets the goal position when called using the players current
  * pos.
  *
- * @author jacob
+ * @author group8
  */
 public class EnemyAStar {
 
@@ -55,15 +55,14 @@ public class EnemyAStar {
     /**
      * Get list of directions to target. Makes recursive calls to next successor
      *
-     * @return
+     * @return List of Integers
      */
     public List<Integer> getResult() {
         this.result.clear();
         if (this.mapObjects == null) {
             this.mapObjects = this.map.getMapObjects();
         }
-        
-        
+       
         while (!this.enemyInRange()) {
             this.getNextSuccessor();
         }

@@ -1,23 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package group8.common.data.entityparts;
 
 import group8.common.data.Entity;
 import group8.common.data.GameData;
 
 /**
- *
- * @author Someone
+ * Class used handle how much life an entity has, and to check if an entity dies.
+ * @author group8
  */
 public class LifePart implements EntityPart {
     private boolean dead = false;
     private int life;
     private boolean isHit = false;
 
-
+    /**
+     * Contructor used to set how much life an entity should have.
+     * @param life 
+     */
     public LifePart(int life) {
         this.life = life;
     }

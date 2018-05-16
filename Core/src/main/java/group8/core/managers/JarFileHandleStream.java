@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author jcs
+ * @author group8
  */
 public class JarFileHandleStream extends FileHandleStream {
 

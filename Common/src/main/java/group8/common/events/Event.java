@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author Mads
+ * @author group8
  */
 public class Event implements Serializable{
     private final Entity source;

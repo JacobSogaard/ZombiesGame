@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package group8.player;
 
 import group8.common.data.Entity;
@@ -24,7 +20,7 @@ import org.openide.util.lookup.ServiceProviders;
 })
 /**
  *
- * @author matiasmarek
+ * @author group8
  */
 public class PlayerPlugin implements IGamePluginService, IPlayerService {
     
@@ -42,15 +38,22 @@ public class PlayerPlugin implements IGamePluginService, IPlayerService {
         world.removeEntity(player);
     }
     
+    /**
+     * Method used for creating a player.
+     * Uses gamedata to calculate the middle of the map, 
+     * so the players coordinates can be set to the middle.
+     * @param gameData
+     * @return Player entity. 
+     */
     public Entity createPlayer(GameData gameData) {
         float speed = 3;
         float x = gameData.getDisplayWidth() / 2;
         float y = gameData.getDisplayHeight() / 2;
-        float radians = 3.1415f / 2;
         
+        //Creating all the entityparts a player needs.
         Entity playerRectangle =  new Player();
         playerRectangle.add(new MovingPart(speed));
-        playerRectangle.add(new PositionPart(x, y, radians));
+        playerRectangle.add(new PositionPart(x, y));
         playerRectangle.add(new TimerPart(0));
         playerRectangle.add(new LifePart(50));
         playerRectangle.setImagePath(sp.UP);
@@ -76,7 +79,11 @@ public class PlayerPlugin implements IGamePluginService, IPlayerService {
         
         return playerRectangle; 
     }
-
+    
+    /**
+     * Method for getting player.
+     * @return Player Entity.
+     */
     @Override
     public Entity getPlayer() {
         return this.player;

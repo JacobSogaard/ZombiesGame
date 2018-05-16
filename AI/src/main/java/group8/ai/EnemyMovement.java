@@ -17,20 +17,26 @@ import org.openide.util.lookup.ServiceProviders;
 
 /**
  *
- * @author kasper
+ * @author group8
  */
 @ServiceProviders(value = {
     @ServiceProvider(service = IPathFinderService.class)})
 public class EnemyMovement implements IPathFinderService{
-    private final PlayerServiceImpl pimpl = PlayerServiceImpl.getInstance(); // Maybe add null check on this and if null, just set random goal coordinates
+    private final PlayerServiceImpl pimpl = PlayerServiceImpl.getInstance(); 
     private Map<Integer, Boolean> directions;
     
+    /**
+     * Method for getting the possible directions for enemy.
+     * @param enemy
+     * @return Map with Integer as key and Boolean as value
+     */
     @Override
     public Map<Integer, Boolean> getDirections(Entity enemy) {
         this.fillDirections(enemy, pimpl.getPlayer());
         return this.directions;
     }
     
+    //Fills the directions map with the possible directions the enemy can move.
     private void fillDirections(Entity enemy, Entity player) {
         this.directions = new HashMap();
         for (int i = 0; i <= 3; i++) {
@@ -51,6 +57,7 @@ public class EnemyMovement implements IPathFinderService{
         
     }
     
+    //Gets center of a enemy
     private float[] getCenter(float[] shapeX, float[] shapeY) {
         float xMax = 0;
         for (float p : shapeX) {
@@ -69,6 +76,12 @@ public class EnemyMovement implements IPathFinderService{
         return center;
     }
 
+    /**
+     * Method for creating and adding the artificial intelligence AStar to an enemy. 
+     * Implements IPathFinderService.
+     * @param enemy
+     * @return List of Integers
+     */
     @Override
     public List<Integer> AStarDirections(Entity enemy) {
         EnemyAStar astar = new EnemyAStar(enemy, pimpl.getPlayer());

@@ -9,8 +9,8 @@ import group8.common.data.Entity;
 import group8.common.data.GameData;
 
 /**
- *
- * @author MER
+ * Class used for setting how much damage a entity deals, when colliding with another entity.
+ * @author group8
  */
 public class DamagePart implements EntityPart {
     

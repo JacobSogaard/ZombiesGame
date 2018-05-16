@@ -5,6 +5,10 @@ import com.badlogic.gdx.InputAdapter;
 import group8.common.data.GameData;
 import group8.common.data.GameKeys;
 
+/**
+ * 
+ * @author group8
+ */
 public class GameInputProcessor extends InputAdapter {
     private final GameData gameData;
 

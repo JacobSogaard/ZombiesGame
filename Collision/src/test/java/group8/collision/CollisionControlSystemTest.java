@@ -34,7 +34,7 @@ public class CollisionControlSystemTest {
         float x = 300;
         float y = 300;
         
-        pos = new PositionPart(x, y, 0); //Position of the worldEntity
+        pos = new PositionPart(x, y); //Position of the worldEntity
         
         worldEntity = new Entity();
         worldEntity.add(pos);
@@ -95,7 +95,7 @@ public class CollisionControlSystemTest {
         float x = newx;
         float y = newy;
         
-        pos = new PositionPart(x, y, 0); //Position of the worldEntity
+        pos = new PositionPart(x, y); //Position of the worldEntity
         
         this.mockEntity = new Entity();
         this.mockEntity.add(pos);

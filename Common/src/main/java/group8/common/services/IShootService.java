@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package group8.common.services;
 
 import group8.common.data.Entity;
@@ -10,10 +6,12 @@ import group8.common.data.World;
 
 /**
  *
- * @author MER
+ * @author group8
  */
 public interface IShootService {
+    //Method implemented by BulletPlugin
     public void shoot(Entity entity, World world);
     
+    //Method implemented by BulletPlugin
     public void changeBullet();
 }

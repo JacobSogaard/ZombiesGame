@@ -1,15 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package group8.common.data.entityparts;
 
 import group8.common.data.Entity;
 import group8.common.data.GameData;
 
 /**
- *
+ * Class that handles entities movement.
  * @author Group 8 
  */
 public class MovingPart implements EntityPart {
@@ -17,8 +13,13 @@ public class MovingPart implements EntityPart {
     private float dx, dy;
     private float speed;
     private boolean left, right, up, down;
+    //This array is used to handle which direction an entity face.
     private boolean[] directions = new boolean[8];
-
+    
+    /**
+     * Constructor that is used to set how fast an entity should move.
+     * @param maxSpeed 
+     */
     public MovingPart(float maxSpeed) {
         this.speed = maxSpeed;
     }
@@ -56,13 +57,13 @@ public class MovingPart implements EntityPart {
         this.speed = newSpeed;         
     }
     
+    /**
+     * Method used for setting directions array.
+     * @param direction 
+     */
     public void setDirection(int direction) {
         for(int i = 0; i < this.directions.length; i++) {
-            if (i == direction) {
-                this.directions[i] = true;
-            } else {
-                this.directions[i] = false;
-            }
+            this.directions[i] = i == direction;
         }
     }
     
@@ -75,7 +76,6 @@ public class MovingPart implements EntityPart {
         PositionPart positionPart = entity.getPart(PositionPart.class);
         float x = positionPart.getX();
         float y = positionPart.getY();
-        float radians = positionPart.getRadians();
         float dt = gameData.getDelta();
         float tempSpeed = speed;
         
@@ -99,11 +99,9 @@ public class MovingPart implements EntityPart {
         if(isLeft()){
             x -= tempSpeed; 
         }
-         /*
-        FIXTHIS!!!!!!!!!!!!!!!!!!!!!
-        */
+
         //Backup for Collision
-        //Stops the player for moving out of the map and make him stand still.
+        //Stops entities for moving out of the map and make it stop moving.
         if (x >= gameData.getDisplayWidth()*2-entity.getWidth()) {
             x -= tempSpeed;
         } else if (x < 0) {
@@ -116,12 +114,10 @@ public class MovingPart implements EntityPart {
         } else if (y < 0) {
             y += tempSpeed;
         }
-
-
+        
         positionPart.setX(x);
         positionPart.setY(y);
 
-        positionPart.setRadians(radians);
     }
 
     /**

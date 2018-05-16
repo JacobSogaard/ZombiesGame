@@ -1,5 +1,4 @@
-/*
- */
+
 package group8.common.services;
 
 import group8.common.data.Entity;
@@ -7,12 +6,12 @@ import group8.common.data.World;
 
 /**
  *
- * @author matiasmarek
+ * @author group8
  */
 public interface IStandardCollisionService {
 
     /**
-     * 
+     * Method implemented by CollisionControlSystem. Used for detecting collision.
      * @param entity
      * @param world
      * @return 

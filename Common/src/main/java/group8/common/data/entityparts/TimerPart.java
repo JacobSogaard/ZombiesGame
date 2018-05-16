@@ -1,22 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package group8.common.data.entityparts;
 
 import group8.common.data.Entity;
 import group8.common.data.GameData;
 
 /**
- *
- * @author Alexander
+ * Class used to handle timers on entity's.
+ * @author group8
  */
 public class TimerPart
         implements EntityPart {
 
     private float expiration;
-
+    
+    /**
+     * Contructor used for setting a timer on a entity.
+     * @param expiration 
+     */
     public TimerPart(int expiration) {
         this.expiration = expiration;
     }
@@ -40,8 +40,7 @@ public class TimerPart
     @Override
     public void process(GameData gameData, Entity entity) {
         if (expiration > 0) {
-//            reduceExpiration(gameData.getDelta());
-              reduceEx(1);
+            reduceEx(1);
         }
     }
     

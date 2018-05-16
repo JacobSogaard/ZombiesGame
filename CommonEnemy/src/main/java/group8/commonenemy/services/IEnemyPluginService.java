@@ -10,8 +10,8 @@ import group8.common.data.World;
 import group8.commonenemy.enemy.Rating;
 
 /**
- *
- * @author kasper
+ * Interface used for enemies to call start, stop and getRating.
+ * @author group8
  */
 public interface IEnemyPluginService {
     void start(GameData gameData, World world);

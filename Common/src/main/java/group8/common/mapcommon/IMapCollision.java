@@ -10,9 +10,10 @@ import java.util.ArrayList;
 
 /**
  *
- * @author jacob
+ * @author group8
  */
 public interface IMapCollision {
+    //Implemented by MapObejctPlugin. Used for getting all mapobjects.
    public ArrayList<Entity> getMapObjects();
     
 }
