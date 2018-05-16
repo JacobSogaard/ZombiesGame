@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package group8.zombie.bigzombie;
 
 import group8.common.data.Entity;
@@ -22,8 +17,9 @@ import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
 
 /**
- *
- * @author jacob
+ * Control system for BigZombie. Handles the zombie movement and implements the
+ * IEntityProcessesing service
+ * @author group 8
  */
 @ServiceProviders(value = {
     @ServiceProvider(service = IEntityProcessingService.class)})
@@ -37,6 +33,7 @@ public class BigZombieControlSystem implements IEntityProcessingService {
     @Override
     public void process(GameData gameData, World world) {
 
+        //Iterate through all big zombies in world
         for (Entity zombie : world.getEntities(BigZombie.class)) {
             try {
                 this.directions = path.getDirections(zombie);
@@ -56,6 +53,7 @@ public class BigZombieControlSystem implements IEntityProcessingService {
             boolean andUp = false, andDown = false;
             boolean upCol, downCol, leftCol, rightCol;
 
+            //Call to collision service if there is one, else set all direction col booleans to false
             try {
                 IMoveCollisionService colService = lookup.lookup(IMoveCollisionService.class);
                 upCol = colService.checkUpCollision(zombie, world);
@@ -99,6 +97,7 @@ public class BigZombieControlSystem implements IEntityProcessingService {
                 }
             }
 
+            //Right
             if (directions.get(GameKeys.RIGHT)) {
                 zombie.setImagePath(BigZombieSpritePath.RIGHT);
 
@@ -116,6 +115,7 @@ public class BigZombieControlSystem implements IEntityProcessingService {
 
             updateShape(zombie);
 
+            //Reset all movingparts
             movingPart.setUp(false);
             movingPart.setDown(false);
             movingPart.setLeft(false);
@@ -123,6 +123,7 @@ public class BigZombieControlSystem implements IEntityProcessingService {
         }
     }
 
+    //Method to update shape of entity, is just the collision box
     private void updateShape(Entity entity) {
         float[] shapex = entity.getShapeX();
         float[] shapey = entity.getShapeY();

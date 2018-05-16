@@ -1,21 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package group8.weapon;
 
 import group8.common.data.Entity;
 import group8.common.data.EntityType;
 
 /**
- *
- * @author MER
+ * Constructor class for weapon. Sets the entity type to weapon and hold an int array
+ * for bullet attributes and a string array for spritepaths. 
+ * @author group 8
  */
 public class Weapon extends Entity {
     private int[] bulletAttributes;
     private String[] bulletSpritePaths;
     
+    /**
+     * Constructor. Sets entitytype to WEAPON
+     */
     public Weapon() {
         this.setType(EntityType.WEAPON);
     }

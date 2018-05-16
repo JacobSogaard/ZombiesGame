@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package group8.player;
 
 import group8.common.data.Entity;
@@ -23,8 +18,9 @@ import org.openide.util.lookup.ServiceProviders;
     @ServiceProvider(service = IPlayerService.class)
 })
 /**
- *
- * @author matiasmarek
+ * Plugin class for player, handles instantiation of a player entity. Implements the 
+ * IGamePluginService and IPlayerService
+ * @author group 8
  */
 public class PlayerPlugin implements IGamePluginService, IPlayerService {
     
@@ -42,6 +38,8 @@ public class PlayerPlugin implements IGamePluginService, IPlayerService {
         world.removeEntity(player);
     }
     
+    //Method to create player. Sets all entityparts and shapes.
+    //Return the newly created entity
     public Entity createPlayer(GameData gameData) {
         float speed = 3;
         float x = gameData.getDisplayWidth() / 2;

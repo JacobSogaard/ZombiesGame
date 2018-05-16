@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package group8.zombie;
 
 import group8.common.data.Entity;
@@ -19,7 +14,7 @@ import org.openide.util.Lookup;
 /**
  * Super class for zombies. Only sets the entity type to be a zombie.
  *
- * @author jacob
+ * @author group 8
  */
 public abstract class Zombie extends Enemy {
 
@@ -31,7 +26,12 @@ public abstract class Zombie extends Enemy {
         this.setType(EntityType.ZOMBIE);
     }
 
-    //Method to set the x value of a new zombie with defined distance from player
+    /**
+     * Method to set the x value of a new zombie with defined distance from player
+     * @param gameData games gamedata
+     * @param distance Wanted distance as float
+     * @return Return the x value the zombie should have as float
+     */
     public float setX(GameData gameData, float distance) {
         float playerX = this.getPlayerPos(gameData).getX();
         float x = r.nextInt((int) (((gameData.getDisplayWidth()) - (gameData.getDisplayWidth() / 2))
@@ -56,7 +56,12 @@ public abstract class Zombie extends Enemy {
         return x;
     }
 
-    //Method to set the y value of a new zombie with defined distance from player
+     /**
+     * Method to set the y value of a new zombie with defined distance from player
+     * @param gameData games gamedata
+     * @param distance Wanted distance as float
+     * @return Return the y value the zombie should have as float
+     */
     public float setY(GameData gameData, float distance) {
         float playerY = this.getPlayerPos(gameData).getY();
 
@@ -81,6 +86,7 @@ public abstract class Zombie extends Enemy {
         return y;
     }
 
+    //Method to get the position part of the player. Returns the positionpart
     private PositionPart getPlayerPos(GameData gameData) {
         Entity player;
         try {

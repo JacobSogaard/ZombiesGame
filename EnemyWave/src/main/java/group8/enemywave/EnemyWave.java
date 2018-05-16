@@ -16,8 +16,8 @@ import java.util.Random;
 import org.openide.util.Lookup;
 
 /**
- *
- * @author kasper
+ * Class to handle enemy waves. Sets the properties of a wave. 
+ * @author group 8
  */
 public class EnemyWave {
     private Lookup.Result<IEnemyPluginService> result;
@@ -27,6 +27,9 @@ public class EnemyWave {
     private GameData gameData;
     private World world;
     
+    /**
+     * Constructor. Sets the waveCount to 1 since it is first wave when this is called
+     */
     public EnemyWave() {
         this.waveCount = 1;
     }
@@ -42,14 +45,14 @@ public class EnemyWave {
         //this.doStuff(gameData, world);
     }
   
-    
+  
+    //Fills array of zombies for wave
     private void fillZombiesArray() {
         result = Lookup.getDefault().lookupResult(IEnemyPluginService.class);
         this.result.allItems();
-        boolean noMore = false;
         for (IEnemyPluginService ie : result.allInstances()) {
             int max = (int) howManyEnemies(ie);
-            for (int i = 0; i < 1; i++) {
+            for (int i = 0; i < max; i++) {
                 ie.start(gameData, world);
             }
             
@@ -59,14 +62,7 @@ public class EnemyWave {
         //Find the zombie to call the start method on
 
     }
-    
-    private void doStuff(GameData gameData, World world) {
-        for (IEnemyPluginService zombie : zombies) {
-            zombie.start(gameData, world);
-        }
-    }
-    
-    
+      
     
     //Arbitrarily calculates how many enemies should be spawned this wave.
     private double howManyEnemies(IEnemyPluginService ie) {

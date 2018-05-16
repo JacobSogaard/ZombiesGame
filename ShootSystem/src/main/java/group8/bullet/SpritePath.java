@@ -1,13 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package group8.bullet;
 
 /**
- *
- * @author MER
+ * Enum class to hold bullet imagepath in all directions.
+ * @author group 8
  */
 public enum SpritePath {
 

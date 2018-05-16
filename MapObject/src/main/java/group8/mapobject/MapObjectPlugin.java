@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package group8.mapobject;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -32,8 +27,9 @@ import org.openide.util.lookup.ServiceProviders;
 })
 
 /**
- *
- * @author MER
+ * Plugin class for mapobject, handles instantiation of a mapobject entities. Implements the 
+ * IGamePluginService and IMapCollision service
+ * @author group 8
  */
 public class MapObjectPlugin implements IGamePluginService, IMapCollision {
 
@@ -54,11 +50,15 @@ public class MapObjectPlugin implements IGamePluginService, IMapCollision {
         this.clearMap();
     }
 
+    //Clears the map objects arraylist
     private void clearMap() {
         this.mapObjects.clear();
     }
     
+    //Creates all wanted map objects and adds them to world
     private void createMapObject(GameData gameData, World world) {
+        
+        //Change end condition to wanted number of mapobjects.
         for (int i = 0; i <= 10; i++) {
             MapObject map = new MapObject();
             map.add(new PositionPart(map.getXCoor(), map.getYCoor(), 0));
@@ -67,7 +67,8 @@ public class MapObjectPlugin implements IGamePluginService, IMapCollision {
             
             PositionPart pp = map.getPart(PositionPart.class);
             
-            
+            //Prompt ISpawnService if the object can spawn at place it is set, 
+            //and gets itself back with allowed coordinates.
             try {
                 ISpawnService spawn = lookup.lookup(ISpawnService.class);
                 map = (MapObject) spawn.spawnHere(map, gameData, world);
@@ -82,27 +83,8 @@ public class MapObjectPlugin implements IGamePluginService, IMapCollision {
             world.addEntity(map);
         }
     }
-
-    private void createMapObjectJSON(World world) {
-
-        try {
-            final InputStream is = new FileInputStream(MAPOBJECTSPATH);
-            ObjectMapper objectMapper = new ObjectMapper();
-            this.mapObjects = objectMapper.readValue(is, new TypeReference<List<MapObject>>() {
-            });
-            for (Entity m : mapObjects) {
-                for (int i = 0; i < 10; i++) {
-                MapObject map = new MapObject();
-                map.add(new PositionPart(map.getXCoor(), map.getYCoor(), 0));
-                map.setImagePath("Images/MapObjects/Tree1.png");
-                world.addEntity(this.initMap(map));
-                }
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(MapObjectPlugin.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
     
+    //Set shapeX of map object. Returns the new mapobject with new shapeX
     private MapObject setShapeX(MapObject mapObject){
         float[] shapeX = {
             mapObject.getXCoor(),
@@ -114,6 +96,7 @@ public class MapObjectPlugin implements IGamePluginService, IMapCollision {
             return mapObject;
     }
     
+    //Set shapeY of map object. Returns the new mapobject with new shapeY
     private MapObject setShapeY(MapObject mapObject){
         float[] shapeY = {
             mapObject.getYCoor(),
@@ -125,6 +108,7 @@ public class MapObjectPlugin implements IGamePluginService, IMapCollision {
             return mapObject;
     }
     
+    //Initialize mapobject by calling setShapeX and setShapeY
     private MapObject initMap(MapObject map){
         return this.setShapeY(this.setShapeX(map));
     }

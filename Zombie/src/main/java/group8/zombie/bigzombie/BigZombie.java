@@ -1,20 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package group8.zombie.bigzombie;
 
 import group8.commonenemy.enemy.Rating;
 import group8.zombie.Zombie;
 
 /**
- *
- * @author jacob
+ * Super class for Big zombie, extends Zombie
+ * @author group 8
  */
 public class BigZombie extends Zombie {
 
     
+    /**
+     * Constructor for bigZombie
+     * @param rating The rating the zombie should have of type Rating
+     */
     public BigZombie(Rating rating){
         super(rating);
     }

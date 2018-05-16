@@ -1,13 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package group8.zombie.regularzombie;
 
 /**
- *
- * @author jacob
+ * Class that holds path string for regular zombie pictures in all 8 directions.
+ * @author Group 8
  */
 public class RegularZombieSpritePath {
     protected static final String UP = "Images/EnemyImages/RegularZombie/UP.png"; 

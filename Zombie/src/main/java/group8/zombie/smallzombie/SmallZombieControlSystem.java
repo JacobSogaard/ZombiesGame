@@ -23,8 +23,9 @@ import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
 
 /**
- *
- * @author jacob
+ * Control system for smallZombie. Handles the zombie movement and implements the
+ * IEntityProcessesing service
+ * @author group 8
  */
 @ServiceProviders(value = {
     @ServiceProvider(service = IEntityProcessingService.class)})
@@ -38,6 +39,7 @@ public class SmallZombieControlSystem implements IEntityProcessingService {
     @Override
     public void process(GameData gameData, World world) {
 
+        //Iterate through all big zombies in world
         for (Entity zombie : world.getEntities(SmallZombie.class)) {
             //Map<Integer, Boolean> directions = path.getDirections(zombie);
             PositionPart positionPart = zombie.getPart(PositionPart.class);
@@ -50,6 +52,7 @@ public class SmallZombieControlSystem implements IEntityProcessingService {
             boolean andUp = false, andDown = false;
             boolean upCol, downCol, leftCol, rightCol;
 
+            //Call to collision service if there is one, else set all direction col booleans to false
             try {
                 IMoveCollisionService colService = lookup.lookup(IMoveCollisionService.class);
                 upCol = colService.checkUpCollision(zombie, world);
@@ -111,6 +114,7 @@ public class SmallZombieControlSystem implements IEntityProcessingService {
 
             updateShape(zombie);
 
+            //Reset all movingpart directions to false
             movingPart.setUp(false);
             movingPart.setDown(false);
             movingPart.setLeft(false);
@@ -119,6 +123,7 @@ public class SmallZombieControlSystem implements IEntityProcessingService {
         }
     }
 
+    //Get direction list from Astar implementation. Takes the smallzombie entity as parameter.
     private void getDirections(Entity zombie) {
         try {
             this.directions = path.AStarDirections(zombie);
@@ -130,6 +135,7 @@ public class SmallZombieControlSystem implements IEntityProcessingService {
         this.dirIndex = 0;
     }
 
+    //Method to update shape of entity, is just the collision box
     private void updateShape(Entity entity) {
         float[] shapex = entity.getShapeX();
         float[] shapey = entity.getShapeY();

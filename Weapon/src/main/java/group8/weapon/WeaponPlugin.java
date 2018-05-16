@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package group8.weapon;
 
 import group8.common.data.Entity;
@@ -23,8 +18,9 @@ import org.openide.util.lookup.ServiceProviders;
 })
 
 /**
- *
- * @author MER
+ * Plugin class for weapon. Handles instantiation of weapon entity. Implement the
+ * IGamePluginService and IWeaponService
+ * @author group 8
  */
 public class WeaponPlugin implements IGamePluginService, IWeaponService {
 
@@ -46,6 +42,8 @@ public class WeaponPlugin implements IGamePluginService, IWeaponService {
     }
 
     
+    //Method to create a new weapon, returns the newly created weapon and takes the
+    //player as parameter.
     private Entity createWeapon(Entity player) {
         PositionPart playerPosition = player.getPart(PositionPart.class);
         MovingPart part = player.getPart(MovingPart.class);
@@ -75,40 +73,8 @@ public class WeaponPlugin implements IGamePluginService, IWeaponService {
 
     }
 
-//    private void setDirection(MovingPart playerPart) {
-//
-//        MovingPart weaponPart = this.weapon.getPart(MovingPart.class);
-//
-//        if (playerPart.isDown()) {
-//            weaponPart.setDown(true);
-//            this.weapon.setImagePath(this.weaponMap.get(key)[0]);
-//        }
-//
-//        if (playerPart.isUp()) {
-//            weaponPart.setUp(true);
-//            this.weapon.setImagePath(this.weaponMap.get(key)[1]);
-//        }
-//
-//        if (playerPart.isLeft()) {
-//            weaponPart.setLeft(true);
-//            this.weapon.setImagePath(this.weaponMap.get(key)[2]);
-//            if (playerPart.isUp()) {
-//                weaponPart.setUp(true);
-//            } else if (playerPart.isDown()) {
-//                weaponPart.setDown(true);
-//            }
-//        }
-//
-//        if (playerPart.isRight()) {
-//            weaponPart.setRight(true);
-//            this.weapon.setImagePath(this.weaponMap.get(key)[3]);
-//            if (playerPart.isUp()) {
-//                weaponPart.setUp(true);
-//            } else if (playerPart.isDown()) {
-//                weaponPart.setDown(true);
-//            }
-//        }
-//    }
+    
+    //Method to set the direction the weapon should be created in.
     private void setDirections(MovingPart movingPart, PositionPart positionPart) {
         
         MovingPart weaponPart = this.weapon.getPart(MovingPart.class);
@@ -116,12 +82,15 @@ public class WeaponPlugin implements IGamePluginService, IWeaponService {
         PositionPart wPositionPart = this.weapon.getPart(PositionPart.class);
         
         int direction = 0;
+        
+        //Iterate through all directions from movingpart and gets the direction that is set to true
         for (int i = 0; i < movingPart.getDirection().length; i++) {
             if (movingPart.getDirection()[i] == true) {
                 direction = i;
             }
         }
         
+        // switch case on the direction int to set weapon image and position in the corect direction
         switch(direction) {
             case 0: weaponPart.setUp(true);
                     wPositionPart.setY(positionPart.getY() + 80);

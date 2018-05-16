@@ -1,10 +1,7 @@
-/*
- 
- */
 package group8.player;
 
 /**
- * 
+ * Enum that hold path to all player spritepaths. 
  * @author group8
  */
 public enum SpritePath {
