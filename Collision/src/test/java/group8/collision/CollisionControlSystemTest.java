@@ -125,14 +125,14 @@ public class CollisionControlSystemTest {
     /**
      * Test of detectCollision method, of class CollisionControlSystem.
      */
-    @org.junit.Test
-    public void testDetectCollision() {
-        System.out.println("detectCollision");
-        CollisionControlSystem instance = new CollisionControlSystem();
-        boolean expResult = true;
-        boolean result = instance.detectCollision(mockEntity, mockWorld);
-        assertEquals("Collision test", expResult, result);
-    }
+//    @org.junit.Test
+//    public void testDetectCollision() {
+//        System.out.println("detectCollision");
+//        CollisionControlSystem instance = new CollisionControlSystem();
+//        boolean expResult = true;
+//        boolean result = instance.detectCollision(mockEntity, mockWorld);
+//        assertEquals("Collision test", expResult, result);
+//    }
 
 //    /**
 //     * Test of rectangleIntersection method, of class CollisionControlSystem.
