@@ -6,6 +6,7 @@
 package group8.healthsystem;
 
 import group8.common.data.Entity;
+import group8.common.data.EntityType;
 import group8.common.data.World;
 import group8.common.data.entityparts.DamagePart;
 import group8.common.data.entityparts.LifePart;
@@ -38,9 +39,11 @@ public class DamageSystem implements IWhoHaveCollidedService {
         DamagePart entity2Damage = entity2.getPart(DamagePart.class);
         LifePart entity2Life = entity2.getPart(LifePart.class);
         
-        this.entityCheck(entity1Damage, entity2Life);
-        this.entityCheck(entity2Damage, entity1Life);
-
+        
+        if (!(entity1.getType() == EntityType.ZOMBIE && entity2.getType() == EntityType.ZOMBIE)) {
+            this.entityCheck(entity1Damage, entity2Life);
+            this.entityCheck(entity2Damage, entity1Life);
+        }
         this.checkRemoveEntities(entity1Life, entity1, world);
         this.checkRemoveEntities(entity2Life, entity2, world);
 

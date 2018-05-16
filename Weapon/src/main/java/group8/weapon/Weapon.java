@@ -6,6 +6,7 @@
 package group8.weapon;
 
 import group8.common.data.Entity;
+import group8.common.data.EntityType;
 
 /**
  *
@@ -14,6 +15,10 @@ import group8.common.data.Entity;
 public class Weapon extends Entity {
     private int[] bulletAttributes;
     private String[] bulletSpritePaths;
+    
+    public Weapon() {
+        this.setType(EntityType.WEAPON);
+    }
 
     /**
      * @return the bulletAttributes

@@ -29,7 +29,6 @@ public abstract class Zombie extends Enemy {
 
     public Zombie(Rating rating) {
         super(rating);
-
         this.setType(EntityType.ZOMBIE);
     }
 

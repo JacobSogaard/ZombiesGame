@@ -10,5 +10,5 @@ package group8.common.data;
  * @author kasper
  */
 public enum EntityType {
-    PLAYER, MAPOBJECT, ZOMBIE, BULLET, NONE;
+    PLAYER, MAPOBJECT, ZOMBIE, BULLET, WEAPON, NONE;
 }

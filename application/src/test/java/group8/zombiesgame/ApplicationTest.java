@@ -46,54 +46,55 @@ public class ApplicationTest extends NbTestCase {
         new ActionNoBlock("Help|About", null).performMenu();
         new NbDialogOperator("About").closeByButton();
          */
-        
-         List<IEntityProcessingService> processors = new CopyOnWriteArrayList<>();
-        List<IGamePluginService> plugins = new CopyOnWriteArrayList<>();
-        List<IStandardCollisionService> collision = new CopyOnWriteArrayList<>();
-        List<IPathFinderService> path = new CopyOnWriteArrayList<>();
-        
-        waitForUpdate(processors, plugins, collision, path);
-        
-        //Add enemy
-        copy(get(ADD_ENEMY_UPDATES_FILE), get(UPDATES_FILE), REPLACE_EXISTING);
-        waitForUpdate(processors, plugins, collision, path);
-        
-        assertEquals("Add enemy plugin", 4, plugins.size());
-        assertEquals("Add enemy processor", 8, processors.size());
-        
-        //Add AI
-        copy(get(ADD_AI_UPDATES_FILE), get(UPDATES_FILE), REPLACE_EXISTING);
-        waitForUpdate(processors, plugins, collision, path);
-        
-        assertEquals("Add AI", 1, path.size());
-        
-        //Add collision
-        copy(get(ADD_COLLISION_UPDATES_FILE), get(UPDATES_FILE), REPLACE_EXISTING);
-        waitForUpdate(processors, plugins, collision, path);
-        
-        assertEquals("Add collision", 1, collision.size());
-        
-        
-        //Remove collision
-        copy(get(REM_COLLISION_UPDATES_FILE), get(UPDATES_FILE), REPLACE_EXISTING);
-        waitForUpdate(processors, plugins, collision, path);
-        
-        assertEquals("No collision", 0, collision.size());
-        
-        //Remove AI
-        copy(get(REM_AI_UPDATES_FILE), get(UPDATES_FILE), REPLACE_EXISTING);
-        waitForUpdate(processors, plugins, collision, path);
-        
-        assertEquals("No AI", 0, path.size());
-        
-        //Remove enemy
-        copy(get(REM_ENEMY_UPDATES_FILE), get(UPDATES_FILE), REPLACE_EXISTING);
-        waitForUpdate(processors, plugins, collision, path);
-        
-        assertEquals("No enemy plugin", 3, plugins.size());
-        assertEquals("No enemy processor", 7, processors.size());
-        
-        
+//        
+//        List<IEntityProcessingService> processors = new CopyOnWriteArrayList<>();
+//        List<IGamePluginService> plugins = new CopyOnWriteArrayList<>();
+//        List<IStandardCollisionService> collision = new CopyOnWriteArrayList<>();
+//        List<IPathFinderService> path = new CopyOnWriteArrayList<>();
+//        
+//        waitForUpdate(processors, plugins, collision, path);
+//        
+//        //Add enemy
+//        copy(get(ADD_ENEMY_UPDATES_FILE), get(UPDATES_FILE), REPLACE_EXISTING);
+//        waitForUpdate(processors, plugins, collision, path);
+//        
+//        assertEquals("Add enemy plugin", 4, plugins.size());
+//        assertEquals("Add enemy processor", 8, processors.size());
+//        
+//        //Add AI
+//        copy(get(ADD_AI_UPDATES_FILE), get(UPDATES_FILE), REPLACE_EXISTING);
+//        waitForUpdate(processors, plugins, collision, path);
+//        
+//        assertEquals("Add AI", 1, path.size());
+//        
+//        //Add collision
+//        copy(get(ADD_COLLISION_UPDATES_FILE), get(UPDATES_FILE), REPLACE_EXISTING);
+//        waitForUpdate(processors, plugins, collision, path);
+//        
+//        assertEquals("Add collision", 1, collision.size());
+//        
+//        
+//        //Remove collision
+//        copy(get(REM_COLLISION_UPDATES_FILE), get(UPDATES_FILE), REPLACE_EXISTING);
+//        waitForUpdate(processors, plugins, collision, path);
+//        
+//        assertEquals("No collision", 0, collision.size());
+//        
+//        //Remove AI
+//        copy(get(REM_AI_UPDATES_FILE), get(UPDATES_FILE), REPLACE_EXISTING);
+//        waitForUpdate(processors, plugins, collision, path);
+//        
+//        assertEquals("No AI", 0, path.size());
+//        
+//        //Remove enemy
+//        copy(get(REM_ENEMY_UPDATES_FILE), get(UPDATES_FILE), REPLACE_EXISTING);
+//        waitForUpdate(processors, plugins, collision, path);
+//        
+//        assertEquals("No enemy plugin", 3, plugins.size());
+//        assertEquals("No enemy processor", 7, processors.size());
+//        
+//        
+//        
     }
     
     private void waitForUpdate(List<IEntityProcessingService> processors, List<IGamePluginService> plugins, 

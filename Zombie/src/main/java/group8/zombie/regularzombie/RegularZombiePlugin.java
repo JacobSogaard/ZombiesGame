@@ -9,6 +9,7 @@ import group8.zombie.bigzombie.*;
 import group8.common.data.Entity;
 import group8.common.data.GameData;
 import group8.common.data.World;
+import group8.common.data.entityparts.DamagePart;
 import group8.common.data.entityparts.LifePart;
 import group8.common.data.entityparts.MovingPart;
 import group8.common.data.entityparts.PositionPart;
@@ -59,7 +60,7 @@ public class RegularZombiePlugin implements IEnemyPluginService {
         Zombie regularZombie = new RegularZombie(Rating.THREE);
         regularZombie.add(new MovingPart(speed));
         regularZombie.add(new PositionPart(x, y, 0));
-        
+        regularZombie.add(new DamagePart(2));
         regularZombie.add(new LifePart(4));
 
         regularZombie.setImagePath(RegularZombieSpritePath.UP);

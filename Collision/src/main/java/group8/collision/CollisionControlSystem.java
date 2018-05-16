@@ -4,6 +4,7 @@
 package group8.collision;
 
 import group8.common.data.Entity;
+import group8.common.data.EntityType;
 import group8.common.data.GameData;
 import group8.common.data.World;
 import group8.common.data.entityparts.MovingPart;
@@ -88,7 +89,9 @@ public class CollisionControlSystem implements IStandardCollisionService, IMoveC
         //entity1 is an entity calling to see if they have made a collision. 
         for (Entity entityOnTheMap : objectsList) {
             Rectangle entity2 = getEntityRect(entityOnTheMap);
-
+            if (entity.getType() == EntityType.ZOMBIE && entityOnTheMap.getType() == EntityType.WEAPON) {
+                break;
+            }
             //Rectangle intersectioRectangle = rectangleIntersection(rectangle, entity2); 
             if (rectangleIntersection(entityA, entity2)) {
                 try {
@@ -114,7 +117,9 @@ public class CollisionControlSystem implements IStandardCollisionService, IMoveC
         //entity1 is an entity calling to see if they have made a collision. 
         for (Entity entityOnTheMap : objectsList) {
             Rectangle entity2 = getEntityRect(entityOnTheMap);
-
+           if (entity.getType() == EntityType.ZOMBIE && entityOnTheMap.getType() == EntityType.WEAPON) {
+                break;
+            }
             //Rectangle intersectioRectangle = rectangleIntersection(rectangle, entity2); 
             if (rectangleIntersection(rectangle, entity2)) {
                 try {
