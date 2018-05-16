@@ -8,6 +8,7 @@ package group8.player;
 import group8.common.data.Entity;
 import group8.common.data.GameData;
 import group8.common.data.World;
+import group8.common.data.entityparts.LifePart;
 import group8.common.data.entityparts.MovingPart;
 import group8.common.data.entityparts.PositionPart;
 import group8.common.data.entityparts.TimerPart;
@@ -51,6 +52,7 @@ public class PlayerPlugin implements IGamePluginService, IPlayerService {
         playerRectangle.add(new MovingPart(speed));
         playerRectangle.add(new PositionPart(x, y, radians));
         playerRectangle.add(new TimerPart(0));
+        playerRectangle.add(new LifePart(50));
         playerRectangle.setImagePath(sp.UP);
         
         float[] shapex = new float[4];

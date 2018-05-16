@@ -7,6 +7,7 @@ package group8.zombie.bigzombie;
 
 import group8.common.data.GameData;
 import group8.common.data.World;
+import group8.common.data.entityparts.DamagePart;
 import group8.common.data.entityparts.LifePart;
 import group8.common.data.entityparts.MovingPart;
 import group8.common.data.entityparts.PositionPart;
@@ -56,6 +57,7 @@ public class BigZombiePlugin implements IEnemyPluginService {
         bigZombie.add(new MovingPart(speed));
         bigZombie.add(new PositionPart(x, y, 0));
         bigZombie.add(new LifePart(8));
+        bigZombie.add(new DamagePart(2));
         bigZombie.setImagePath(BigZombieSpritePath.UP);
 
         float[] shapex = new float[4];

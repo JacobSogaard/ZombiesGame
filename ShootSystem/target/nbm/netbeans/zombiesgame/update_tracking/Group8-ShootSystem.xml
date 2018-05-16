@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><module codename="Group8.ShootSystem">
-    <module_version install_time="1526390139828" last="true" origin="installer" specification_version="1.0">
+    <module_version install_time="1526478024858" last="true" origin="installer" specification_version="1.0">
         <file crc="4000579750" name="config/Modules/Group8-ShootSystem.xml"/>
-        <file crc="3450024568" name="modules/Group8-ShootSystem.jar"/>
+        <file crc="2107532757" name="modules/Group8-ShootSystem.jar"/>
     </module_version>
 </module>
