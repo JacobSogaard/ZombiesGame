@@ -5,8 +5,6 @@
  */
 package group8.zombie.regularzombie;
 
-import group8.zombie.bigzombie.*;
-
 /**
  *
  * @author jacob

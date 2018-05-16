@@ -5,7 +5,6 @@
  */
 package group8.bullet;
 
-import static group8.bullet.SpritePath.UP;
 import group8.common.bulletcreationservice.ILoadBulletService;
 import group8.common.data.Entity;
 import group8.common.data.GameData;
@@ -15,12 +14,9 @@ import group8.common.data.entityparts.LifePart;
 import group8.common.data.entityparts.MovingPart;
 import group8.common.data.entityparts.PositionPart;
 import group8.common.data.entityparts.TimerPart;
-import group8.common.services.IEntityProcessingService;
 import group8.common.services.IGamePluginService;
 import group8.common.services.IShootService;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Map;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
 

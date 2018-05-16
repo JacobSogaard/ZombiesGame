@@ -5,9 +5,6 @@
  */
 package group8.common.bulletcreationservice;
 
-import group8.common.data.Entity;
-import java.util.Map;
-
 /**
  *
  * @author MER

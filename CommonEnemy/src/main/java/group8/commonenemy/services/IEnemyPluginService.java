@@ -7,7 +7,6 @@ package group8.commonenemy.services;
 
 import group8.common.data.GameData;
 import group8.common.data.World;
-import group8.common.services.IGamePluginService;
 import group8.commonenemy.enemy.Rating;
 
 /**

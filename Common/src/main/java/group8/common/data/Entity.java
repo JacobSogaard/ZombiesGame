@@ -2,7 +2,6 @@ package group8.common.data;
 
 import group8.common.data.entityparts.EntityPart;
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;

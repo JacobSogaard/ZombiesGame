@@ -5,8 +5,6 @@
  */
 package group8.zombie.regularzombie;
 
-import group8.zombie.bigzombie.*;
-import group8.common.data.Entity;
 import group8.common.data.GameData;
 import group8.common.data.World;
 import group8.common.data.entityparts.DamagePart;
@@ -14,8 +12,6 @@ import group8.common.data.entityparts.LifePart;
 import group8.common.data.entityparts.MovingPart;
 import group8.common.data.entityparts.PositionPart;
 import group8.commonenemy.services.IEnemyPluginService;
-import group8.common.services.IEntityProcessingService;
-import group8.common.services.IGamePluginService;
 import group8.common.services.ISpawnService;
 import group8.commonenemy.enemy.Enemy;
 import group8.commonenemy.enemy.Rating;

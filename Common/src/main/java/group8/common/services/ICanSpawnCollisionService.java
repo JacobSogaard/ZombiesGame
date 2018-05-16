@@ -6,7 +6,6 @@
 package group8.common.services;
 
 import group8.common.data.Entity;
-import group8.common.data.World;
 
 /**
  *

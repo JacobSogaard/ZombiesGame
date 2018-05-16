@@ -10,9 +10,6 @@ import group8.common.data.EntityType;
 import group8.common.data.GameData;
 import group8.common.data.World;
 import group8.common.services.IEntityProcessingService;
-import group8.commonenemy.enemy.Enemy;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
 

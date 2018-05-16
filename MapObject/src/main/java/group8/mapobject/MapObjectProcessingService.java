@@ -11,7 +11,6 @@ import group8.common.data.GameData;
 import group8.common.data.World;
 import group8.common.data.entityparts.PositionPart;
 import group8.common.services.IEntityProcessingService;
-import java.util.ArrayList;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
 

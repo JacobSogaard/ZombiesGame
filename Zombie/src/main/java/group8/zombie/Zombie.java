@@ -13,7 +13,6 @@ import group8.common.playercommon.IPlayerService;
 import group8.commonenemy.enemy.Enemy;
 import group8.commonenemy.enemy.EntityDamage;
 import group8.commonenemy.enemy.Rating;
-import group8.commonenemy.services.IPathFinderService;
 import java.util.Random;
 import org.openide.util.Lookup;
 

@@ -5,22 +5,15 @@
  */
 package group8.enemywave;
 
-import group8.common.data.Entity;
-import group8.common.data.EntityType;
 import group8.common.data.GameData;
 import group8.common.data.World;
 import group8.commonenemy.services.IEnemyPluginService;
-import group8.common.services.IGamePluginService;
-import group8.commonenemy.enemy.Enemy;
 import group8.commonenemy.enemy.Rating;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.Random;
 import org.openide.util.Lookup;
-import org.openide.util.LookupEvent;
-import org.openide.util.LookupListener;
 
 /**
  *

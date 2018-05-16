@@ -13,7 +13,6 @@ import group8.common.data.entityparts.MovingPart;
 import group8.common.data.entityparts.PositionPart;
 import group8.common.data.entityparts.TimerPart;
 import group8.common.services.IEntityProcessingService;
-import group8.common.services.IMoveCollisionService;
 import group8.common.services.IStandardCollisionService;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;

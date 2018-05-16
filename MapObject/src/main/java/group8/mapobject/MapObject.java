@@ -9,7 +9,6 @@ import group8.common.data.Entity;
 import group8.common.data.EntityType;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.Random;
 
 /**

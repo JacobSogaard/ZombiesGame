@@ -8,7 +8,6 @@ package group8.weapon;
 import group8.common.data.Entity;
 import group8.common.data.GameData;
 import group8.common.data.World;
-import group8.common.data.entityparts.DamagePart;
 import group8.common.data.entityparts.MovingPart;
 import group8.common.data.entityparts.PositionPart;
 import group8.common.services.IGamePluginService;

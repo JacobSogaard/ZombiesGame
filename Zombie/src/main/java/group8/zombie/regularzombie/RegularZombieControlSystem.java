@@ -5,7 +5,6 @@
  */
 package group8.zombie.regularzombie;
 
-import group8.zombie.bigzombie.*;
 import group8.common.data.Entity;
 import group8.common.data.GameData;
 import group8.common.data.GameKeys;
@@ -13,11 +12,8 @@ import group8.common.data.World;
 import group8.common.data.entityparts.MovingPart;
 import group8.common.data.entityparts.PositionPart;
 import group8.common.services.IEntityProcessingService;
-import group8.common.services.IGamePluginService;
 import group8.common.services.IMoveCollisionService;
 import group8.commonenemy.services.IPathFinderService;
-import group8.zombie.smallzombie.SmallZombieSpritePath;
-import group8.zombie.Zombie;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;

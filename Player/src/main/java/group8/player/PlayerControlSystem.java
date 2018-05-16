@@ -16,7 +16,6 @@ import group8.common.data.entityparts.TimerPart;
 import group8.common.services.IMoveCollisionService;
 import group8.common.services.IShootService;
 import group8.common.services.IWeaponService;
-import java.util.Arrays;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
