@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <!DOCTYPE module_updates PUBLIC "-//NetBeans//DTD Autoupdate Catalog 2.5//EN" "http://www.netbeans.org/dtds/autoupdate-catalog-2_5.dtd">
-<module_updates timestamp="08/09/10/15/05/2018">
+<module_updates timestamp="50/51/20/16/05/2018">
 
 
 
-<!--
-<module codenamebase="Group8.AI" distribution="AI-1.0-SNAPSHOT.nbm" downloadsize="8223" license="B2517D31" needsrestart="false" releasedate="2018/05/15" targetcluster="zombiesgame">
+<module codenamebase="Group8.AI" distribution="AI-1.0-SNAPSHOT.nbm" downloadsize="8147" license="B2517D31" needsrestart="false" releasedate="2018/05/15" targetcluster="zombiesgame">
     <manifest OpenIDE-Module="Group8.AI" OpenIDE-Module-Display-Category="Group8" OpenIDE-Module-Implementation-Version="1.0-20180515" OpenIDE-Module-Long-Description="&lt;undefined&gt;" OpenIDE-Module-Module-Dependencies="org.netbeans.api.annotations.common/1 &gt; 1.27.1, Group8.Common &gt; 1.0, Group8.CommonEnemy &gt; 1.0, org.openide.util.lookup &gt; 8.33.1" OpenIDE-Module-Name="AI" OpenIDE-Module-Requires="org.openide.modules.ModuleFormat1" OpenIDE-Module-Short-Description="&lt;undefined&gt;" OpenIDE-Module-Specification-Version="1.0"/>
     
 </module>
--->
 
 <module codenamebase="org.openide.util" distribution="org-openide-util-RELEASE82.nbm" downloadsize="164990" homepage="http://www.netbeans.org/" license="14E6055" moduleauthor="" needsrestart="false" releasedate="2016/09/30" targetcluster="platform">
     <manifest AutoUpdate-Show-In-Client="false" OpenIDE-Module="org.openide.util" OpenIDE-Module-Display-Category="Infrastructure" OpenIDE-Module-Implementation-Version="201609300101" OpenIDE-Module-Java-Dependencies="Java &gt; 1.6" OpenIDE-Module-Long-Description="Various helper methods and basic concept definitions including lookup, parallel execution and branding support." OpenIDE-Module-Module-Dependencies="org.openide.util.lookup &gt; 8.14" OpenIDE-Module-Name="Base Utilities API" OpenIDE-Module-Short-Description="Base Utilities API." OpenIDE-Module-Specification-Version="9.7.1"/>
@@ -22,14 +20,12 @@
     
 </module>
 
-<!--
-<module codenamebase="Group8.Collision" distribution="Collision-1.0-SNAPSHOT.nbm" downloadsize="6667" license="B2517D31" needsrestart="false" releasedate="2018/05/15" targetcluster="zombiesgame">
+<module codenamebase="Group8.Collision" distribution="Collision-1.0-SNAPSHOT.nbm" downloadsize="6690" license="B2517D31" needsrestart="false" releasedate="2018/05/15" targetcluster="zombiesgame">
     <manifest OpenIDE-Module="Group8.Collision" OpenIDE-Module-Display-Category="Group8" OpenIDE-Module-Implementation-Version="1.0-20180515" OpenIDE-Module-Long-Description="&lt;undefined&gt;" OpenIDE-Module-Module-Dependencies="org.netbeans.api.annotations.common/1 &gt; 1.27.1, org.openide.util.lookup &gt; 8.33.1, Group8.Common &gt; 1.0" OpenIDE-Module-Name="Collision" OpenIDE-Module-Requires="org.openide.modules.ModuleFormat1" OpenIDE-Module-Short-Description="&lt;undefined&gt;" OpenIDE-Module-Specification-Version="1.0"/>
     
 </module>
--->
 
-<module codenamebase="Group8.Common" distribution="Common-1.0-SNAPSHOT.nbm" downloadsize="16969" license="B2517D31" needsrestart="false" releasedate="2018/05/15" targetcluster="zombiesgame">
+<module codenamebase="Group8.Common" distribution="Common-1.0-SNAPSHOT.nbm" downloadsize="16916" license="B2517D31" needsrestart="false" releasedate="2018/05/15" targetcluster="zombiesgame">
     <manifest OpenIDE-Module="Group8.Common" OpenIDE-Module-Display-Category="Group8" OpenIDE-Module-Implementation-Version="1.0-20180515" OpenIDE-Module-Long-Description="&lt;undefined&gt;" OpenIDE-Module-Module-Dependencies="org.netbeans.api.annotations.common/1 &gt; 1.27.1, org.openide.util.lookup &gt; 8.33.1" OpenIDE-Module-Name="Common" OpenIDE-Module-Requires="org.openide.modules.ModuleFormat1" OpenIDE-Module-Short-Description="&lt;undefined&gt;" OpenIDE-Module-Specification-Version="1.0"/>
     
 </module>
@@ -39,29 +35,27 @@
     
 </module>
 
-<module codenamebase="Group8.CommonEnemy" distribution="CommonEnemy-1.0-SNAPSHOT.nbm" downloadsize="6143" license="B2517D31" needsrestart="false" releasedate="2018/05/15" targetcluster="zombiesgame">
+<module codenamebase="Group8.CommonEnemy" distribution="CommonEnemy-1.0-SNAPSHOT.nbm" downloadsize="6156" license="B2517D31" needsrestart="false" releasedate="2018/05/15" targetcluster="zombiesgame">
     <manifest OpenIDE-Module="Group8.CommonEnemy" OpenIDE-Module-Display-Category="Group8" OpenIDE-Module-Implementation-Version="1.0-20180515" OpenIDE-Module-Long-Description="&lt;undefined&gt;" OpenIDE-Module-Module-Dependencies="org.netbeans.api.annotations.common/1 &gt; 1.27.1, Group8.Common &gt; 1.0, org.openide.util.lookup &gt; 8.33.1" OpenIDE-Module-Name="CommonEnemy" OpenIDE-Module-Requires="org.openide.modules.ModuleFormat1" OpenIDE-Module-Short-Description="&lt;undefined&gt;" OpenIDE-Module-Specification-Version="1.0"/>
     
 </module>
 
-<module codenamebase="Group8.Core" distribution="Core-1.0-SNAPSHOT.nbm" downloadsize="10211328" license="B2517D31" needsrestart="false" releasedate="2018/05/15" targetcluster="zombiesgame">
+<module codenamebase="Group8.Core" distribution="Core-1.0-SNAPSHOT.nbm" downloadsize="10208640" license="B2517D31" needsrestart="false" releasedate="2018/05/15" targetcluster="zombiesgame">
     <manifest OpenIDE-Module="Group8.Core" OpenIDE-Module-Display-Category="Group8" OpenIDE-Module-Implementation-Version="1.0-20180515" OpenIDE-Module-Long-Description="&lt;undefined&gt;" OpenIDE-Module-Module-Dependencies="org.netbeans.api.annotations.common/1 &gt; 1.27.1, org.openide.modules &gt; 7.48.1, org.openide.util &gt; 9.7.1, org.openide.util.lookup &gt; 8.33.1, Group8.Common &gt; 1.0" OpenIDE-Module-Name="Core" OpenIDE-Module-Requires="org.openide.modules.ModuleFormat1" OpenIDE-Module-Short-Description="&lt;undefined&gt;" OpenIDE-Module-Specification-Version="1.0"/>
     
 </module>
 
-<!--
-<module codenamebase="Group8.EnemyWave" distribution="EnemyWave-1.0-SNAPSHOT.nbm" downloadsize="8185" license="B2517D31" needsrestart="false" releasedate="2018/05/15" targetcluster="zombiesgame">
+<module codenamebase="Group8.EnemyWave" distribution="EnemyWave-1.0-SNAPSHOT.nbm" downloadsize="8081" license="B2517D31" needsrestart="false" releasedate="2018/05/15" targetcluster="zombiesgame">
     <manifest OpenIDE-Module="Group8.EnemyWave" OpenIDE-Module-Display-Category="Group8" OpenIDE-Module-Implementation-Version="1.0-20180515" OpenIDE-Module-Long-Description="&lt;undefined&gt;" OpenIDE-Module-Module-Dependencies="org.netbeans.api.annotations.common/1 &gt; 1.27.1, Group8.Common &gt; 1.0, org.openide.util.lookup &gt; 8.33.1, Group8.CommonEnemy &gt; 1.0" OpenIDE-Module-Name="EnemyWave" OpenIDE-Module-Requires="org.openide.modules.ModuleFormat1" OpenIDE-Module-Short-Description="&lt;undefined&gt;" OpenIDE-Module-Specification-Version="1.0"/>
     
 </module>
--->
 
 <module codenamebase="org.openide.filesystems" distribution="org-openide-filesystems-RELEASE82.nbm" downloadsize="222399" homepage="http://www.netbeans.org/" license="14E6055" moduleauthor="" needsrestart="false" releasedate="2016/09/30" targetcluster="platform">
     <manifest AutoUpdate-Show-In-Client="false" OpenIDE-Module="org.openide.filesystems" OpenIDE-Module-Display-Category="Infrastructure" OpenIDE-Module-Implementation-Version="201609300101" OpenIDE-Module-Java-Dependencies="Java &gt; 1.8" OpenIDE-Module-Long-Description="Allows access to file like resources in a way independent on actual OS files. Supports notification of changes on disk." OpenIDE-Module-Module-Dependencies="org.openide.util &gt; 9.3, org.openide.util.lookup &gt; 8.17" OpenIDE-Module-Name="File System API" OpenIDE-Module-Requires="org.openide.modules.ModuleFormat1" OpenIDE-Module-Short-Description="Virtual File System API." OpenIDE-Module-Specification-Version="9.10.1"/>
     
 </module>
 
-<module codenamebase="Group8.HealthSystem" distribution="HealthSystem-1.0-SNAPSHOT.nbm" downloadsize="4848" license="B2517D31" needsrestart="false" releasedate="2018/05/15" targetcluster="zombiesgame">
+<module codenamebase="Group8.HealthSystem" distribution="HealthSystem-1.0-SNAPSHOT.nbm" downloadsize="4690" license="B2517D31" needsrestart="false" releasedate="2018/05/15" targetcluster="zombiesgame">
     <manifest OpenIDE-Module="Group8.HealthSystem" OpenIDE-Module-Display-Category="Group8" OpenIDE-Module-Implementation-Version="1.0-20180515" OpenIDE-Module-Long-Description="&lt;undefined&gt;" OpenIDE-Module-Module-Dependencies="org.netbeans.api.annotations.common/1 &gt; 1.27.1, Group8.Common &gt; 1.0" OpenIDE-Module-Name="HealthSystem" OpenIDE-Module-Requires="org.openide.modules.ModuleFormat1" OpenIDE-Module-Short-Description="&lt;undefined&gt;" OpenIDE-Module-Specification-Version="1.0"/>
     
 </module>
@@ -71,7 +65,7 @@
     
 </module>
 
-<module codenamebase="Group8.MapObject" distribution="MapObject-1.0-SNAPSHOT.nbm" downloadsize="1606345" license="B2517D31" needsrestart="false" releasedate="2018/05/15" targetcluster="zombiesgame">
+<module codenamebase="Group8.MapObject" distribution="MapObject-1.0-SNAPSHOT.nbm" downloadsize="1606348" license="B2517D31" needsrestart="false" releasedate="2018/05/15" targetcluster="zombiesgame">
     <manifest OpenIDE-Module="Group8.MapObject" OpenIDE-Module-Display-Category="Group8" OpenIDE-Module-Implementation-Version="1.0-20180515" OpenIDE-Module-Long-Description="&lt;undefined&gt;" OpenIDE-Module-Module-Dependencies="org.netbeans.api.annotations.common/1 &gt; 1.27.1, Group8.Common &gt; 1.0, org.openide.util.lookup &gt; 8.33.1" OpenIDE-Module-Name="MapObject" OpenIDE-Module-Requires="org.openide.modules.ModuleFormat1" OpenIDE-Module-Short-Description="&lt;undefined&gt;" OpenIDE-Module-Specification-Version="1.0"/>
     
 </module>
@@ -86,12 +80,12 @@
     
 </module>
 
-<module codenamebase="Group8.Player" distribution="Player-1.0-SNAPSHOT.nbm" downloadsize="125423" license="B2517D31" needsrestart="false" releasedate="2018/05/15" targetcluster="zombiesgame">
+<module codenamebase="Group8.Player" distribution="Player-1.0-SNAPSHOT.nbm" downloadsize="125451" license="B2517D31" needsrestart="false" releasedate="2018/05/15" targetcluster="zombiesgame">
     <manifest OpenIDE-Module="Group8.Player" OpenIDE-Module-Display-Category="Group8" OpenIDE-Module-Implementation-Version="1.0-20180515" OpenIDE-Module-Long-Description="&lt;undefined&gt;" OpenIDE-Module-Module-Dependencies="org.netbeans.api.annotations.common/1 &gt; 1.27.1, org.openide.util.lookup &gt; 8.33.1, Group8.Common &gt; 1.0" OpenIDE-Module-Name="Player" OpenIDE-Module-Requires="org.openide.modules.ModuleFormat1" OpenIDE-Module-Short-Description="&lt;undefined&gt;" OpenIDE-Module-Specification-Version="1.0"/>
     
 </module>
 
-<module codenamebase="Group8.ShootSystem" distribution="ShootSystem-1.0-SNAPSHOT.nbm" downloadsize="9150" license="B2517D31" needsrestart="false" releasedate="2018/05/15" targetcluster="zombiesgame">
+<module codenamebase="Group8.ShootSystem" distribution="ShootSystem-1.0-SNAPSHOT.nbm" downloadsize="9220" license="B2517D31" needsrestart="false" releasedate="2018/05/15" targetcluster="zombiesgame">
     <manifest OpenIDE-Module="Group8.ShootSystem" OpenIDE-Module-Display-Category="Group8" OpenIDE-Module-Implementation-Version="1.0-20180515" OpenIDE-Module-Long-Description="&lt;undefined&gt;" OpenIDE-Module-Module-Dependencies="org.netbeans.api.annotations.common/1 &gt; 1.27.1, Group8.Common &gt; 1.0, org.openide.util.lookup &gt; 8.33.1" OpenIDE-Module-Name="ShootSystem" OpenIDE-Module-Requires="org.openide.modules.ModuleFormat1" OpenIDE-Module-Short-Description="&lt;undefined&gt;" OpenIDE-Module-Specification-Version="1.0"/>
     
 </module>
@@ -111,17 +105,15 @@
     
 </module>
 
-<module codenamebase="Group8.Weapon" distribution="Weapon-1.0-SNAPSHOT.nbm" downloadsize="7603" license="B2517D31" needsrestart="false" releasedate="2018/05/15" targetcluster="zombiesgame">
+<module codenamebase="Group8.Weapon" distribution="Weapon-1.0-SNAPSHOT.nbm" downloadsize="7624" license="B2517D31" needsrestart="false" releasedate="2018/05/15" targetcluster="zombiesgame">
     <manifest OpenIDE-Module="Group8.Weapon" OpenIDE-Module-Display-Category="Group8" OpenIDE-Module-Implementation-Version="1.0-20180515" OpenIDE-Module-Long-Description="&lt;undefined&gt;" OpenIDE-Module-Module-Dependencies="org.netbeans.api.annotations.common/1 &gt; 1.27.1, Group8.Common &gt; 1.0, org.openide.util.lookup &gt; 8.33.1" OpenIDE-Module-Name="Weapon" OpenIDE-Module-Requires="org.openide.modules.ModuleFormat1" OpenIDE-Module-Short-Description="&lt;undefined&gt;" OpenIDE-Module-Specification-Version="1.0"/>
     
 </module>
 
-<!--
-<module codenamebase="Group8.Zombie" distribution="Zombie-1.0-SNAPSHOT.nbm" downloadsize="19297" license="B2517D31" needsrestart="false" releasedate="2018/05/15" targetcluster="zombiesgame">
+<module codenamebase="Group8.Zombie" distribution="Zombie-1.0-SNAPSHOT.nbm" downloadsize="19371" license="B2517D31" needsrestart="false" releasedate="2018/05/15" targetcluster="zombiesgame">
     <manifest OpenIDE-Module="Group8.Zombie" OpenIDE-Module-Display-Category="Group8" OpenIDE-Module-Implementation-Version="1.0-20180515" OpenIDE-Module-Long-Description="&lt;undefined&gt;" OpenIDE-Module-Module-Dependencies="org.netbeans.api.annotations.common/1 &gt; 1.27.1, Group8.CommonEnemy &gt; 1.0, Group8.Common &gt; 1.0, org.openide.util.lookup &gt; 8.33.1" OpenIDE-Module-Name="Zombie" OpenIDE-Module-Requires="org.openide.modules.ModuleFormat1" OpenIDE-Module-Short-Description="&lt;undefined&gt;" OpenIDE-Module-Specification-Version="1.0"/>
     
 </module>
--->
 
 <license name="B2517D31">Copyright  2018
 -----------------------------------------------------
