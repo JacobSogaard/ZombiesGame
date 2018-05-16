@@ -21,6 +21,7 @@ import org.openide.util.lookup.ServiceProviders;
 /**
  * Player control system. Handles the movement of the player. Extends the
  * IEntityProcessingService.
+ *
  * @author group 8
  */
 public class PlayerControlSystem implements IEntityProcessingService {
@@ -76,7 +77,7 @@ public class PlayerControlSystem implements IEntityProcessingService {
 
                 andDown = true;
             }
-            
+
             //Left
             if (gameData.getKeys().isDown(GameKeys.LEFT)) {
                 player.setImagePath(sp.LEFT);
@@ -132,9 +133,17 @@ public class PlayerControlSystem implements IEntityProcessingService {
 
             //Change weapon
             if (gameData.getKeys().isDown(GameKeys.SHIFT)) {
-                lookup.lookup(IWeaponService.class).changeWeapon();
+                try {
+                    lookup.lookup(IWeaponService.class).changeWeapon();
+                } catch (NullPointerException e) {
+                    System.out.println("weapon");
+                }
             }
-            lookup.lookup(IWeaponService.class).setWeaponDirection(player, world);
+            try {
+                lookup.lookup(IWeaponService.class).setWeaponDirection(player, world);
+            } catch (NullPointerException e) {
+                
+            }
 
             movingPart.process(gameData, player);
             positionPart.process(gameData, player);
