@@ -139,7 +139,6 @@ public class RegularZombieControlSystem implements IEntityProcessingService {
 
         float x = positionPart.getX();
         float y = positionPart.getY();
-        //float radians = positionPart.getRadians();
 
         //here we draw a rectangle for the zombie
         shapex[0] = (float) (x);

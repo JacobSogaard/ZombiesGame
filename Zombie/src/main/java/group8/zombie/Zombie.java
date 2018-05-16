@@ -6,7 +6,6 @@ import group8.common.data.GameData;
 import group8.common.data.entityparts.PositionPart;
 import group8.common.playercommon.IPlayerService;
 import group8.commonenemy.enemy.Enemy;
-import group8.commonenemy.enemy.EntityDamage;
 import group8.commonenemy.enemy.Rating;
 import java.util.Random;
 import org.openide.util.Lookup;
@@ -18,7 +17,6 @@ import org.openide.util.Lookup;
  */
 public abstract class Zombie extends Enemy {
 
-    private EntityDamage damage;
     private Random r = new Random();
 
     public Zombie(Rating rating) {
@@ -97,7 +95,7 @@ public abstract class Zombie extends Enemy {
             Random r = new Random();
             float x = r.nextFloat() * (gameData.getDisplayWidth() / 2) - 1;
             float y = r.nextFloat() * (gameData.getDisplayHeight() / 2) - 1;
-            PositionPart pos = new PositionPart(x, y, 0);
+            PositionPart pos = new PositionPart(x, y);
             player = new Entity();
             player.add(pos);
         }

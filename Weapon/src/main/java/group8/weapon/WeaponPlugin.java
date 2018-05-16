@@ -12,8 +12,7 @@ import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
 
 @ServiceProviders(value = {
-    @ServiceProvider(service = IGamePluginService.class)
-    ,
+    @ServiceProvider(service = IGamePluginService.class),
     @ServiceProvider(service = IWeaponService.class)
 })
 
@@ -50,11 +49,10 @@ public class WeaponPlugin implements IGamePluginService, IWeaponService {
      
         float x = playerPosition.getX();
         float y = playerPosition.getY();
-        float radians = 3.1415f / 2;
 
         this.weapon.setHeight(50);
         this.weapon.setWidth(50);
-        this.weapon.add(new PositionPart(x, y, radians));
+        this.weapon.add(new PositionPart(x, y));
         this.weapon.add(new MovingPart(0));
         if (this.weapon.getImagePath() == null) {
             this.weapon.setImagePath(this.weaponMap.get(key)[1]);

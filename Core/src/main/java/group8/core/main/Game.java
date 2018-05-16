@@ -125,6 +125,15 @@ public class Game implements ApplicationListener {
                 this.setCamFollowPlayer(part);
                 
             } 
+            
+            //Used to spawn new wave of enemies.
+            boolean hasRemoved = false;
+            if (e.getType() == EntityType.ZOMBIE && gameData.getKeys().isDown(GameKeys.ENTER) && !hasRemoved){
+                world.removeEntity(e);
+                hasRemoved = true;
+                
+            }
+
 
             //If player module is onloaded, sets camera in the middle of screen
             if(!hasPlayer) {

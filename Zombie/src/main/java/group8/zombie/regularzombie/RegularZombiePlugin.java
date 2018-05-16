@@ -58,7 +58,7 @@ public class RegularZombiePlugin implements IEnemyPluginService {
 
         Zombie regularZombie = new RegularZombie(Rating.THREE);
         regularZombie.add(new MovingPart(speed));
-        regularZombie.add(new PositionPart(x, y, 0));
+        regularZombie.add(new PositionPart(x, y));
         regularZombie.add(new DamagePart(2));
         regularZombie.add(new LifePart(4));
 

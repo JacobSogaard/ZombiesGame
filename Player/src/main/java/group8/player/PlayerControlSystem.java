@@ -57,7 +57,6 @@ public class PlayerControlSystem implements IEntityProcessingService {
 
             //Up
             if (gameData.getKeys().isDown(GameKeys.UP)) {
-                positionPart.setRadians(0);
                 player.setImagePath(sp.UP);
                 direction = 0;
                 if (!upCol) {
@@ -160,7 +159,6 @@ public class PlayerControlSystem implements IEntityProcessingService {
 
         float x = positionPart.getX();
         float y = positionPart.getY();
-        //float radians = positionPart.getRadians();
 
         //here we draw a rectangle for the player
         shapex[0] = (float) (x);

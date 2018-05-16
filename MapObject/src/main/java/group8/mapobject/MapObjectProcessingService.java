@@ -36,7 +36,7 @@ public class MapObjectProcessingService implements IEntityProcessingService {
 
         float x = positionPart.getX();
         float y = positionPart.getY();
-        //float radians = positionPart.getRadians();
+        
 
         //here we draw a rectangle for the player
         shapex[0] = (float) (x);

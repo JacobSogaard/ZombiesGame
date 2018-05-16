@@ -59,12 +59,11 @@ public class BulletPlugin implements IGamePluginService, IShootService, ILoadBul
         MovingPart movingPart = shooter.getPart(MovingPart.class);
         float x = positionPart.getX();
         float y = positionPart.getY();
-        float radians = 3.1415f / 2;
-
+        
         this.bullet = new Bullet();
         this.bullet.setWidth(40);
         this.bullet.setHeight(40);
-        this.bullet.add(new PositionPart(x, y, radians));
+        this.bullet.add(new PositionPart(x, y));
         this.bullet.add(new MovingPart(10));
         this.bullet.add(new TimerPart(80));
         this.bullet.add(new DamagePart(2));

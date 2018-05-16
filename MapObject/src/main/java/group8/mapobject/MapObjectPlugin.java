@@ -1,7 +1,5 @@
 package group8.mapobject;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import group8.common.data.Entity;
 import group8.common.data.GameData;
 import group8.common.data.World;
@@ -10,13 +8,7 @@ import group8.common.data.entityparts.PositionPart;
 import group8.common.mapcommon.IMapCollision;
 import group8.common.services.IGamePluginService;
 import group8.common.services.ISpawnService;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
@@ -61,7 +53,7 @@ public class MapObjectPlugin implements IGamePluginService, IMapCollision {
         //Change end condition to wanted number of mapobjects.
         for (int i = 0; i <= 10; i++) {
             MapObject map = new MapObject();
-            map.add(new PositionPart(map.getXCoor(), map.getYCoor(), 0));
+            map.add(new PositionPart(map.getXCoor(), map.getYCoor()));
             map.add(new MovingPart(0));
             map = this.initMap(map);
             

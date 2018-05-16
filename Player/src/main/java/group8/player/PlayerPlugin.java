@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 
-=======
->>>>>>> f5c0b6287cbad80221859ea7ecfa71d1ef4b210f
 package group8.player;
 
 import group8.common.data.Entity;
@@ -22,14 +19,10 @@ import org.openide.util.lookup.ServiceProviders;
     @ServiceProvider(service = IPlayerService.class)
 })
 /**
-<<<<<<< HEAD
- *
  * @author group8
-=======
  * Plugin class for player, handles instantiation of a player entity. Implements the 
  * IGamePluginService and IPlayerService
  * @author group 8
->>>>>>> f5c0b6287cbad80221859ea7ecfa71d1ef4b210f
  */
 public class PlayerPlugin implements IGamePluginService, IPlayerService {
     
@@ -47,7 +40,6 @@ public class PlayerPlugin implements IGamePluginService, IPlayerService {
         world.removeEntity(player);
     }
     
-<<<<<<< HEAD
     /**
      * Method used for creating a player.
      * Uses gamedata to calculate the middle of the map, 
@@ -55,10 +47,6 @@ public class PlayerPlugin implements IGamePluginService, IPlayerService {
      * @param gameData
      * @return Player entity. 
      */
-=======
-    //Method to create player. Sets all entityparts and shapes.
-    //Return the newly created entity
->>>>>>> f5c0b6287cbad80221859ea7ecfa71d1ef4b210f
     public Entity createPlayer(GameData gameData) {
         float speed = 3;
         float x = gameData.getDisplayWidth() / 2;

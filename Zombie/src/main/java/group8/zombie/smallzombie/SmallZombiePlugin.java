@@ -61,7 +61,7 @@ public class SmallZombiePlugin implements IEnemyPluginService {
         float y = smallZombie.setY(gameData, 200);
 
         smallZombie.add(new MovingPart(speed));
-        smallZombie.add(new PositionPart(x, y, 0));
+        smallZombie.add(new PositionPart(x, y));
         smallZombie.add(new LifePart(2));
         smallZombie.add(new DamagePart(2));
         smallZombie = (Zombie) lookup.lookup(ISpawnService.class).spawnHere(smallZombie, gameData, world);
