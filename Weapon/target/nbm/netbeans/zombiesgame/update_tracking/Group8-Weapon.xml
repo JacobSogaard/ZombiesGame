@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><module codename="Group8.Weapon">
-    <module_version install_time="1526491283075" last="true" origin="installer" specification_version="1.0">
+    <module_version install_time="1526491908855" last="true" origin="installer" specification_version="1.0">
         <file crc="3922815589" name="config/Modules/Group8-Weapon.xml"/>
-        <file crc="3802215009" name="modules/Group8-Weapon.jar"/>
+        <file crc="2630029662" name="modules/Group8-Weapon.jar"/>
     </module_version>
 </module>

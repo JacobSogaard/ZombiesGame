@@ -28,12 +28,10 @@ import java.util.Random;
 @ServiceProviders(value = {
     @ServiceProvider(service = IStandardCollisionService.class)
     ,
-    @ServiceProvider(service = IGamePluginService.class)
-    ,
     @ServiceProvider(service = ISpawnService.class)
 })
 
-public class CollisionControlSystem implements IStandardCollisionService, IMoveCollisionService, ISpawnService, IGamePluginService {
+public class CollisionControlSystem implements IStandardCollisionService, IMoveCollisionService, ISpawnService {
 
     private int moveAwayFactor = 1;
     private Lookup lookup = Lookup.getDefault();
@@ -275,16 +273,6 @@ public class CollisionControlSystem implements IStandardCollisionService, IMoveC
 //            spawnHere(e, gameData, world);
 //        }
 //        return e;
-    }
-
-    @Override
-    public void start(GameData gameData, World world) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void stop(GameData gameData, World world) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
