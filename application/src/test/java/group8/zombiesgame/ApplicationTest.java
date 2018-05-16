@@ -47,7 +47,7 @@ public class ApplicationTest extends NbTestCase {
         new NbDialogOperator("About").closeByButton();
          */
         
-        List<IEntityProcessingService> processors = new CopyOnWriteArrayList<>();
+         List<IEntityProcessingService> processors = new CopyOnWriteArrayList<>();
         List<IGamePluginService> plugins = new CopyOnWriteArrayList<>();
         List<IStandardCollisionService> collision = new CopyOnWriteArrayList<>();
         List<IPathFinderService> path = new CopyOnWriteArrayList<>();
@@ -94,13 +94,12 @@ public class ApplicationTest extends NbTestCase {
         assertEquals("No enemy processor", 7, processors.size());
         
         
-        
     }
     
     private void waitForUpdate(List<IEntityProcessingService> processors, List<IGamePluginService> plugins, 
             List<IStandardCollisionService> collision, List<IPathFinderService> path) throws InterruptedException {
         
-        Thread.sleep(6000);
+        Thread.sleep(10000);
         
         processors.clear();
         processors.addAll(Lookup.getDefault().lookupAll(IEntityProcessingService.class));

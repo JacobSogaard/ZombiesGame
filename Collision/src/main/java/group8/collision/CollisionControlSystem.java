@@ -27,14 +27,15 @@ import java.util.Random;
 @ServiceProviders(value = {
     @ServiceProvider(service = IStandardCollisionService.class)
     ,
+    @ServiceProvider(service = IGamePluginService.class)
+    ,
     @ServiceProvider(service = ISpawnService.class)
 })
 
-public class CollisionControlSystem implements IStandardCollisionService, IMoveCollisionService, ISpawnService {
+public class CollisionControlSystem implements IStandardCollisionService, IMoveCollisionService, ISpawnService, IGamePluginService {
 
     private int moveAwayFactor = 1;
     private Lookup lookup = Lookup.getDefault();
-    
 
     /**
      * This method calculates a rectangle based on a entity and returns it.
@@ -44,13 +45,13 @@ public class CollisionControlSystem implements IStandardCollisionService, IMoveC
      */
     private Rectangle getEntityRect(Entity entity) {
         PositionPart positionPart = entity.getPart(PositionPart.class);
-        
-        int x =(int)  positionPart.getX(); //x
-        int y =(int)  positionPart.getY();//y
+
+        int x = (int) positionPart.getX(); //x
+        int y = (int) positionPart.getY();//y
 
         int width = (int) entity.getWidth(); //Width
-        int height= (int)  entity.getHeight();
-        Rectangle rectangle = new Rectangle(x, y, width, height); 
+        int height = (int) entity.getHeight();
+        Rectangle rectangle = new Rectangle(x, y, width, height);
 
         return rectangle;
     }
@@ -87,17 +88,18 @@ public class CollisionControlSystem implements IStandardCollisionService, IMoveC
         //entity1 is an entity calling to see if they have made a collision. 
         for (Entity entityOnTheMap : objectsList) {
             Rectangle entity2 = getEntityRect(entityOnTheMap);
-         
+
             //Rectangle intersectioRectangle = rectangleIntersection(rectangle, entity2); 
-            if(rectangleIntersection(entityA, entity2)){
+            if (rectangleIntersection(entityA, entity2)) {
                 try {
                     lookup.lookup(IWhoHaveCollidedService.class).collisionDetected(entity, entityOnTheMap, world); //Tell someone that i have collided.
                 } catch (NullPointerException ex) {
-                    
+
                 }
-                return true; 
+                return true;
 //                
             }
+
         }
         return false;
     }
@@ -112,16 +114,16 @@ public class CollisionControlSystem implements IStandardCollisionService, IMoveC
         //entity1 is an entity calling to see if they have made a collision. 
         for (Entity entityOnTheMap : objectsList) {
             Rectangle entity2 = getEntityRect(entityOnTheMap);
-           
+
             //Rectangle intersectioRectangle = rectangleIntersection(rectangle, entity2); 
-            if(rectangleIntersection(rectangle, entity2)){
+            if (rectangleIntersection(rectangle, entity2)) {
                 try {
                     lookup.lookup(IWhoHaveCollidedService.class).collisionDetected(entity, entityOnTheMap, world); //Tell someone that i have collided.
                 } catch (NullPointerException ex) {
-                    
+
                 }
-                return true; 
-                
+                return true;
+
             }
         }
         return false;
@@ -135,7 +137,7 @@ public class CollisionControlSystem implements IStandardCollisionService, IMoveC
      * @param rectangle2
      * @return rectangle
      */
-    public boolean rectangleIntersection(Rectangle rectangle1, Rectangle rectangle2){
+    public boolean rectangleIntersection(Rectangle rectangle1, Rectangle rectangle2) {
         return rectangle1.intersects(rectangle2);
     }
 
@@ -143,16 +145,16 @@ public class CollisionControlSystem implements IStandardCollisionService, IMoveC
     public boolean checkRightCollision(Entity entity, World world) {
         MovingPart movingPart = entity.getPart(MovingPart.class);
         float speed = movingPart.getSpeed();
-        Rectangle futureRectangle = new Rectangle(); 
-        
+        Rectangle futureRectangle = new Rectangle();
+
         PositionPart positionPart = entity.getPart(PositionPart.class);
-        
-        int x =(int)  positionPart.getX(); //x
-        int y =(int)  positionPart.getY();
-        
+
+        int x = (int) positionPart.getX(); //x
+        int y = (int) positionPart.getY();
+
         futureRectangle.setRect(x + speed, y, entity.getWidth(), entity.getHeight());
-        if(boxCollision(entity,futureRectangle, world)){
-            return true; 
+        if (boxCollision(entity, futureRectangle, world)) {
+            return true;
         }
         return false;
     }
@@ -161,16 +163,16 @@ public class CollisionControlSystem implements IStandardCollisionService, IMoveC
     public boolean checkLeftCollision(Entity entity, World world) {
         MovingPart movingPart = entity.getPart(MovingPart.class);
         float speed = movingPart.getSpeed();
-        Rectangle futureRectangle = new Rectangle(); 
-        
+        Rectangle futureRectangle = new Rectangle();
+
         PositionPart positionPart = entity.getPart(PositionPart.class);
-        
-        int x =(int)  positionPart.getX(); //x
-        int y =(int)  positionPart.getY();
-        
+
+        int x = (int) positionPart.getX(); //x
+        int y = (int) positionPart.getY();
+
         futureRectangle.setRect(x - speed, y, entity.getWidth(), entity.getHeight());
-        if(boxCollision(entity,futureRectangle, world)){
-            return true; 
+        if (boxCollision(entity, futureRectangle, world)) {
+            return true;
         }
         return false;
     }
@@ -178,12 +180,12 @@ public class CollisionControlSystem implements IStandardCollisionService, IMoveC
     @Override
     public boolean checkUpCollision(Entity entity, World world) {
         MovingPart movingPart = entity.getPart(MovingPart.class);
-        float speed = movingPart.getSpeed();   
-        Rectangle futureRectangle = new Rectangle(); 
-         PositionPart positionPart = entity.getPart(PositionPart.class);
-        
-        int x =(int)  positionPart.getX(); //x
-        int y =(int)  positionPart.getY();
+        float speed = movingPart.getSpeed();
+        Rectangle futureRectangle = new Rectangle();
+        PositionPart positionPart = entity.getPart(PositionPart.class);
+
+        int x = (int) positionPart.getX(); //x
+        int y = (int) positionPart.getY();
         futureRectangle.setRect(x, y + speed, entity.getWidth(), entity.getHeight());
 
         if (boxCollision(entity, futureRectangle, world)) {
@@ -198,25 +200,23 @@ public class CollisionControlSystem implements IStandardCollisionService, IMoveC
         MovingPart movingPart = entity.getPart(MovingPart.class);
 
         float speed = movingPart.getSpeed();
-        
-        
-        Rectangle futureRectangle = new Rectangle(); 
-        
+
+        Rectangle futureRectangle = new Rectangle();
+
         PositionPart positionPart = entity.getPart(PositionPart.class);
-        
-        int x =(int)  positionPart.getX(); //x
-        int y =(int)  positionPart.getY();
+
+        int x = (int) positionPart.getX(); //x
+        int y = (int) positionPart.getY();
         futureRectangle.setRect(x, y - speed, entity.getWidth(), entity.getHeight());
-        if(boxCollision(entity,futureRectangle, world)){
-            return true; 
+        if (boxCollision(entity, futureRectangle, world)) {
+            return true;
         }
         return false;
 
     }
 
     int count = 1;
-    
-    
+
     @Override
     public Entity spawnHere(Entity entity, GameData gameData, World world) {
         Random rnd = new Random();
@@ -270,6 +270,16 @@ public class CollisionControlSystem implements IStandardCollisionService, IMoveC
 //            spawnHere(e, gameData, world);
 //        }
 //        return e;
+    }
+
+    @Override
+    public void start(GameData gameData, World world) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void stop(GameData gameData, World world) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

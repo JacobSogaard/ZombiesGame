@@ -60,7 +60,6 @@ public class EnemyAStar {
     public List<Integer> getResult() {
         this.result.clear();
         if (this.mapObjects == null) {
-
             this.mapObjects = this.map.getMapObjects();
         }
         

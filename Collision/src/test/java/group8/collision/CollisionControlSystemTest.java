@@ -67,6 +67,8 @@ public class CollisionControlSystemTest {
         
         mockWorld.addEntity(worldEntity);
         
+        //To test - remove comment from the setMockEntity call for the test that should be run
+        //and remove comment from the corresponding test. 
         //Same entity
         //this.setMockEntity(x, y);
         
@@ -80,7 +82,7 @@ public class CollisionControlSystemTest {
        //this.setMockEntity(x - 41, y);
        
        //right edge case
-       this.setMockEntity(x + 41, y);
+       //this.setMockEntity(x + 41, y);
        
        //No collision
        //this.setMockEntity(x + 400, y + 400);
@@ -124,35 +126,35 @@ public class CollisionControlSystemTest {
         mockEntity.setShapeX(shapex);
         mockEntity.setShapeY(shapey);
     }
-//
+
+    /**
+     * Test of detectCollision method, of class CollisionControlSystem.
+     */
+    @org.junit.Test
+    public void testDetectCollision() {
+        System.out.println("detectCollision");
+        CollisionControlSystem instance = new CollisionControlSystem();
+        boolean expResult = true;
+        boolean result = instance.detectCollision(mockEntity, mockWorld);
+        assertEquals("Collision test", expResult, result);
+    }
+
 //    /**
-//     * Test of detectCollision method, of class CollisionControlSystem.
+//     * Test of rectangleIntersection method, of class CollisionControlSystem.
 //     */
 //    @org.junit.Test
-//    public void testDetectCollision() {
-//        System.out.println("detectCollision");
+//    public void testRectangleIntersection() {
+//        System.out.println("rectangleIntersection");
+//        Rectangle rectangle1 = null;
+//        Rectangle rectangle2 = null;
 //        CollisionControlSystem instance = new CollisionControlSystem();
-//        boolean expResult = true;
-//        boolean result = instance.detectCollision(mockEntity, mockWorld);
-//        assertEquals("Collision test", expResult, result);
+//        Rectangle expResult = null;
+//        Rectangle result = instance.rectangleIntersection(rectangle1, rectangle2);
+//        assertEquals(expResult, result);
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
 //    }
-////
-////    /**
-////     * Test of rectangleIntersection method, of class CollisionControlSystem.
-////     */
-////    @org.junit.Test
-////    public void testRectangleIntersection() {
-////        System.out.println("rectangleIntersection");
-////        Rectangle rectangle1 = null;
-////        Rectangle rectangle2 = null;
-////        CollisionControlSystem instance = new CollisionControlSystem();
-////        Rectangle expResult = null;
-////        Rectangle result = instance.rectangleIntersection(rectangle1, rectangle2);
-////        assertEquals(expResult, result);
-////        // TODO review the generated test code and remove the default call to fail.
-////        fail("The test case is a prototype.");
-////    }
-////
+
 //    /**
 //     * Test of checkRightCollision method, of class CollisionControlSystem.
 //     */
@@ -165,35 +167,35 @@ public class CollisionControlSystemTest {
 //        // TODO review the generated test code and remove the default call to fail.
 //        assertEquals(result, expResult);
 //    }
-////
-////    /**
-////     * Test of start method, of class CollisionControlSystem.
-////     */
-////    @org.junit.Test
-////    public void testStart() {
-////        System.out.println("start");
-////        GameData gameData = null;
-////        World world = null;
-////        CollisionControlSystem instance = new CollisionControlSystem();
-////        instance.start(gameData, world);
-////        // TODO review the generated test code and remove the default call to fail.
-////        fail("The test case is a prototype.");
-////    }
-////
-////    /**
-////     * Test of stop method, of class CollisionControlSystem.
-////     */
-////    @org.junit.Test
-////    public void testStop() {
-////        System.out.println("stop");
-////        GameData gameData = null;
-////        World world = null;
-////        CollisionControlSystem instance = new CollisionControlSystem();
-////        instance.stop(gameData, world);
-////        // TODO review the generated test code and remove the default call to fail.
-////        fail("The test case is a prototype.");
-////    }
-////
+//
+//    /**
+//     * Test of start method, of class CollisionControlSystem.
+//     */
+//    @org.junit.Test
+//    public void testStart() {
+//        System.out.println("start");
+//        GameData gameData = null;
+//        World world = null;
+//        CollisionControlSystem instance = new CollisionControlSystem();
+//        instance.start(gameData, world);
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
+//
+//    /**
+//     * Test of stop method, of class CollisionControlSystem.
+//     */
+//    @org.junit.Test
+//    public void testStop() {
+//        System.out.println("stop");
+//        GameData gameData = null;
+//        World world = null;
+//        CollisionControlSystem instance = new CollisionControlSystem();
+//        instance.stop(gameData, world);
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
+//
 //    /**
 //     * Test of checkLeftCollision method, of class CollisionControlSystem.
 //     */
@@ -230,21 +232,21 @@ public class CollisionControlSystemTest {
 //        assertEquals(expResult, result);
 //    }
 //
-////    /**
-////     * Test of spawnHere method, of class CollisionControlSystem.
-////     */
-////    @org.junit.Test
-////    public void testSpawnHere() {
-////        System.out.println("spawnHere");
-////        Entity entity = null;
-////        GameData gameData = null;
-////        World world = null;
-////        CollisionControlSystem instance = new CollisionControlSystem();
-////        Entity expResult = null;
-////        Entity result = instance.spawnHere(entity, gameData, world);
-////        assertEquals(expResult, result);
-////        // TODO review the generated test code and remove the default call to fail.
-////        fail("The test case is a prototype.");
-////    }
-//    
+//    /**
+//     * Test of spawnHere method, of class CollisionControlSystem.
+//     */
+//    @org.junit.Test
+//    public void testSpawnHere() {
+//        System.out.println("spawnHere");
+//        Entity entity = null;
+//        GameData gameData = null;
+//        World world = null;
+//        CollisionControlSystem instance = new CollisionControlSystem();
+//        Entity expResult = null;
+//        Entity result = instance.spawnHere(entity, gameData, world);
+//        assertEquals(expResult, result);
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
+    
 }
