@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package group8.mapobject;
 
 import group8.common.data.Entity;
@@ -12,14 +7,19 @@ import java.io.Serializable;
 import java.util.Random;
 
 /**
- *
- * @author MER
+ * Constructor class for mapobject. Map objects are all the objects entities should
+ * not be able to move through on map.
+ * @author group 8
  */
 public class MapObject extends Entity implements Serializable {
     private float xCoor, yCoor;
     private int[] xSizes, ySizes, size;
     private SpritePath mapType;
     
+    /**
+     * Constructor for mapobject. Sets a random x and y coordinate and entitytype 
+     * to mapobject
+     */
     public MapObject() {
         this.setType(EntityType.MAPOBJECT);
         this.xCoor = new Random().nextInt(1400) + 100;
@@ -29,12 +29,14 @@ public class MapObject extends Entity implements Serializable {
         this.setSize();
     }
     
+    //Randomly chooses one of the three mapobject types (tree1, tree2 and rock)
     private void setType() {
         Random rnd = new Random();
         int chosen = rnd.nextInt(SpritePath.values().length);
         this.mapType = SpritePath.values()[chosen];
     }
     
+    //Sets x and y sizes for the type chosen on object.
     private void setSizes() {
         switch (this.mapType) {
             case TREE1: 
@@ -52,28 +54,37 @@ public class MapObject extends Entity implements Serializable {
         }
     }
     
+    //Chooses a random size from size array
     private void setSize() {
         int chosen = new Random().nextInt(this.xSizes.length);
         this.size = new int[] {this.xSizes[chosen], this.ySizes[chosen]};
     }
    
+    /**
+     * 
+     * @return Width of object as float
+     */
     public float getXSize() {
         return this.size[0];
     }
     
+    /**
+     * 
+     * @return Height of object as float
+     */
     public float getYSize() {
         return this.size[1];
     }
     
     /**
-     * @return the xCoor
+     * @return x coordinate of object as float
      */
     public float getXCoor() {
         return xCoor;
     }
 
     /**
-     * @return the yCoor
+     * @return y coordinate of object as float
      */
     public float getYCoor() {
         return yCoor;
@@ -121,6 +132,10 @@ public class MapObject extends Entity implements Serializable {
         this.ySizes = ySizes;
     }
     
+    /**
+     * 
+     * @return SpritePath for mapobject.
+     */
     public SpritePath getMapType() {
         return this.mapType;
     }

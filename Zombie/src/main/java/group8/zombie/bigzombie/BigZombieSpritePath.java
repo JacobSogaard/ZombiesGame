@@ -1,13 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package group8.zombie.bigzombie;
 
 /**
- *
- * @author jacob
+ * Class that holds path string for big zombie pictures in all 8 directions.
+ * @author Group 8
  */
 public class BigZombieSpritePath {
     protected static final String UP = "Images/EnemyImages/BigZombie/UP.png"; 

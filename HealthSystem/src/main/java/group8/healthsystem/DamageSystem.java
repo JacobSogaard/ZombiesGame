@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package group8.healthsystem;
 
 import group8.common.data.Entity;
@@ -15,8 +10,9 @@ import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
 
 /**
- *
- * @author jacob
+ * Health system for the game, handles dealing damage to entities. Implements the 
+ * IWhoHaveCollidedService
+ * @author group 8
  */
 @ServiceProviders(value = {
     @ServiceProvider(service = IWhoHaveCollidedService.class)})
@@ -49,6 +45,7 @@ public class DamageSystem implements IWhoHaveCollidedService {
 
     }
 
+    //Check if and entity have 0 or less life and removes it
     private void checkRemoveEntities(LifePart entityLife, Entity entity, World world) {
         if (entityLife != null) {
             if (entityLife.getLife() <= 0) {
@@ -57,6 +54,7 @@ public class DamageSystem implements IWhoHaveCollidedService {
         }
     }
 
+    //Sets life if collided with an entity with damagepart. 
     private void entityCheck(DamagePart damagePart, LifePart lifePart) {
         if (damagePart != null && lifePart != null) {
             lifePart.setLife(lifePart.getLife() - damagePart.getDamage());

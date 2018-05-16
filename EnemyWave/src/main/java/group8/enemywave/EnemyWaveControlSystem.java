@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package group8.enemywave;
 
 import group8.common.data.Entity;
@@ -14,8 +9,8 @@ import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
 
 /**
- *
- * @author kasper
+ * Enemywave control system. Handles when the next wave should start
+ * @author group 8
  */
 @ServiceProviders(value = {
     @ServiceProvider(service = IEntityProcessingService.class)

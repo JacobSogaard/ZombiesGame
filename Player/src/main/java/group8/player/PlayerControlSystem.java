@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package group8.player;
 
 import group8.common.data.Entity;
@@ -24,21 +19,19 @@ import org.openide.util.lookup.ServiceProviders;
     @ServiceProvider(service = IEntityProcessingService.class)})
 
 /**
- *
- * @author matiasmarek
+ * Player control system. Handles the movement of the player. Extends the
+ * IEntityProcessingService.
+ * @author group 8
  */
 public class PlayerControlSystem implements IEntityProcessingService {
 
-    private boolean canMoveUp = true;
-    private boolean canMoveDown = true;
-    private boolean canMoveLeft = true;
-    private boolean canMoveRight = true;
     private Lookup lookup = Lookup.getDefault();
     private int direction;
 
     @Override
     public void process(GameData gameData, World world) {
 
+        //Iterates through all player entities in world. Should only be 1
         for (Entity player : world.getEntities(Player.class)) {
 
             PositionPart positionPart = player.getPart(PositionPart.class);
@@ -46,8 +39,9 @@ public class PlayerControlSystem implements IEntityProcessingService {
             TimerPart timerPart = player.getPart(TimerPart.class);
 
             boolean andUp = false, andDown = false;
-            boolean upCol, downCol, leftCol, rightCol;
+            boolean upCol, downCol, leftCol, rightCol; //Booleans for collision. Should be true if there is a collision that direction
 
+            //Tries to check collision in all directions. If no collision system exist, sets all to false
             try {
                 IMoveCollisionService colService = lookup.lookup(IMoveCollisionService.class);
                 upCol = colService.checkUpCollision(player, world);
@@ -61,6 +55,7 @@ public class PlayerControlSystem implements IEntityProcessingService {
                 rightCol = false;
             }
 
+            //Up
             if (gameData.getKeys().isDown(GameKeys.UP)) {
                 positionPart.setRadians(0);
                 player.setImagePath(sp.UP);
@@ -72,6 +67,7 @@ public class PlayerControlSystem implements IEntityProcessingService {
                 andUp = true;
             }
 
+            //Down
             if (gameData.getKeys().isDown(GameKeys.DOWN)) {
                 player.setImagePath(sp.DOWN);
                 direction = 1;
@@ -81,7 +77,8 @@ public class PlayerControlSystem implements IEntityProcessingService {
 
                 andDown = true;
             }
-
+            
+            //Left
             if (gameData.getKeys().isDown(GameKeys.LEFT)) {
                 player.setImagePath(sp.LEFT);
                 direction = 2;
@@ -105,6 +102,7 @@ public class PlayerControlSystem implements IEntityProcessingService {
                 }
             }
 
+            //Right
             if (gameData.getKeys().isDown(GameKeys.RIGHT)) {
                 direction = 5;
                 player.setImagePath(sp.RIGHT);
@@ -123,6 +121,7 @@ public class PlayerControlSystem implements IEntityProcessingService {
 
             movingPart.setDirection(direction);
 
+            //shoot. 
             if (gameData.getKeys().isDown(GameKeys.SPACE)) {
                 try {
                     lookup.lookup(IShootService.class).shoot(player, world);
@@ -132,6 +131,7 @@ public class PlayerControlSystem implements IEntityProcessingService {
 
             }
 
+            //Change weapon
             if (gameData.getKeys().isDown(GameKeys.SHIFT)) {
                 lookup.lookup(IWeaponService.class).changeWeapon();
             }
@@ -144,6 +144,7 @@ public class PlayerControlSystem implements IEntityProcessingService {
 
             updateShape(player);
 
+            //Resets all moving parts after update.
             movingPart.setUp(false);
             movingPart.setDown(false);
             movingPart.setLeft(false);
@@ -151,6 +152,7 @@ public class PlayerControlSystem implements IEntityProcessingService {
         }
     }
 
+    //Method to update shapeX and shapeY
     private void updateShape(Entity entity) {
         float[] shapex = entity.getShapeX();
         float[] shapey = entity.getShapeY();

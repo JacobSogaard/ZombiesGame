@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package group8.mapobject;
 
 import group8.common.data.Entity;
@@ -18,8 +13,10 @@ import org.openide.util.lookup.ServiceProviders;
     @ServiceProvider(service = IEntityProcessingService.class)})
 
 /**
- *
- * @author MER
+ * MapObject control system. Handles the movement of the mapobject. Extends the
+ * IEntityProcessingService. Should not be called as of now, but makes it possible
+ * to have movable map objects
+ * @author group 8
  */
 public class MapObjectProcessingService implements IEntityProcessingService {
 

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package group8.weapon;
 
 import group8.common.data.Entity;
@@ -17,14 +12,15 @@ import org.openide.util.lookup.ServiceProviders;
 @ServiceProviders(value = {
     @ServiceProvider(service = IEntityProcessingService.class)})
 /**
- *
- * @author MER
+ * Weapons control system. Handles movement of the weapon
+ * @author group 8
  */
 public class WeaponControlSystem implements IEntityProcessingService {
 
     @Override
     public void process(GameData gameData, World world) {
 
+        //Iterate through all weapons in World and updates shape to new position
         for (Entity entity : world.getEntities(Weapon.class)) {
             PositionPart position = entity.getPart(PositionPart.class);
             MovingPart moving = entity.getPart(MovingPart.class);
@@ -37,6 +33,7 @@ public class WeaponControlSystem implements IEntityProcessingService {
         }
     }
 
+    //Method to update shapeX and shapeY of weapon.
     private void updateShape(Entity entity) {
         float[] shapex = entity.getShapeX();
         float[] shapey = entity.getShapeY();

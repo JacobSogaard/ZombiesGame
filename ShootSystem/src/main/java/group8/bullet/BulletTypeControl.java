@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package group8.bullet;
 
 import group8.common.data.Entity;
@@ -22,8 +17,8 @@ import org.openide.util.lookup.ServiceProviders;
     @ServiceProvider(service = IEntityProcessingService.class)})
 
 /**
- *
- * @author MER
+ * Control system for bullets, implements the IEntityProcessingService
+ * @author group 8
  */
 public class BulletTypeControl implements IEntityProcessingService {
     private Lookup lookup = Lookup.getDefault();
@@ -31,6 +26,7 @@ public class BulletTypeControl implements IEntityProcessingService {
     @Override
     public void process(GameData gameData, World world) {
         
+         //Iterate through all bullets in World and updates shape to new position
         for (Entity entity : world.getEntities(Bullet.class)) {
             PositionPart part1 = entity.getPart(PositionPart.class);
             MovingPart moving = entity.getPart(MovingPart.class);
@@ -44,6 +40,7 @@ public class BulletTypeControl implements IEntityProcessingService {
 
             bulletTimer(timer, world, entity);
             
+            //Prompts collision to check collision.
             try {
                 IStandardCollisionService colService = lookup.lookup(IStandardCollisionService.class);
                 colService.detectCollision(entity, world);
@@ -56,14 +53,14 @@ public class BulletTypeControl implements IEntityProcessingService {
         }
     }
 
-
+    //Methoid to check if the bullet has reached it's expiration
     private void bulletTimer(TimerPart timer, World world, Entity entity) {
-
         if (timer.getExpiration() == 0) {
             world.removeEntity(entity);
         }
     }
 
+    //Method to update shapeX and shapeY of weapon.
     private void updateShape(Entity entity) {
         float[] shapex = entity.getShapeX();
         float[] shapey = entity.getShapeY();

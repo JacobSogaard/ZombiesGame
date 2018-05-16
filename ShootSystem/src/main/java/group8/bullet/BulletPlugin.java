@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package group8.bullet;
 
 import group8.common.bulletcreationservice.ILoadBulletService;
@@ -26,8 +21,9 @@ import org.openide.util.lookup.ServiceProviders;
     @ServiceProvider(service = ILoadBulletService.class)
 })
 /**
- *
- * @author MER
+ * Plugin class for bullet. Handles the instantiation of a bullet. 
+ * Implements IGamePluginService, IShootService and ILoadBulletService.
+ * @author group 8
  */
 public class BulletPlugin implements IGamePluginService, IShootService, ILoadBulletService {
 
@@ -56,6 +52,8 @@ public class BulletPlugin implements IGamePluginService, IShootService, ILoadBul
         world.removeEntity(bullet);
     }
 
+    //Method to create a bullet. Sets all entity parts for the bullet and 
+    //returns the created entity
     private Entity createBullet(Entity shooter) {
         PositionPart positionPart = shooter.getPart(PositionPart.class);
         MovingPart movingPart = shooter.getPart(MovingPart.class);
@@ -71,6 +69,8 @@ public class BulletPlugin implements IGamePluginService, IShootService, ILoadBul
         this.bullet.add(new TimerPart(80));
         this.bullet.add(new DamagePart(2));
         this.bullet.add(new LifePart(0));
+        
+        //If no image set, set it
         if (this.bullet.getImagePath() == null) {
             this.bullet.setImagePath(SpritePath.UP.toString());
         }
@@ -87,19 +87,23 @@ public class BulletPlugin implements IGamePluginService, IShootService, ILoadBul
         this.bulletMap.put(key, spritePaths);
     }
     
-    
+    //Method to set the direction the bullet should move in. 
     private void setDirection(MovingPart movingPart, PositionPart positionPart) {
 
         MovingPart bulletPart = this.bullet.getPart(MovingPart.class);
         PositionPart bPositionPart = this.bullet.getPart(PositionPart.class);
         
         int direction = 0;
+        
+        //Iterate through all directions from movingpart and gets the direction that is set to true
         for (int i = 0; i < movingPart.getDirection().length; i++) {
             if (movingPart.getDirection()[i] == true) {
                 direction = i;
             }
         }
         
+         // switch case on the direction int to sets the bullet 
+         // image and position in the corect direction
         switch(direction) {
             case 0: bulletPart.setUp(true);
                     bPositionPart.setY(positionPart.getY() + 71 + 80);
@@ -151,6 +155,7 @@ public class BulletPlugin implements IGamePluginService, IShootService, ILoadBul
         }
     }
 
+    
     private void addBullet() {
         this.bulletMap.put(1, new String[]{"Images/BulletImages/DOWN.png", "Images/BulletImages/UP.png", "Images/BulletImages/LEFT.png", "Images/BulletImages/RIGHT.png"});
         this.bulletMap.put(2, new String[] {"Images/BulletImages/UP1.jpg", "Images/BulletImages/UP1.jpg", "Images/BulletImages/LEFT1.png", "Images/BulletImages/RIGHT1.png"});

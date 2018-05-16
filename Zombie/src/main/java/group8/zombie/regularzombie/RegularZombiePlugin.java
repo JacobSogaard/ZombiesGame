@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package group8.zombie.regularzombie;
 
 import group8.common.data.GameData;
@@ -22,8 +17,9 @@ import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
 
 /**
- *
- * @author jacob
+ * Plugin class for regularZombie. Handles the the start and stop for big zombie 
+ * and add it to World
+ * @author group 8
  */
 @ServiceProviders(value = {
     @ServiceProvider(service = IEnemyPluginService.class)})
@@ -48,6 +44,13 @@ public class RegularZombiePlugin implements IEnemyPluginService {
 
     }
 
+    /**
+     * Method to create a regular zombie. Set it moving- position- life and damage part
+     * and the shape of its collisionbox
+     * @param gameData gamedata as GameData
+     * @param world World
+     * @return Returns the zombie that is created as an enemy type.
+     */
     public Enemy createZombie(GameData gameData, World world) {
         float speed = (float) 0.859;
         float x = gameData.getDisplayWidth() / 2 + r.nextInt(500) - 250;
@@ -73,6 +76,6 @@ public class RegularZombiePlugin implements IEnemyPluginService {
 
     @Override
     public Rating getRating() {
-        return Rating.THREE;
+        return Rating.THREE; //Set this zombie rating to 3
     }
 }
