@@ -117,7 +117,7 @@ public class DamageSystemTest {
     }
     
     private void removeAllEntities(World world) throws InterruptedException{
-        Thread.sleep(5000);
+        //Thread.sleep(5000);
         for (Entity e : world.getEntities()) {
             world.removeEntity(e);
         }
