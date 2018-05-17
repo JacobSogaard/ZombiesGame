@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><module codename="Group8.Zombie">
-    <module_version install_time="1526544903960" last="true" origin="installer" specification_version="1.0">
-        <file crc="1337215217" name="config/Modules/Group8-Zombie.xml"/>
-        <file crc="201725446" name="modules/Group8-Zombie.jar"/>
+    <module_version install_time="1526547615752" last="true" origin="installer" specification_version="1.0">
+        <file crc="3251082216" name="config/Modules/Group8-Zombie.xml"/>
+        <file crc="1865489947" name="modules/Group8-Zombie.jar"/>
     </module_version>
 </module>
